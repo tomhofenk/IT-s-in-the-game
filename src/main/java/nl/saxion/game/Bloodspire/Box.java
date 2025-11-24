@@ -1,4 +1,4 @@
-package nl.saxion.game.yourgamename;
+package nl.saxion.game.Bloodspire;
 
 public class Box {
     float width;

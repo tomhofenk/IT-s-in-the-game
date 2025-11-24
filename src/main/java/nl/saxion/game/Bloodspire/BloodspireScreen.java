@@ -1,15 +1,15 @@
-package nl.saxion.game.yourgamename;
+package nl.saxion.game.Bloodspire;
 
 import com.badlogic.gdx.Input;
 import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.ScalableGameScreen;
 
-public class YourGameScreen extends ScalableGameScreen {
+public class BloodspireScreen extends ScalableGameScreen {
     String randomBoxColor = "violet-500";
     String randomBackgroundColor = "black";
     Box centeredBox = new Box();
 
-    public YourGameScreen() {
+    public BloodspireScreen() {
         super(1280, 720);
     }
 

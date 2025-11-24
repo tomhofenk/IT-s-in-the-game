@@ -1,4 +1,4 @@
-package nl.saxion.game.yourgamename;
+package nl.saxion.game.Bloodspire;
 
 import com.badlogic.gdx.Input;
 import nl.saxion.gameapp.GameApp;
@@ -20,7 +20,7 @@ public class MainMenuScreen extends ScalableGameScreen {
 
         // When the user presses enter, go to the next screen
         if (GameApp.isKeyJustPressed(Input.Keys.ENTER)) {
-            GameApp.switchScreen("YourGameScreen");
+            GameApp.switchScreen("BloodspireScreen");
         }
 
         // Render the main menu
