@@ -1,4 +1,4 @@
-package nl.saxion.game.classes;
+package nl.saxion.game.Bloodspire.Classes;
 
 
 //class nog niet zeker of hij gebruikt kan worden, maar in ieder geval
