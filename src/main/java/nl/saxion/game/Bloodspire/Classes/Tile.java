@@ -1,4 +1,4 @@
-package nl.saxion.game.classes;
+package nl.saxion.game.Bloodspire.Classes;
 public class Tile {
      boolean hasEnemy;
      boolean hasPlayer;
