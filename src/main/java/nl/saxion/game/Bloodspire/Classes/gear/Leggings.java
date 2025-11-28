@@ -9,6 +9,16 @@ public class Leggings {
     int itemID = 300;
 
 
+    public Leggings (String itemName, String rarity, double hitpointsValue, double defenseValue, double speedPenalty, int itemID) {
+        this.itemName = itemName;
+        this.rarity = rarity;
+        this.hitpointsValue = hitpointsValue;
+        this.defenseValue = defenseValue;
+        this.speedPenalty = speedPenalty;
+        this.itemID = itemID;
+    }
+
+
     @Override //text weergave voor items bekijken
     public String toString() {
         return itemName + ", " + rarity + " (Hitpoints: " + hitpointsValue + ", Defense: " +

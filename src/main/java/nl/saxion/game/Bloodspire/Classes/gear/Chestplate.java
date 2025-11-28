@@ -8,6 +8,16 @@ public class Chestplate {
     double speedPenalty = 0;
     int itemID = 200;
 
+//constructor voor de chestplate
+    public Chestplate (String itemName, String rarity, double hitpointsValue, double defenseValue, double speedPenalty, int itemID) {
+        this.itemName = itemName;
+        this.rarity = rarity;
+        this.hitpointsValue = hitpointsValue;
+        this.defenseValue = defenseValue;
+        this.speedPenalty = speedPenalty;
+        this.itemID = itemID;
+    }
+
 
     @Override //text weergave voor items bekijken
     public String toString() {

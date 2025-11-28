@@ -14,7 +14,9 @@ public class Player {
     double defense = 0;
     double experience = 0;
     int level = 1;
-    Helmet helmet = new Helmet();
+
+
+    Helmet helmet = new Helmet("Leren helm", "Uncommon", 10, 5, 0, 1);
     ArrayList<Helmet> helmetSlot = new ArrayList<>();
     List[] chestplateSlot = new List[6];
     List[] leggingsSlot = new List[6];
@@ -23,4 +25,10 @@ public class Player {
     List[] weaponSlot = new List[6];
     List[] shieldSlot = new List[6];
     //TODO slots voor gear maken
+
+
+    @Override
+    public String toString() {
+        return "HP: " + hitpoints + "\n Attack Damage: " + attackDamage;
+    }
 }
