@@ -1,26 +1,31 @@
 package nl.saxion.game.Bloodspire;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.CameraControlledGameScreen;
+import nl.saxion.gameapp.screens.GameScreenWithHUD;
 
 public class MyLevelScreen extends CameraControlledGameScreen {
     private float playerX, playerY;
     float speed = 20;
+    int pixelPerGridTile = 64; // Same value as in Main.java
+    int playerTileX = 0;
+    int playerTileY = 0;
 
-    public MyLevelScreen() {
+    public MyLevelScreen(int viewportWidth, int viewportHeight, int worldWidth, int worldHeight) {
         // Define camera viewport (visible area) and world size
         // Example: viewport 16x9 is, world has size 100x50
-        super(160, 90, 10000, 5000);
+        super(viewportWidth, viewportHeight, worldWidth, worldHeight);
     }
 
     @Override
     public void show() {
         enableHUD(160, 90);
         // Initialize your objects, e.g., player starting position
-        playerX = getWorldWidth()/2;
-        playerY = getWorldHeight()/2;
+        playerX = 0;
+        playerY = 0;
 
         // Start camera centered on the player
         setCameraTargetInstantly(playerX, playerY);
@@ -31,45 +36,43 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public void render(float delta) {
         // Handle your game logic and input
 
-        // Movement character WASD
-        if (GameApp.isKeyPressed(Input.Keys.W)) {
-            playerY += speed * delta;
-        }
-        if (GameApp.isKeyPressed(Input.Keys.A)) {
-            playerX -= speed * delta;
-        }
-        if (GameApp.isKeyPressed(Input.Keys.S)) {
-            playerY -= speed * delta;
-        }
-        if (GameApp.isKeyPressed(Input.Keys.D)) {
-            playerX += speed * delta;
-        }
+        playerTileX = (int)playerX/pixelPerGridTile;
+        playerTileY = (int)playerY/pixelPerGridTile;
 
         // Movement character Mouse
         if (GameApp.isButtonJustPressed(Input.Buttons.LEFT)) {
-            playerX = getMouseX();
-            playerY = getMouseY();
+            if ((int)getMouseX()/pixelPerGridTile >= playerTileX-1 && (int)getMouseX()/pixelPerGridTile <= playerTileX+1 && (int)getMouseY()/pixelPerGridTile == playerTileY) {
+                playerX = ((int)getMouseX()/pixelPerGridTile)*pixelPerGridTile;
+                playerY = ((int)getMouseY()/pixelPerGridTile)*pixelPerGridTile;
+            } else if ((int)getMouseY()/pixelPerGridTile >= playerTileY-1 && (int)getMouseY()/pixelPerGridTile <= playerTileY+1 && (int)getMouseX()/pixelPerGridTile == playerTileX) {
+                playerX = ((int)getMouseX()/pixelPerGridTile)*pixelPerGridTile;
+                playerY = ((int)getMouseY()/pixelPerGridTile)*pixelPerGridTile;
+            }
+
         }
 
-        // Dash
-        if (GameApp.isKeyJustPressed(Input.Keys.SPACE)) {
-            if (GameApp.isKeyPressed(Input.Keys.W)) {
-                playerY = playerY + 5;
-            }
-            if (GameApp.isKeyPressed(Input.Keys.A)) {
-                playerX = playerX - 5;
-            }
-            if (GameApp.isKeyPressed(Input.Keys.S)) {
-                playerY = playerY - 5;
-            }
-            if (GameApp.isKeyPressed(Input.Keys.D)) {
-                playerX = playerX + 5;
-            }
+        // Movement character WASD Grid based
+        if (GameApp.isKeyJustPressed(Input.Keys.W)) {
+            playerY += pixelPerGridTile;
+        }
+        if (GameApp.isKeyJustPressed(Input.Keys.A)) {
+            playerX -= pixelPerGridTile;
+        }
+        if (GameApp.isKeyJustPressed(Input.Keys.S)) {
+            playerY -= pixelPerGridTile;
+        }
+        if (GameApp.isKeyJustPressed(Input.Keys.D)) {
+            playerX += pixelPerGridTile;
         }
 
         // Quit to mainmenu
         if (GameApp.isKeyPressed(Input.Keys.ESCAPE)) {
             GameApp.switchScreen("MainMenuScreen");
+        }
+
+        // Print X and Y (For Testing)
+        if  (GameApp.isKeyJustPressed(Input.Keys.P)) {
+            System.out.println(playerTileX + " " +  playerTileY);
         }
 
         // When you have moved the player, let the camera know (so it stays in the center of the screen).
@@ -81,13 +84,15 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
         // Now render all your objects
         GameApp.clearScreen();
+
+        renderGridTiles(pixelPerGridTile);
+
         // World rendering
         GameApp.startShapeRenderingFilled();
-        GameApp.drawRectCentered(getWorldWidth()/2, getWorldHeight()/2, 200, 200, "yellow-500");
-        GameApp.drawRectCentered(getWorldWidth()/2, getWorldHeight()/2, 100, 100, "blue-500");
+
         GameApp.endShapeRendering();
         GameApp.startSpriteRendering();
-        GameApp.drawTextureCentered("CharacterTexture", playerX, playerY);
+        GameApp.drawTexture("CharacterTexture", playerX, playerY);
         GameApp.endSpriteRendering();
 
         // HUD rendering
@@ -101,4 +106,27 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public void hide() {
 
     }
+
+    public void renderGridTiles (int pixelsPerGridTile) {
+        for  (int y = 0; y < getWorldHeight()/pixelsPerGridTile; y++) {
+            for  (int x = 0; x < getWorldWidth()/pixelsPerGridTile; x++) {
+                switchToWorldRendering();
+                GameApp.startShapeRenderingOutlined();
+                GameApp.setLineWidth(1);
+                // Draw each tile without filling so only the border
+                GameApp.drawRect((x*pixelsPerGridTile), (y*pixelsPerGridTile), pixelsPerGridTile, pixelsPerGridTile, "stone-500");
+                GameApp.endShapeRendering();
+            }
+        }
+        // Draw the white 5 tiles around the player
+        switchToWorldRendering();
+        GameApp.startShapeRenderingOutlined();
+        GameApp.drawRect(playerTileX*pixelsPerGridTile, playerTileY*pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
+        GameApp.drawRect((playerTileX-1)*pixelsPerGridTile, playerTileY*pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
+        GameApp.drawRect((playerTileX+1)*pixelsPerGridTile, playerTileY*pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
+        GameApp.drawRect(playerTileX*pixelsPerGridTile, (playerTileY-1)*pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
+        GameApp.drawRect(playerTileX*pixelsPerGridTile, (playerTileY+1)*pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
+        GameApp.endShapeRendering();
+    }
+
 }
