@@ -23,7 +23,8 @@ public class Main {
         GameApp.addScreen("BloodspireScreen", new BloodspireScreen());
         GameApp.addScreen("MyLevelScreen", new MyLevelScreen(viewportWidth, viewportHeight, worldWidth, worldHeight));
         GameApp.addScreen("TestScreen", new TestScreen());
-        GameApp.addScreen("TestSreen2", new TestSreen2());
+        GameApp.addScreen("TestScreen2", new TestScreen());
+        
 
         // Start game loop and show main menu screen
         GameApp.start("Bloodspire", 800, 450, 60, false, "MainMenuScreen");
