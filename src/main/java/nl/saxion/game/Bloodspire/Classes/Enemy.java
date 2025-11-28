@@ -1,9 +1,11 @@
 package nl.saxion.game.Bloodspire.Classes;
 
 public class Enemy {
-    double hitPoints = 0;
-    double attackSpeed = 0;
-    double attackDamage = 0;
-    double defenseSpeed = 0;
-    double defensePoints = 0;
+    String enemyName = "";
+    double hitPoints = 50;
+    double attackSpeed = 1;
+    double attackDamage = 1;
+    double defense = 0;
+    double experiencePoints = 1;
+    int enemyID = 0;
 }
