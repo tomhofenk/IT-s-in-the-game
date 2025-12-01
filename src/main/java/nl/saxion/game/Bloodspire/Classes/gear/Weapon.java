@@ -8,7 +8,7 @@ public class Weapon {
     double speedPenalty = 0;
     int itemID = 500;
 
-
+//Constructor voor de Weapon
     public Weapon (String itemName, String rarity, double hitpointsValue, double defenseValue, double speedPenalty, int itemID) {
         this.itemName = itemName;
         this.rarity = rarity;

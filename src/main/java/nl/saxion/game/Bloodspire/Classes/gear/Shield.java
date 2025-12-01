@@ -8,7 +8,7 @@ public class Shield {
     double speedPenalty = 0;
     int itemID = 700;
 
-
+//constructor voor de Shield
     public Shield (String itemName, String rarity, double hitpointsValue, double defenseValue, double speedPenalty, int itemID) {
         this.itemName = itemName;
         this.rarity = rarity;

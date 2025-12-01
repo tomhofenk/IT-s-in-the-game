@@ -15,15 +15,7 @@ public class Player {
     double experience = 0;
     int level = 1;
 
-
-    Helmet helmet = new Helmet("Leren helm", "Uncommon", 10, 5, 0, 1);
-    ArrayList<Helmet> helmetSlot = new ArrayList<>();
-    List[] chestplateSlot = new List[6];
-    List[] leggingsSlot = new List[6];
-    List[] bootsSlot = new List[6];
-    List[] necklaceSlot = new List[6];
-    List[] weaponSlot = new List[6];
-    List[] shieldSlot = new List[6];
+    List[] equipped = new List[7];
     //TODO slots voor gear maken
 
 

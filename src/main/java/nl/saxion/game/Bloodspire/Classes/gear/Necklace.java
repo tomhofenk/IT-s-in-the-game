@@ -8,7 +8,7 @@ public class Necklace {
     double speedPenalty = 0;
     int itemID = 600;
 
-
+//Constructor voor de Necklace
     public Necklace (String itemName, String rarity, double hitpointsValue, double defenseValue, double speedPenalty, int itemID) {
         this.itemName = itemName;
         this.rarity = rarity;

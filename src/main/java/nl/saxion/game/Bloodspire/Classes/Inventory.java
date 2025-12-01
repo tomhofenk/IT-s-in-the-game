@@ -9,7 +9,6 @@ public class Inventory<T> {
     public void showInventory() {
         if (gear.isEmpty()) {
             System.out.println("Inventory empty");
-
         } else {
             for (T equipment : gear){
                 System.out.println(equipment);
