@@ -18,7 +18,7 @@ public class InventoryScreen extends ScalableGameScreen {
 
     }
     public void render(float delta) {
-        loadItems();
+
 
         // ALWAYS CALL super.render(delta) AFTERWARDS!!!
         // This applies the camera settings to the shape renderer and sprite batch.
@@ -26,10 +26,6 @@ public class InventoryScreen extends ScalableGameScreen {
 
     }
 
-
-    public void loadItems() {
-
-    }
 
     @Override
     public void hide() {
