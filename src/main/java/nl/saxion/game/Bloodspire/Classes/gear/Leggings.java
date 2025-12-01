@@ -8,7 +8,7 @@ public class Leggings {
     double speedPenalty = 0;
     int itemID = 300;
 
-
+//constructor voor de Leggings
     public Leggings (String itemName, String rarity, double hitpointsValue, double defenseValue, double speedPenalty, int itemID) {
         this.itemName = itemName;
         this.rarity = rarity;
