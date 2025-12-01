@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Player {
-    ArrayList<String> itemTypes = new ArrayList<>();
-    ArrayList<Item> itemList = new ArrayList<>();
-    ArrayList<Item> inventory = new ArrayList<>();
     ArrayList<Item> equipped = new ArrayList<>();
 
     double hitpoints = 100;

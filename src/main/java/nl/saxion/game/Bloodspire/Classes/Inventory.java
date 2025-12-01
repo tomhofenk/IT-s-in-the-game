@@ -1,23 +1,34 @@
 package nl.saxion.game.Bloodspire.Classes;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class Inventory<T> {
-    private List<T> gear;
+public class Inventory {
+    ArrayList<Item> itemsInInventory;
+    ArrayList<String> itemTypes;
+    ArrayList<Item> itemList;
 
 
-    public void showInventory() {
-        if (gear.isEmpty()) {
-            System.out.println("Inventory empty");
-        } else {
-            for (T equipment : gear){
-                System.out.println(equipment);
-            }
+    //Csv-bestand met alle items inladen en in een arraylist plaatsen
+    public void loadItems(){
+        Item currentItem = new Item();
+
+
+        itemList.add(currentItem);
+
+        //lijst aanmaken met de verschillende item types, voor gebruik bij het equippen van gear
+        if (!itemTypes.contains(currentItem.itemType)) {
+            itemTypes.add(currentItem.itemType);
         }
     }
 
-
-    public List<T> getGear() {
-        return gear;
+    //Inventory weergeven in de console
+    public void showInventory() {
+        if (itemsInInventory.isEmpty()) {
+            System.out.println("Inventory empty");
+        } else {
+            for (Item item : itemsInInventory){
+                System.out.println(item);
+            }
+        }
     }
 }
