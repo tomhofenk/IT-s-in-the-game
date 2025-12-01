@@ -9,10 +9,13 @@ import nl.saxion.gameapp.screens.GameScreenWithHUD;
 
 public class MyLevelScreen extends CameraControlledGameScreen {
     private float playerX, playerY;
-    float speed = 20;
     int pixelPerGridTile = 64; // Same value as in Main.java
     int playerTileX = 0;
     int playerTileY = 0;
+    int framesWIsPressed = 0;
+    int framesAIsPressed = 0;
+    int framesSIsPressed = 0;
+    int framesDIsPressed = 0;
 
     public MyLevelScreen(int viewportWidth, int viewportHeight, int worldWidth, int worldHeight) {
         // Define camera viewport (visible area) and world size
@@ -50,20 +53,42 @@ public class MyLevelScreen extends CameraControlledGameScreen {
             }
 
         }
+        // Movement character WASD and Arrows Grid based
+        // per 30 frames dat je een knop vast hebt verplaats je (IPV elke keer opnieuw moeten klikken)
+        // Laatste argument is om te zorgen dat je niet buiten de map kan
+        if ((GameApp.isKeyPressed(Input.Keys.W) || GameApp.isKeyPressed(Input.Keys.UP)) && playerTileY < (getWorldHeight()/pixelPerGridTile-1)) {
+            if (framesWIsPressed % 30 == 0) {
+                playerY += pixelPerGridTile;
+            }
+            framesWIsPressed++;
+        } else {
+            framesWIsPressed = 0;
+        }
+        if ((GameApp.isKeyPressed(Input.Keys.A) || GameApp.isKeyPressed(Input.Keys.LEFT)) &&  playerTileX > 0) {
+            if (framesAIsPressed % 30 == 0) {
+                playerX -= pixelPerGridTile;
+            }
+            framesAIsPressed++;
+        } else {
+            framesAIsPressed = 0;
+        }
+        if ((GameApp.isKeyPressed(Input.Keys.S) || GameApp.isKeyPressed(Input.Keys.DOWN)) &&  playerTileY > 0) {
+            if (framesSIsPressed % 30 == 0) {
+                playerY -= pixelPerGridTile;
+            }
+            framesSIsPressed++;
+        } else {
+            framesSIsPressed = 0;
+        }
+        if ((GameApp.isKeyPressed(Input.Keys.D) ||  GameApp.isKeyPressed(Input.Keys.RIGHT)) && playerTileX < (getWorldHeight()/pixelPerGridTile-1)) {
+            if (framesDIsPressed % 30 == 0) {
+                playerX += pixelPerGridTile;
+            }
+            framesDIsPressed++;
+        } else {
+            framesDIsPressed = 0;
+        }
 
-        // Movement character WASD Grid based
-        if (GameApp.isKeyJustPressed(Input.Keys.W)) {
-            playerY += pixelPerGridTile;
-        }
-        if (GameApp.isKeyJustPressed(Input.Keys.A)) {
-            playerX -= pixelPerGridTile;
-        }
-        if (GameApp.isKeyJustPressed(Input.Keys.S)) {
-            playerY -= pixelPerGridTile;
-        }
-        if (GameApp.isKeyJustPressed(Input.Keys.D)) {
-            playerX += pixelPerGridTile;
-        }
 
         // Quit to mainmenu
         if (GameApp.isKeyPressed(Input.Keys.ESCAPE)) {
