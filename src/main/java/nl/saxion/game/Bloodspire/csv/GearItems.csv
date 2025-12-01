@@ -1,2 +1,184 @@
-itemName, itemType, rarity, hitpointsValue, defenseValue, speedPenalty, itemID
-Leather boots, Boots, common, 25, 2, 0, 0
+itemName, itemType, rarity, hitpointsValue, defenseValue, damageValue, speedPenalty, itemID
+OP HELMET,helmet,legendary,10000,10000,10000,10000,0
+Crown of Emberveil,helmet,common,5,2,1,1,1
+Helm of Frostmarsh,helmet,common,5,2,1,1,2
+Ironbloom Helm,helmet,common,5,2,1,1,3
+Helm of Silentrock,helmet,common,5,2,1,1,4
+Duskhelm of Alderpeak,helmet,common,5,2,1,1,5
+Helm of Briarshade,helmet,common,5,2,1,1,6
+Wardhelm of Stillwind,helmet,common,5,2,1,1,7
+Helm of Duneglade,helmet,common,5,2,1,1,8
+Glimmerhelm Oakbound,helmet,common,5,2,1,1,9
+Helm of Riversteel,helmet,common,5,2,1,1,10
+Helm of Skyreach,helmet,uncommon,10,4,1,2,11
+Ironcrest Helm,helmet,uncommon,10,4,1,2,12
+Helm of Winterbranch,helmet,uncommon,10,4,1,2,13
+Ashforge Helm,helmet,uncommon,10,4,1,2,14
+Helm of Mistwall,helmet,uncommon,10,4,1,2,15
+Granitehelm Northfall,helmet,uncommon,10,4,1,2,16
+Helm of Starshroud,helmet,uncommon,10,4,1,2,17
+Stormward Helm,helmet,rare,15,6,2,3,18
+Helm of Dawncrag,helmet,rare,15,6,2,3,19
+Frostsmith Helm,helmet,rare,15,6,2,3,20
+Helm of Ironhollow,helmet,rare,15,6,2,3,21
+Helm of Thornspire,helmet,rare,15,6,2,3,22
+Helm of Moonforge,helmet,epic,20,8,3,4,23
+Starbreaker Helm,helmet,epic,20,8,3,4,24
+Helm of Blackstar,helmet,epic,20,8,3,4,25
+Helm of the First Flame,helmet,legendary,25,10,4,5,26
+Chestguard of Emberveil,chestplate,common,10,4,1,2,27
+Armor of Frostmarsh,chestplate,common,10,4,1,2,28
+Brimstone Chestplate,chestplate,common,10,4,1,2,29
+Chestplate of Silentrock,chestplate,common,10,4,1,2,30
+Duskplate of Alderpeak,chestplate,common,10,4,1,2,31
+Chestplate of Briarshade,chestplate,common,10,4,1,2,32
+Wardplate of Stillwind,chestplate,common,10,4,1,2,33
+Chestplate of Duneglade,chestplate,common,10,4,1,2,34
+Glimmerplate Oakbound,chestplate,common,10,4,1,2,35
+Chestplate of Riversteel,chestplate,common,10,4,1,2,36
+Chestplate of Skyreach,chestplate,uncommon,20,8,1,4,37
+Ironcrest Plate,chestplate,uncommon,20,8,1,4,38
+Chestplate of Winterbranch,chestplate,uncommon,20,8,1,4,39
+Ashforge Plate,chestplate,uncommon,20,8,1,4,40
+Plate of Mistwall,chestplate,uncommon,20,8,1,4,41
+Graniteplate Northfall,chestplate,uncommon,20,8,1,4,42
+Chestplate of Starshroud,chestplate,uncommon,20,8,1,4,43
+Stormward Plate,chestplate,rare,30,12,2,6,44
+Plate of Dawncrag,chestplate,rare,30,12,2,6,45
+Frostsmith Plate,chestplate,rare,30,12,2,6,46
+Plate of Ironhollow,chestplate,rare,30,12,2,6,47
+Plate of Thornspire,chestplate,rare,30,12,2,6,48
+Plate of Moonforge,chestplate,epic,40,16,3,8,49
+Starbreaker Plate,chestplate,epic,40,16,3,8,50
+Plate of Blackstar,chestplate,epic,40,16,3,8,51
+Chestplate of the First Flame,chestplate,legendary,50,20,4,10,52
+Greaves of Emberveil,leggings,common,8,3,1,2,53
+Greaves of Frostmarsh,leggings,common,8,3,1,2,54
+Brimstone Greaves,leggings,common,8,3,1,2,55
+Greaves of Silentrock,leggings,common,8,3,1,2,56
+Duskbound Greaves,leggings,common,8,3,1,2,57
+Greaves of Briarshade,leggings,common,8,3,1,2,58
+Stillwind Greaves,leggings,common,8,3,1,2,59
+Greaves of Duneglade,leggings,common,8,3,1,2,60
+Oakbound Greaves,leggings,common,8,3,1,2,61
+Riversteel Greaves,leggings,common,8,3,1,2,62
+Greaves of Skyreach,leggings,uncommon,16,6,1,4,63
+Ironcrest Greaves,leggings,uncommon,16,6,1,4,64
+Greaves of Winterbranch,leggings,uncommon,16,6,1,4,65
+Ashforge Greaves,leggings,uncommon,16,6,1,4,66
+Greaves of Mistwall,leggings,uncommon,16,6,1,4,67
+Northfall Greaves,leggings,uncommon,16,6,1,4,68
+Starshroud Greaves,leggings,uncommon,16,6,1,4,69
+Stormward Greaves,leggings,rare,24,9,2,6,70
+Greaves of Dawncrag,leggings,rare,24,9,2,6,71
+Frostsmith Greaves,leggings,rare,24,9,2,6,72
+Greaves of Ironhollow,leggings,rare,24,9,2,6,73
+Greaves of Thornspire,leggings,rare,24,9,2,6,74
+Greaves of Moonforge,leggings,epic,32,12,3,8,75
+Starbreaker Greaves,leggings,epic,32,12,3,8,76
+Greaves of Blackstar,leggings,epic,32,12,3,8,77
+Greaves of the First Flame,leggings,legendary,40,15,4,10,78
+Trailstep Boots,boots,common,4,1,1,1,79
+Bogstride Boots,boots,common,4,1,1,1,80
+Ashbound Boots,boots,common,4,1,1,1,81
+Silenttrail Boots,boots,common,4,1,1,1,82
+Duskstride Boots,boots,common,4,1,1,1,83
+Thornwalk Boots,boots,common,4,1,1,1,84
+Stillwind Boots,boots,common,4,1,1,1,85
+Dunemarch Boots,boots,common,4,1,1,1,86
+Oakstep Boots,boots,common,4,1,1,1,87
+Hearthwalk Boots,boots,common,4,1,1,1,88
+Skyreach Striders,boots,uncommon,8,2,1,2,89
+Ironcrest Footguards,boots,uncommon,8,2,1,2,90
+Winterbranch Striders,boots,uncommon,8,2,1,2,91
+Ashforge Walkers,boots,uncommon,8,2,1,2,92
+Mistwall Runners,boots,uncommon,8,2,1,2,93
+Northfall Striders,boots,uncommon,8,2,1,2,94
+Starshroud Runners,boots,uncommon,8,2,1,2,95
+Stormward Stompers,boots,rare,12,3,2,3,96
+Dawncrag Marchers,boots,rare,12,3,2,3,97
+Frostsmith Pads,boots,rare,12,3,2,3,98
+Ironhollow Treads,boots,rare,12,3,2,3,99
+Thornspire Walkers,boots,rare,12,3,2,3,100
+Moonforge Boots,boots,epic,16,4,3,4,101
+Starbreaker Boots,boots,epic,16,4,3,4,102
+Blackstar Greathoofs,boots,epic,16,4,3,4,103
+Boots of the First Flame,boots,legendary,20,5,4,5,104
+Amulet of Emberveil,necklace,common,3,0,2,0,105
+Charm of Frostmarsh,necklace,common,3,0,2,0,106
+Pendant of Silentrock,necklace,common,3,0,2,0,107
+Amberleaf Amulet,necklace,common,3,0,2,0,108
+Whisperstone Pendant,necklace,common,3,0,2,0,109
+Amulet of Stillwind,necklace,common,3,0,2,0,110
+Duneborn Amulet,necklace,common,3,0,2,0,111
+Oakroot Pendant,necklace,common,3,0,2,0,112
+Runeburst Charm,necklace,common,3,0,2,0,113
+Amulet of Hearthlight,necklace,common,3,0,2,0,114
+Skyreach Charm,necklace,uncommon,6,0,3,0,115
+Ironcrest Pendant,necklace,uncommon,6,0,3,0,116
+Winterbranch Amulet,necklace,uncommon,6,0,3,0,117
+Ashforge Charm,necklace,uncommon,6,0,3,0,118
+Mistwall Amulet,necklace,uncommon,6,0,3,0,119
+Northfall Pendant,necklace,uncommon,6,0,3,0,120
+Starshroud Amulet,necklace,uncommon,6,0,3,0,121
+Stormward Sigil,necklace,rare,9,0,4,0,122
+Dawncrag Emblem,necklace,rare,9,0,4,0,123
+Frostsmith Talisman,necklace,rare,9,0,4,0,124
+Ironhollow Charm,necklace,rare,9,0,4,0,125
+Thornspire Crest,necklace,rare,9,0,4,0,126
+Moonforge Relic,necklace,epic,12,0,6,0,127
+Starbreaker Relic,necklace,epic,12,0,6,0,128
+Blackstar Sigil,necklace,epic,12,0,6,0,129
+Relic of the First Flame,necklace,legendary,15,0,8,0,130
+Blade of Emberveil,sword,common,0,0,8,0,131
+Frostmarsh Saber,sword,common,0,0,8,0,132
+Silentrock Cutter,sword,common,0,0,8,0,133
+Cinderbite Blade,sword,common,0,0,8,0,134
+Thornwake Sabre,sword,common,0,0,8,0,135
+Stillwind Edge,sword,common,0,0,8,0,136
+Duneglass Saber,sword,common,0,0,8,0,137
+Oakheart Cutter,sword,common,0,0,8,0,138
+Hearthsteel Blade,sword,common,0,0,8,0,139
+Riversteel Saber,sword,common,0,0,8,0,140
+Skyreach Edge,sword,uncommon,0,0,12,0,141
+Ironcrest Cleaver,sword,uncommon,0,0,12,0,142
+Winterbranch Edge,sword,uncommon,0,0,12,0,143
+Ashforge Saber,sword,uncommon,0,0,12,0,144
+Mistwall Blade,sword,uncommon,0,0,12,0,145
+Northfall Edge,sword,uncommon,0,0,12,0,146
+Starshroud Cutter,sword,uncommon,0,0,12,0,147
+Stormward Greatsaber,sword,rare,0,0,16,0,148
+Dawncrag Steel,sword,rare,0,0,16,0,149
+Frostsmith Greatblade,sword,rare,0,0,16,0,150
+Ironhollow Saber,sword,rare,0,0,16,0,151
+Thornspire Edge,sword,rare,0,0,16,0,152
+Moonforge Greatblade,sword,epic,0,0,24,0,153
+Starbreaker Edge,sword,epic,0,0,24,0,154
+Blackstar Claymore,sword,epic,0,0,24,0,155
+Blade of the First Flame,sword,legendary,0,0,32,0,156
+Bulwark of Emberveil,shield,common,2,3,3,1,157
+Frostmarsh Bulwark,shield,common,2,3,3,1,158
+Silentrock Towerguard,shield,common,2,3,3,1,159
+Cinderforge Shield,shield,common,2,3,3,1,160
+Thornwake Guard,shield,common,2,3,3,1,161
+Stillwind Wardshield,shield,common,2,3,3,1,162
+Duneglass Barrier,shield,common,2,3,3,1,163
+Oakheart Shield,shield,common,2,3,3,1,164
+Hearthsteel Guard,shield,common,2,3,3,1,165
+Riversteel Blocker,shield,common,2,3,3,1,166
+Skyreach Towerguard,shield,uncommon,4,6,4,2,167
+Ironcrest Wallguard,shield,uncommon,4,6,4,2,168
+Winterbranch Aegis,shield,uncommon,4,6,4,2,169
+Ashforge Greatshield,shield,uncommon,4,6,4,2,170
+Mistwall Defender,shield,uncommon,4,6,4,2,171
+Northfall Barrier,shield,uncommon,4,6,4,2,172
+Starshroud Protector,shield,uncommon,4,6,4,2,173
+Stormward Aegis,shield,rare,6,9,6,3,174
+Dawncrag Defender,shield,rare,6,9,6,3,175
+Frostsmith Shieldwall,shield,rare,6,9,6,3,176
+Ironhollow Bulwark,shield,rare,6,9,6,3,177
+Thornspire Greatwall,shield,rare,6,9,6,3,178
+Moonforge Bastion,shield,epic,8,12,9,4,179
+Starbreaker Wardshield,shield,epic,8,12,9,4,180
+Blackstar Fortress,shield,epic,8,12,9,4,181
+Shield of the First Flame,shield,legendary,10,15,12,5,182

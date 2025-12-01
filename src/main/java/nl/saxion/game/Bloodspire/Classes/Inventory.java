@@ -31,4 +31,8 @@ public class Inventory {
             }
         }
     }
+
+    public void removeItems(int itemNumber){
+        itemsInInventory.remove(itemNumber);
+    }
 }

@@ -6,12 +6,13 @@ public class Item {
     String rarity;
     double hitpointsValue;
     double defenseValue;
+    double damageValue;
     double speedPenalty;
     int itemID;
 
     @Override //text weergave voor items bekijken
     public String toString() {
         return itemName + ", " + rarity + "(Item type: " + itemType + ", Hitpoints: " + hitpointsValue +
-                ", Defense: " + defenseValue + ", Speed impact: " + speedPenalty + ", item ID: " + itemID + ")";
+                ", Defense: " + defenseValue + "Damage value: " + damageValue + ", Speed impact: " + speedPenalty + ", item ID: " + itemID + ")";
     }
 }
