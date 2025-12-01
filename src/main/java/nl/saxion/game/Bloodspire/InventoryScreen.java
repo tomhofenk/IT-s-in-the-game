@@ -1,20 +1,33 @@
 package nl.saxion.game.Bloodspire;
 
+import nl.saxion.game.Bloodspire.Classes.Item;
+import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.ScalableGameScreen;
 
+
 public class InventoryScreen extends ScalableGameScreen {
-    public InventoryScreen(int worldWidth, int worldHeight) {
-        super(worldWidth, worldHeight);
+
+
+
+    public InventoryScreen() {
+        super(10 , 5);
     }
 
     @Override
     public void show() {
 
     }
-
-    @Override
     public void render(float delta) {
+        loadItems();
+
+        // ALWAYS CALL super.render(delta) AFTERWARDS!!!
+        // This applies the camera settings to the shape renderer and sprite batch.
         super.render(delta);
+
+    }
+
+
+    public void loadItems() {
 
     }
 
