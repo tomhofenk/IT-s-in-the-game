@@ -1,2 +1,6 @@
-TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID
-,\N,\N,\N,\N,\N,\N
+TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID, tileType
+1, 320, 512, 5, 8, false,\N, Stone
+2, 128, 256, 2, 4, false, \N, Water
+3, 64, 64, 1, 1, false, \N, Grass
+4, 576, 448, 9, 7, false, \N, Grass
+5, 256, 448, 4, 7, false, \N, Dirt
