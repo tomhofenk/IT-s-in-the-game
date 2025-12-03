@@ -32,7 +32,8 @@ public class MyLevelScreen extends CameraControlledGameScreen {
                 (int)getWorldWidth(),
                 (int)getMouseX(),
                 (int)getMouseY(),
-                GameApp.getFramesPerSecond() / 3
+                GameApp.getFramesPerSecond() / 3,
+                mapData
         );
 
         methodes = new Methodes();

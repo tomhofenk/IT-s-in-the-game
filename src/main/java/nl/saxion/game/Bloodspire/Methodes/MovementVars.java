@@ -1,5 +1,7 @@
 package nl.saxion.game.Bloodspire.Methodes;
 
+import nl.saxion.game.Bloodspire.Classes.Tile;
+
 /**
  * Alle movement-gerelateerde variabelen zitten hier.
  * Maak velden public zodat andere packages er direct bij kunnen (eenvoudig).
@@ -49,8 +51,10 @@ public class MovementVars {
     public boolean hasMouseBeenPressedOnce = false;
     public int framesWhenMouseWasPressed = 0;
 
+    public Tile mapData = new Tile();
+
     // constructor: geef world sizes en startpositie (pixel coords)
-    public MovementVars(int startWorldX, int startWorldY, int worldHeight, int worldWidth, int mouseX, int mouseY, int minTimeBetweenMovement) {
+    public MovementVars(int startWorldX, int startWorldY, int worldHeight, int worldWidth, int mouseX, int mouseY, int minTimeBetweenMovement, Tile mapData) {
         this.playerWorldX = startWorldX;
         this.playerWorldY = startWorldY;
         this.worldHeight = worldHeight;
@@ -58,5 +62,6 @@ public class MovementVars {
         this.mouseX = mouseX;
         this.mouseY = mouseY;
         this.minTimeBetweenMovement = Math.max(1, minTimeBetweenMovement); // veilig
+        this.mapData = mapData;
     }
 }
