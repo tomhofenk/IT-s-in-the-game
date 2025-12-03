@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Player {
-    ArrayList<Item> equipped = new ArrayList<>();
-
     double hitpoints = 100;
     double attackSpeed = 1;
     double attackDamage = 1;
@@ -14,18 +12,6 @@ public class Player {
     double experience = 0;
     int level = 1;
 
-
-    //TODO slots voor gear maken
-//    void equipGear(Item item, ArrayList<String> itemTypes, ArrayList<Item> equipped){
-//        for (String type: itemTypes){
-//            if (item.itemType.equals(type)){
-//                if (equipped.get(itemTypes.indexOf(type)).isEmpty()){
-//
-//                }
-//                equipped.add(itemTypes.indexOf(type),item);
-//            }
-//        }
-//    }
 
     public double getHitpoints() {
         return hitpoints;

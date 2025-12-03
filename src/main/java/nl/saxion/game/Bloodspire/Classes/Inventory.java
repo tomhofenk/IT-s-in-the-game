@@ -1,39 +1,34 @@
 package nl.saxion.game.Bloodspire.Classes;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Inventory {
     ArrayList<Item> itemsInInventory;
     ArrayList<String> itemTypes;
     ArrayList<Item> itemList;
+    ArrayList<Item> equipped;
 
 
     //Csv-bestand met alle items inladen en in een arraylist plaatsen
     public void loadItems() {
         //als de itemlist niet leeg is wordt de csv niet ingeladen om performance te verbeteren
         if (itemList.isEmpty()) {
-
             try {
                 BufferedReader reader = new BufferedReader(new FileReader("src/main/java/nl/saxion/game/Bloodspire/csv/GearItems.csv"));
                 String line;
                 boolean firstLine = true;
 
                 while ((line = reader.readLine()) != null) {
-
-                    // Header overslaan
                     if (firstLine) {
                         firstLine = false;
                         continue;
                     }
-
-                    // CSV-regel splitsen op komma’s
                     String[] parts = line.split(",");
 
-                    // Check op correcte lengte
+
                     if (parts.length >= 8) {
                         String itemName = parts[0].trim();
                         String itemType = parts[1].trim();
@@ -50,7 +45,7 @@ public class Inventory {
                                 damageValue, speedPenalty, itemID);
                         itemList.add(item);
 
-                        // Unieke types opslaan voor gebruik in 
+                        // Unieke types opslaan voor gebruik in het equippen van gear
                         if (!itemTypes.contains(itemType)) {
                             itemTypes.add(itemType);
                         }
@@ -76,7 +71,26 @@ public class Inventory {
         }
     }
 
-    public void removeItems(int itemNumber){
-        itemsInInventory.remove(itemNumber);
+
+    public void addToInventory(int itemID){
+        itemsInInventory.add(itemList.get(itemID));
+        System.out.println("Item added to inventory: " + itemList.get(itemID));
+    }
+
+    public void removeItems(int itemID){
+        itemsInInventory.remove(itemID);
+        System.out.println("Item removed from inventory: " + itemList.get(itemID));
+    }
+
+    public void equipItem(int itemID){
+        Item currentItem = itemList.get(itemID);
+        for (int i = 0; i < 7; i++){
+            if (equipped.get(i) != currentItem){
+                System.out.println("test");
+            }
+            if (Objects.equals(currentItem.itemType, itemTypes.get(i))) {
+                equipped.add(i,currentItem);
+            }
+        }
     }
 }
