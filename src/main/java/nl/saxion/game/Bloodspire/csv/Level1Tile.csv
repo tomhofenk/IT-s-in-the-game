@@ -1,6 +1,37 @@
-TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID, tileType
-1, 320, 512, 5, 8, false,\N, Stone
-2, 128, 256, 2, 4, false, \N, Water
-3, 64, 64, 1, 1, false, \N, Grass
-4, 576, 448, 9, 7, false, \N, Grass
-5, 256, 448, 4, 7, false, \N, Dirt
+TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID,tileType
+1,640,640,10,10,false,\N,Dirt
+2,704,640,11,10,false,\N,Dirt
+3,768,640,12,10,false,\N,Dirt
+4,832,640,13,10,false,\N,Dirt
+5,896,640,14,10,false,\N,Dirt
+6,960,640,15,10,false,\N,Dirt
+7,1024,640,16,10,false,\N,Dirt
+8,1088,640,17,10,false,\N,Dirt
+9,1152,640,18,10,false,\N,Dirt
+10,1216,640,19,10,false,\N,Dirt
+11,1216,704,19,11,false,\N,Dirt
+12,1216,768,19,12,false,\N,Dirt
+13,1216,832,19,13,false,\N,Dirt
+14,1216,896,19,14,false,\N,Dirt
+15,1216,960,19,15,false,\N,Dirt
+16,1216,1024,19,16,false,\N,Dirt
+17,1216,1088,19,17,false,\N,Dirt
+18,1216,1152,19,18,false,\N,Dirt
+19,1216,1216,19,19,false,\N,Dirt
+20,1152,1216,18,19,false,\N,Dirt
+21,1088,1216,17,19,false,\N,Dirt
+22,1024,1216,16,19,false,\N,Dirt
+23,960,1216,15,19,false,\N,Dirt
+24,896,1216,14,19,false,\N,Dirt
+25,832,1216,13,19,false,\N,Dirt
+26,768,1216,12,19,false,\N,Dirt
+27,704,1216,11,19,false,\N,Dirt
+28,640,1216,10,19,false,\N,Dirt
+29,640,1152,10,18,false,\N,Dirt
+30,640,1088,10,17,false,\N,Dirt
+31,640,1024,10,16,false,\N,Dirt
+32,640,960,10,15,false,\N,Dirt
+33,640,896,10,14,false,\N,Dirt
+34,640,832,10,13,false,\N,Dirt
+35,640,768,10,12,false,\N,Dirt
+36,640,704,10,11,false,\N,Dirt
