@@ -21,6 +21,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     private MovementVars movementVars;
     private int framesCounter = 0;
 
+
     public MyLevelScreen(int viewportWidth, int viewportHeight, int worldWidth, int worldHeight) {
         super(viewportWidth, viewportHeight, worldWidth, worldHeight);
     }
@@ -29,10 +30,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     @Override
     public void show() {
         enableHUD(160, 90);
-        // Initialize your objects, e.g., player starting position
-        playerX = 0;
-        playerY = 0;
-        mapData = CsvLoader.loadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv");
+        //mapData = CsvLoader.loadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv");
 
         // startpositie (in pixels) — hier 0,0 maar je kunt dit veranderen
         int startX = 0;
@@ -46,7 +44,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
                 (int)getMouseX(),
                 (int)getMouseY(),
                 GameApp.getFramesPerSecond() / 3,
-                mapData
+                CsvLoader.loadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv")
         );
 
         methodes = new Methodes();
@@ -147,7 +145,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         }
 
 
-        for (Tile tile : mapData) {
+        for (Tile tile : movementVars.mapData) {
             int x = tile.gridX * pixelsPerGridTile;
             int y = tile.gridY * pixelsPerGridTile;
 
@@ -178,7 +176,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         GameApp.endShapeRendering();
 
         GameApp.startSpriteRendering();
-        for (Tile tile : mapData) {
+        for (Tile tile : movementVars.mapData) {
             String textureName = getTextureForTileType(tile.tileType);
 
             if (textureName != null) {
@@ -229,7 +227,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
     private boolean canMoveTo(int gridX, int gridY) {
 
-        for (Tile t : mapData) {
+        for (Tile t : movementVars.mapData) {
             if (t.gridX == gridX && t.gridY == gridY) {
                 return t.isWalkable();
             }
@@ -280,6 +278,5 @@ public class MyLevelScreen extends CameraControlledGameScreen {
             return tiles;
         }
     }
+}
 
-}
-}
