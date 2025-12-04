@@ -2,6 +2,7 @@ package nl.saxion.game.Bloodspire;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import nl.saxion.game.Bloodspire.Classes.Inventory;
 import nl.saxion.game.Bloodspire.Classes.Tile;
 import nl.saxion.game.Bloodspire.Methodes.MovementVars;
 import nl.saxion.game.Bloodspire.Methodes.Methodes;
@@ -20,6 +21,10 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     private Methodes methodes;
     private MovementVars movementVars;
     private int framesCounter = 0;
+
+
+    //test purposes
+    private Inventory inventory;
 
 
     public MyLevelScreen(int viewportWidth, int viewportHeight, int worldWidth, int worldHeight) {
@@ -111,6 +116,10 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         // escape -> main menu
         if (GameApp.isKeyPressed(Input.Keys.ESCAPE)) {
             GameApp.switchScreen("MainMenuScreen");
+        }
+
+        if (GameApp.isKeyPressed(Input.Keys.I)) {
+            inventory.loadItems();
         }
     }
 

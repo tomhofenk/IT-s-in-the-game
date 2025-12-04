@@ -2,6 +2,8 @@ package nl.saxion.game.Bloodspire.Classes;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -19,6 +21,7 @@ public class Inventory {
             try {
                 BufferedReader reader = new BufferedReader(new FileReader("src/main/java/nl/saxion/game/Bloodspire/csv/GearItems.csv"));
                 String line;
+
                 boolean firstLine = true;
 
                 while ((line = reader.readLine()) != null) {
@@ -57,6 +60,8 @@ public class Inventory {
             } catch (Exception e) {
                 System.out.println("FOUT bij inlezen CSV items: " + e.getMessage());
             }
+
+
         }
     }
 
@@ -84,12 +89,17 @@ public class Inventory {
 
     public void equipItem(int itemID){
         Item currentItem = itemList.get(itemID);
-        for (int i = 0; i < 7; i++){
-            if (equipped.get(i) != currentItem){
-                System.out.println("test");
+        for (int i = 0; i <= 6; i++){
+            if (equipped.get(i).itemType.equals(itemTypes.get(i))){
+                addToInventory(equipped.get(i).itemID);
+                equipped.add(i,itemList.get(itemID));
+                System.out.println("Item equipped: " + equipped.get(i));
+            }else {
+                System.out.println("No item currently equipped in this slot");
             }
             if (Objects.equals(currentItem.itemType, itemTypes.get(i))) {
                 equipped.add(i,currentItem);
+                System.out.println("Item equipped: " + equipped.get(i));
             }
         }
     }
