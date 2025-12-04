@@ -1,12 +1,12 @@
 package nl.saxion.game.Bloodspire;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import nl.saxion.game.Bloodspire.Classes.Tile;
+import nl.saxion.game.Bloodspire.Methodes.MovementVars;
+import nl.saxion.game.Bloodspire.Methodes.Methodes;
 import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.CameraControlledGameScreen;
-import nl.saxion.gameapp.screens.GameScreenWithHUD;
 
 import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.io.BufferedReader;
@@ -16,32 +16,12 @@ import java.util.ArrayList;
 
 
 public class MyLevelScreen extends CameraControlledGameScreen {
-    private float playerX, playerY;
-    int pixelPerGridTile = 64; // Same value as in Main.java
-    int minTimeBetweenMovement = 0;
-    int playerTileX = 0;
-    int playerTileY = 0;
-    int framesCounter = 0;
-    int framesWIsPressed = 0;
-    int framesAIsPressed = 0;
-    int framesSIsPressed = 0;
-    int framesDIsPressed = 0;
-    int framesWhenWWasPressed = 0;
-    int framesWhenAWasPressed = 0;
-    int framesWhenSWAasPressed = 0;
-    int framesWhenDWAasPressed = 0;
-    boolean hasWBeenPressedOnce = false;
-    boolean hasABeenPressed = false;
-    boolean hasSBeenPressed = false;
-    boolean hasDBeenPressed = false;
-    int framesMouseIsPressed = 0;
-    int framesWhenMouseWasPressed = 0;
-    boolean hasMouseBeenPressed = false;
-    public ArrayList<Tile> mapData;
+
+    private Methodes methodes;
+    private MovementVars movementVars;
+    private int framesCounter = 0;
 
     public MyLevelScreen(int viewportWidth, int viewportHeight, int worldWidth, int worldHeight) {
-        // Define camera viewport (visible area) and world size
-        // Example: viewport 16x9 is, world has size 100x50
         super(viewportWidth, viewportHeight, worldWidth, worldHeight);
     }
 
@@ -54,8 +34,26 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         playerY = 0;
         mapData = CsvLoader.loadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv");
 
-        // Start camera centered on the player
-        setCameraTargetInstantly(playerX, playerY);
+        // startpositie (in pixels) — hier 0,0 maar je kunt dit veranderen
+        int startX = 0;
+        int startY = 0;
+
+        movementVars = new MovementVars(
+                startX,
+                startY,
+                (int)getWorldHeight(),
+                (int)getWorldWidth(),
+                (int)getMouseX(),
+                (int)getMouseY(),
+                GameApp.getFramesPerSecond() / 3,
+                mapData
+        );
+
+        methodes = new Methodes();
+
+        // camera direct naar de speler
+        setCameraTargetInstantly(movementVars.playerWorldX, movementVars.playerWorldY);
+
         GameApp.addTexture("CharacterTexture", "textures/DungeonCharacterpng.png");
         GameApp.addTexture("TileTexture", "textures/DungeonCharacter.png");
         // Objecten
@@ -70,14 +68,11 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
     @Override
     public void render(float delta) {
-        // Handle your game logic and input
         gameLogic();
 
-        // When you have moved the player, let the camera know (so it stays in the center of the screen).
-        setCameraTarget(playerX, playerY);
+        // camera volgen
+        setCameraTarget(movementVars.playerWorldX, movementVars.playerWorldY);
 
-        // ALWAYS CALL super.render(delta) AFTERWARDS!!!
-        // This applies the camera settings to the shape renderer and sprite batch.
         super.render(delta);
 
         GameApp.clearScreen();
@@ -93,28 +88,31 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
 
     public void gameLogic() {
+        // verhoog lokale frame counter en geef door aan movementVars
         framesCounter++;
+        movementVars.framesCounter = framesCounter;
+        movementVars.minTimeBetweenMovement = GameApp.getFramesPerSecond() / 3;
 
-        playerTileX = (int) playerX / pixelPerGridTile;
-        playerTileY = (int) playerY / pixelPerGridTile;
+        // update input-based waarden in movementVars
+        movementVars.mouseX = (int)getMouseX();
+        movementVars.mouseY = (int)getMouseY();
 
-        // Beweging van de speler
-        minTimeBetweenMovement = GameApp.getFramesPerSecond() / 3;
-        Movement();
+        // tile coords blijven consistent (kan ook in Methodes, maar we houden hem hier up-to-date vóór movement)
+        movementVars.playerTileX = movementVars.playerWorldX / movementVars.pixelPerGridTile;
+        movementVars.playerTileY = movementVars.playerWorldY / movementVars.pixelPerGridTile;
 
-        // Quit naar mainmenu
-        if (GameApp.isKeyPressed(Input.Keys.ESCAPE)) {
-            GameApp.switchScreen("MainMenuScreen");
+        // roep de gedeelde movement aan
+        methodes.Movement(movementVars);
+
+        // optioneel: debug print
+        if (GameApp.isKeyJustPressed(Input.Keys.P)) {
+            System.out.println("tile: " + movementVars.playerTileX + "x " + movementVars.playerTileY
+                    + "y world: " + movementVars.playerWorldX + "x " + movementVars.playerWorldY + "y");
         }
 
-        // Print X en Y (Voor testen)
-        if (GameApp.isKeyJustPressed(Input.Keys.P)) {
-            // Controleer de mapData lijst en print informatie over de Tile objecten
-            System.out.println("Aantal tiles in mapData: " + mapData.size());
-
-            for (Tile tile : mapData) {
-                System.out.println("Tile: " + tile);  // Dit gebruikt de toString() methode van de Tile class
-            }
+        // escape -> main menu
+        if (GameApp.isKeyPressed(Input.Keys.ESCAPE)) {
+            GameApp.switchScreen("MainMenuScreen");
         }
     }
 
@@ -122,10 +120,10 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public void renderWorld() {
         switchToWorldRendering();
 
-        renderGridTiles(pixelPerGridTile);
+        renderGridTiles(movementVars.pixelPerGridTile);
 
         GameApp.startSpriteRendering();
-        GameApp.drawTexture("CharacterTexture", playerX, playerY);
+        GameApp.drawTexture("CharacterTexture", movementVars.playerWorldX, movementVars.playerWorldY);
         GameApp.endSpriteRendering();
     }
 
@@ -141,10 +139,10 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         switchToWorldRendering();
         GameApp.startShapeRenderingOutlined();
         GameApp.setLineWidth(1);
+
         for (int y = 0; y < getWorldHeight() / pixelsPerGridTile; y++) {
             for (int x = 0; x < getWorldWidth() / pixelsPerGridTile; x++) {
-                // Draw each tile without filling so only the border
-                GameApp.drawRect((x * pixelsPerGridTile), (y * pixelsPerGridTile), pixelsPerGridTile, pixelsPerGridTile, "stone-500");
+                GameApp.drawRect(x * pixelsPerGridTile, y * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-500");
             }
         }
 
@@ -167,13 +165,15 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 //            }
 
         }
+        // highlight tiles rond speler
+        int tx = movementVars.playerTileX;
+        int ty = movementVars.playerTileY;
 
-        // Teken de vijf tiles rondom de speler (witte rand)
-        GameApp.drawRect(playerTileX * pixelsPerGridTile, playerTileY * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, Color.WHITE);
-        GameApp.drawRect((playerTileX - 1) * pixelsPerGridTile, playerTileY * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, Color.WHITE);
-        GameApp.drawRect((playerTileX + 1) * pixelsPerGridTile, playerTileY * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, Color.WHITE);
-        GameApp.drawRect(playerTileX * pixelsPerGridTile, (playerTileY - 1) * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, Color.WHITE);
-        GameApp.drawRect(playerTileX * pixelsPerGridTile, (playerTileY + 1) * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, Color.WHITE);
+        GameApp.drawRect(tx * pixelsPerGridTile, ty * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
+        GameApp.drawRect((tx - 1) * pixelsPerGridTile, ty * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
+        GameApp.drawRect((tx + 1) * pixelsPerGridTile, ty * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
+        GameApp.drawRect(tx * pixelsPerGridTile, (ty - 1) * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
+        GameApp.drawRect(tx * pixelsPerGridTile, (ty + 1) * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
 
         GameApp.endShapeRendering();
 
@@ -237,119 +237,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
         return false; // als tile niet bestaat → blokkeren
     }
-
-
-
-
-
-    private void Movement() {
-
-        // per 60 : w3 frames dat je een knop vast hebt verplaats je (IPV elke keer opnieuw moeten klikken)
-        // Laatste argument is om te zorgen dat je niet buiten de map kan
-        if ((GameApp.isKeyPressed(Input.Keys.W) || GameApp.isKeyPressed(Input.Keys.UP))
-                && playerTileY < (getWorldHeight() / pixelPerGridTile - 1)) {
-            if (framesWIsPressed % minTimeBetweenMovement == 0
-                    && (framesWhenWWasPressed + GameApp.getFramesPerSecond() / 3 <= framesCounter || !hasWBeenPressedOnce)) {
-                playerY += pixelPerGridTile;
-                framesWhenWWasPressed = framesCounter;
-            }
-            framesWIsPressed++;
-            hasWBeenPressedOnce = true;
-        } else {
-            framesWIsPressed = 0;
-        }
-        // A
-        if ((GameApp.isKeyPressed(Input.Keys.A) || GameApp.isKeyPressed(Input.Keys.LEFT))
-                && playerTileX > 0) {
-            if (framesAIsPressed % minTimeBetweenMovement == 0
-                    && (framesWhenAWasPressed + GameApp.getFramesPerSecond() / 3 <= framesCounter || !hasABeenPressed)) {
-                playerX -= pixelPerGridTile;
-
-                framesWhenAWasPressed = framesCounter;
-            }
-            framesAIsPressed++;
-            hasABeenPressed = true;
-        } else {
-            framesAIsPressed = 0;
-        }
-        // S
-        if ((GameApp.isKeyPressed(Input.Keys.S) || GameApp.isKeyPressed(Input.Keys.DOWN))
-                && playerTileY > 0) {
-            if (framesSIsPressed % minTimeBetweenMovement == 0
-                    && (framesWhenSWAasPressed + GameApp.getFramesPerSecond() / 3 <= framesCounter || !hasSBeenPressed)) {
-                playerY -= pixelPerGridTile;
-
-                framesWhenSWAasPressed = framesCounter;
-            }
-            framesSIsPressed++;
-            hasSBeenPressed = true;
-        } else {
-            framesSIsPressed = 0;
-        }
-        // D
-        if ((GameApp.isKeyPressed(Input.Keys.D) || GameApp.isKeyPressed(Input.Keys.RIGHT))
-                && playerTileX < (getWorldWidth() / pixelPerGridTile - 1)) {
-            if (framesDIsPressed % minTimeBetweenMovement == 0
-                    && (framesWhenDWAasPressed + GameApp.getFramesPerSecond() / 3 <= framesCounter || !hasDBeenPressed)) {
-                playerX += pixelPerGridTile;
-
-
-                framesWhenDWAasPressed = framesCounter;
-            }
-            framesDIsPressed++;
-            hasDBeenPressed = true;
-        } else {
-            framesDIsPressed = 0;
-        }
-        // Mouse left click
-        if (GameApp.isButtonJustPressed(Input.Buttons.LEFT)) {
-            if (framesMouseIsPressed % minTimeBetweenMovement == 0
-                    && (framesWhenMouseWasPressed + minTimeBetweenMovement <= framesCounter || !hasMouseBeenPressed)) {
-
-                int mouseTileX = (int) (getMouseX() / pixelPerGridTile);
-                int mouseTileY = (int) (getMouseY() / pixelPerGridTile);
-
-                // Alleen bewegen als muis naast of gelijk aan speler staat
-                if (mouseTileX >= playerTileX - 1 && mouseTileX <= playerTileX + 1 && mouseTileY == playerTileY) {
-                    playerX = mouseTileX * pixelPerGridTile;
-                    playerY = mouseTileY * pixelPerGridTile;
-                } else if (mouseTileY >= playerTileY - 1 && mouseTileY <= playerTileY + 1 && mouseTileX == playerTileX) {
-                    playerX = mouseTileX * pixelPerGridTile;
-                    playerY = mouseTileY * pixelPerGridTile;
-                }
-
-                framesWhenMouseWasPressed = framesCounter;
-            }
-            framesMouseIsPressed++;
-            hasMouseBeenPressed = true;
-        } else {
-            framesMouseIsPressed = 0;
-        }
-    }
-    /*
-    public class CsvLoader {
-
-        // Leest een CSV-bestand en geeft elke regel terug als array van kolommen
-        public static ArrayList<String[]> loadCsv(String path) {
-            ArrayList<String[]> rows = new ArrayList<>();
-
-            try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-                String line;
-                br.readLine();
-
-                while ((line = br.readLine()) != null) {
-                    String[] columns = line.split(",");  // split op komma
-                    rows.add(columns);
-                }
-
-            } catch (IOException e) {
-                System.err.println("Bestand niet gevonden: " + path);
-            }
-
-            return rows;
-        }
-    } */
-
+   
     public class CsvLoader {
 
         public static ArrayList<Tile> loadCsv(String path) {
@@ -393,4 +281,5 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         }
     }
 
+}
 }
