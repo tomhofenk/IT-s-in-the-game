@@ -64,7 +64,9 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         GameApp.addTexture("Water", "textures/water.png");
         GameApp.addTexture("Dirt", "textures/dirt.png");
 
+
     }
+
 
     @Override
     public void render(float delta) {
@@ -87,6 +89,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public void hide() {
         GameApp.disposeTexture("CharacterTexture");
     }
+
 
 
     public void gameLogic() {
@@ -186,6 +189,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
             }
         }
 
+
         GameApp.endSpriteRendering();
     }
 
@@ -204,6 +208,9 @@ public class MyLevelScreen extends CameraControlledGameScreen {
                 return null;  // Geen texture, gebruik kleur
         }
     }
+
+
+
     // Voeg deze methode toe aan de MyLevelScreen of de klasse waar je de tiles renderen
     private Color getTileColor(String tileType) {
         switch (tileType) {
@@ -219,6 +226,20 @@ public class MyLevelScreen extends CameraControlledGameScreen {
                 return new Color(1f, 1f, 1f, 1f);  // Wit als default
         }
     }
+
+    private boolean canMoveTo(int gridX, int gridY) {
+
+        for (Tile t : mapData) {
+            if (t.gridX == gridX && t.gridY == gridY) {
+                return t.isWalkable();
+            }
+        }
+
+        return false; // als tile niet bestaat → blokkeren
+    }
+
+
+
 
 
     private void Movement() {
@@ -243,6 +264,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
             if (framesAIsPressed % minTimeBetweenMovement == 0
                     && (framesWhenAWasPressed + GameApp.getFramesPerSecond() / 3 <= framesCounter || !hasABeenPressed)) {
                 playerX -= pixelPerGridTile;
+
                 framesWhenAWasPressed = framesCounter;
             }
             framesAIsPressed++;
@@ -256,6 +278,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
             if (framesSIsPressed % minTimeBetweenMovement == 0
                     && (framesWhenSWAasPressed + GameApp.getFramesPerSecond() / 3 <= framesCounter || !hasSBeenPressed)) {
                 playerY -= pixelPerGridTile;
+
                 framesWhenSWAasPressed = framesCounter;
             }
             framesSIsPressed++;
@@ -269,6 +292,8 @@ public class MyLevelScreen extends CameraControlledGameScreen {
             if (framesDIsPressed % minTimeBetweenMovement == 0
                     && (framesWhenDWAasPressed + GameApp.getFramesPerSecond() / 3 <= framesCounter || !hasDBeenPressed)) {
                 playerX += pixelPerGridTile;
+
+
                 framesWhenDWAasPressed = framesCounter;
             }
             framesDIsPressed++;

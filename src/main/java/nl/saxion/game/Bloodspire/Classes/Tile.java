@@ -19,6 +19,7 @@ public class Tile {
         this.hasEnemy = hasEnemy;
         this.enemyID = enemyID;
         this.tileType = tileType;
+
     }
 
     // Override toString voor debugging
@@ -26,4 +27,28 @@ public class Tile {
     public String toString() {
         return "TileID: " + tileID + ", GridX: " + gridX + ", GridY: " + gridY + ", HasEnemy: " + hasEnemy + ", TileType: " + tileType;
     }
+
+    public boolean isWalkable() {
+
+        // Je CSV gebruikt hoofdletters (Grass, Water, Stone, Dirt)
+        switch (tileType) {
+            case "Water":
+                return false;   // blokkeren
+            case "Stone":
+                return true;    // mag lopen
+            case "Grass":
+                return true;
+            case "Dirt":
+                return true;
+            default:
+                return true;    // onbekende tile? → gewoon walkable
+        }
+
+
+    }
+
+
+
+
+
 }
