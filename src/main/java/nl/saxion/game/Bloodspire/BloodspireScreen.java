@@ -58,4 +58,8 @@ public class BloodspireScreen extends ScalableGameScreen {
     public void hide() {
 
     }
+
+    public void dobbelsteen() {
+        GameApp.randomInt(1, 7);
+    }
 }
