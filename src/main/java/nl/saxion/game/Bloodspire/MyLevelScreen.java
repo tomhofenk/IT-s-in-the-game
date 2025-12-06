@@ -8,7 +8,6 @@ import nl.saxion.game.Bloodspire.Methodes.Methodes;
 import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.CameraControlledGameScreen;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 public class MyLevelScreen extends CameraControlledGameScreen {
 
     private Methodes methodes;
-    private MovementVars movementVars;
+    private MovementVars mv;
     private int framesCounter = 0;
 
 
@@ -33,12 +32,12 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         //mapData = CsvLoader.loadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv");
 
         // startpositie (in pixels) — hier 0,0 maar je kunt dit veranderen
-        int startX = 0;
-        int startY = 0;
+        int startX = 11;
+        int startY = 11;
 
-        movementVars = new MovementVars(
-                startX,
-                startY,
+        mv = new MovementVars(
+                startX*64,
+                startY*64,
                 (int)getWorldHeight(),
                 (int)getWorldWidth(),
                 (int)getMouseX(),
@@ -50,7 +49,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         methodes = new Methodes();
 
         // camera direct naar de speler
-        setCameraTargetInstantly(movementVars.playerWorldX, movementVars.playerWorldY);
+        setCameraTargetInstantly(mv.playerWorldX, mv.playerWorldY);
 
         GameApp.addTexture("CharacterTexture", "textures/DungeonCharacterpng.png");
         GameApp.addTexture("TileTexture", "textures/DungeonCharacter.png");
@@ -69,7 +68,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         gameLogic();
 
         // camera volgen
-        setCameraTarget(movementVars.playerWorldX, movementVars.playerWorldY);
+        setCameraTarget(mv.playerWorldX, mv.playerWorldY);
 
         super.render(delta);
 
@@ -86,26 +85,26 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
 
     public void gameLogic() {
-        // verhoog lokale frame counter en geef door aan movementVars
+        // verhoog lokale frame counter en geef door aan mv
         framesCounter++;
-        movementVars.framesCounter = framesCounter;
-        movementVars.minTimeBetweenMovement = GameApp.getFramesPerSecond() / 3;
+        mv.framesCounter = framesCounter;
+        mv.minTimeBetweenMovement = GameApp.getFramesPerSecond() / 3;
 
-        // update input-based waarden in movementVars
-        movementVars.mouseX = (int)getMouseX();
-        movementVars.mouseY = (int)getMouseY();
+        // update input-based waarden in mv
+        mv.mouseX = (int)getMouseX();
+        mv.mouseY = (int)getMouseY();
 
         // tile coords blijven consistent (kan ook in Methodes, maar we houden hem hier up-to-date vóór movement)
-        movementVars.playerTileX = movementVars.playerWorldX / movementVars.pixelPerGridTile;
-        movementVars.playerTileY = movementVars.playerWorldY / movementVars.pixelPerGridTile;
+        mv.playerTileX = mv.playerWorldX / mv.pixelPerGridTile;
+        mv.playerTileY = mv.playerWorldY / mv.pixelPerGridTile;
 
         // roep de gedeelde movement aan
-        methodes.Movement(movementVars);
+        methodes.Movement(mv);
 
         // optioneel: debug print
         if (GameApp.isKeyJustPressed(Input.Keys.P)) {
-            System.out.println("tile: " + movementVars.playerTileX + "x " + movementVars.playerTileY
-                    + "y world: " + movementVars.playerWorldX + "x " + movementVars.playerWorldY + "y");
+            System.out.println("tile: " + mv.playerTileX + "x " + mv.playerTileY
+                    + "y world: " + mv.playerWorldX + "x " + mv.playerWorldY + "y");
         }
 
         // escape -> main menu
@@ -118,10 +117,10 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public void renderWorld() {
         switchToWorldRendering();
 
-        renderGridTiles(movementVars.pixelPerGridTile);
+        renderGridTiles();
 
         GameApp.startSpriteRendering();
-        GameApp.drawTexture("CharacterTexture", movementVars.playerWorldX, movementVars.playerWorldY);
+        GameApp.drawTexture("CharacterTexture", mv.playerWorldX, mv.playerWorldY);
         GameApp.endSpriteRendering();
     }
 
@@ -133,107 +132,71 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         GameApp.endShapeRendering();
     }
 
-    public void renderGridTiles(int pixelsPerGridTile) {
+    public void renderGridTiles() {
+        switchToWorldRendering();
+        drawGrid();
+        drawHighlightedTiles();
+
+        GameApp.startSpriteRendering();
+        for (Tile tile : mv.mapData) {
+            String textureName = getTextureForTileType(tile.tileType);
+            if (textureName != null) {
+                GameApp.drawTexture(textureName, tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+            }
+        }
+        GameApp.endSpriteRendering();
+    }
+
+    private void drawGrid() {
         switchToWorldRendering();
         GameApp.startShapeRenderingOutlined();
         GameApp.setLineWidth(1);
 
-        for (int y = 0; y < getWorldHeight() / pixelsPerGridTile; y++) {
-            for (int x = 0; x < getWorldWidth() / pixelsPerGridTile; x++) {
-                GameApp.drawRect(x * pixelsPerGridTile, y * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-500");
+        for (int y = 0; y < getWorldHeight() / mv.pixelPerGridTile; y++) {
+            for (int x = 0; x < getWorldWidth() / mv.pixelPerGridTile; x++) {
+                GameApp.drawRect(x * mv.pixelPerGridTile, y * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile, "stone-500");
             }
         }
-
-
-        for (Tile tile : movementVars.mapData) {
-            int x = tile.gridX * pixelsPerGridTile;
-            int y = tile.gridY * pixelsPerGridTile;
-
-
-            // Haal het juiste texture op basis van tileType
-            String textureName = getTextureForTileType(tile.tileType);
-
-            // Teken de tile met het juiste texture
-//            if (textureName != null) {
-//                GameApp.drawTexture(textureName, x, y, pixelsPerGridTile, pixelsPerGridTile);
-//            } else {
-//                // Als er geen texture is, teken de tegel met een kleur
-//                Color tileColor = getTileColor(tile.tileType);  // Gebruik tileType voor kleur
-//                GameApp.drawRect(x, y, pixelsPerGridTile, pixelsPerGridTile, tileColor);
-//            }
-
-        }
-        // highlight tiles rond speler
-        int tx = movementVars.playerTileX;
-        int ty = movementVars.playerTileY;
-
-        GameApp.drawRect(tx * pixelsPerGridTile, ty * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
-        GameApp.drawRect((tx - 1) * pixelsPerGridTile, ty * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
-        GameApp.drawRect((tx + 1) * pixelsPerGridTile, ty * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
-        GameApp.drawRect(tx * pixelsPerGridTile, (ty - 1) * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
-        GameApp.drawRect(tx * pixelsPerGridTile, (ty + 1) * pixelsPerGridTile, pixelsPerGridTile, pixelsPerGridTile, "stone-50");
-
         GameApp.endShapeRendering();
+    }
 
-        GameApp.startSpriteRendering();
-        for (Tile tile : movementVars.mapData) {
-            String textureName = getTextureForTileType(tile.tileType);
+    private void drawHighlightedTiles() {
+        switchToWorldRendering();
+        GameApp.startShapeRenderingOutlined();
+        GameApp.setLineWidth(1);
+        int tx = mv.playerTileX;
+        int ty = mv.playerTileY;
 
-            if (textureName != null) {
-                GameApp.drawTexture(textureName, tile.worldX, tile.worldY, pixelsPerGridTile, pixelsPerGridTile);
-            } else {
-                // fallback: kleur
-                GameApp.drawRect(tile.worldX, tile.worldY, pixelsPerGridTile, pixelsPerGridTile, Color.GRAY);
-            }
-        }
-
-
-        GameApp.endSpriteRendering();
+        GameApp.drawRect(tx * mv.pixelPerGridTile, ty * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile, "stone-50");
+        GameApp.drawRect((tx - 1) * mv.pixelPerGridTile, ty * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile, "stone-50");
+        GameApp.drawRect((tx + 1) * mv.pixelPerGridTile, ty * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile, "stone-50");
+        GameApp.drawRect(tx * mv.pixelPerGridTile, (ty - 1) * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile, "stone-50");
+        GameApp.drawRect(tx * mv.pixelPerGridTile, (ty + 1) * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile, "stone-50");
+        GameApp.endShapeRendering();
     }
 
     // Methode die de juiste texture naam retourneert op basis van tileType
     private String getTextureForTileType(String tileType) {
-        switch (tileType) {
-            case "Stone":
-                return "Stone";
-            case "Water":
-                return "Water";
-            case "Grass":
-                return "Grass";
-            case "Dirt":
-                return "Dirt";
-            default:
-                return null;  // Geen texture, gebruik kleur
-        }
+        return switch (tileType) {
+            case "Stone" -> "Stone";
+            case "Water" -> "Water";
+            case "Grass" -> "Grass";
+            case "Dirt" -> "Dirt";
+            default -> null;  // Geen texture, gebruik kleur
+        };
     }
 
 
 
     // Voeg deze methode toe aan de MyLevelScreen of de klasse waar je de tiles renderen
     private Color getTileColor(String tileType) {
-        switch (tileType) {
-            case "stone":
-                return new Color(0.5f, 0.5f, 0.5f, 1f);  // Grijze kleur voor stenen tegels
-            case "water":
-                return new Color(0f, 0f, 1f, 1f);  // Blauw voor water
-            case "grass":
-                return new Color(0f, 1f, 0f, 1f);  // Groen voor gras
-            case "dirt":
-                return new Color(0.6f, 0.3f, 0f, 1f);  // Bruin voor aarde
-            default:
-                return new Color(1f, 1f, 1f, 1f);  // Wit als default
-        }
-    }
-
-    private boolean canMoveTo(int gridX, int gridY) {
-
-        for (Tile t : movementVars.mapData) {
-            if (t.gridX == gridX && t.gridY == gridY) {
-                return t.isWalkable();
-            }
-        }
-
-        return false; // als tile niet bestaat → blokkeren
+        return switch (tileType) {
+            case "stone" -> new Color(0.5f, 0.5f, 0.5f, 1f);  // Grijze kleur voor stenen tegels
+            case "water" -> new Color(0f, 0f, 1f, 1f);  // Blauw voor water
+            case "grass" -> new Color(0f, 1f, 0f, 1f);  // Groen voor gras
+            case "dirt" -> new Color(0.6f, 0.3f, 0f, 1f);  // Bruin voor aarde
+            default -> new Color(1f, 1f, 1f, 1f);  // Wit als default
+        };
     }
    
     public class CsvLoader {
@@ -247,10 +210,6 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
                 while ((line = br.readLine()) != null) {
                     String[] columns = line.split(",");  // Split de lijn op komma's
-
-                    // Log de ruwe lijn om te controleren of de CSV juist wordt gelezen
-                    System.out.println("Ruwe CSV lijn: " + line);
-
                     try {
                         // Parse de waarden uit de CSV
                         int tileID = Integer.parseInt(columns[0].trim());
@@ -261,9 +220,10 @@ public class MyLevelScreen extends CameraControlledGameScreen {
                         boolean hasEnemy = columns[5].trim().equals("true");
                         String enemyID = columns[6].trim().equals("\\N") ? null : columns[6].trim();
                         String tileType = columns[7].trim();  // Nieuwe kolom tileType
+                        boolean walkable = columns[8].trim().equals("true");
 
                         // Maak een Tile object van de CSV-gegevens
-                        Tile tile = new Tile(tileID, worldX, worldY, gridX, gridY, hasEnemy, enemyID, tileType);
+                        Tile tile = new Tile(tileID, worldX, worldY, gridX, gridY, hasEnemy, enemyID, tileType, walkable);
                         tiles.add(tile);
                     } catch (NumberFormatException e) {
                         System.err.println("Fout bij het parsen van de CSV-regel: " + line);

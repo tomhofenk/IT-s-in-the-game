@@ -8,9 +8,10 @@ public class Tile {
     public boolean hasEnemy;
     public String enemyID;
     public String tileType;
+    public boolean walkable;
 
     // Constructor
-    public Tile(int tileID, int worldX, int worldY, int gridX, int gridY, boolean hasEnemy, String enemyID, String tileType) {
+    public Tile(int tileID, int worldX, int worldY, int gridX, int gridY, boolean hasEnemy, String enemyID, String tileType, boolean walkable) {
         this.tileID = tileID;
         this.worldX = worldX;
         this.worldY = worldY;
@@ -19,7 +20,7 @@ public class Tile {
         this.hasEnemy = hasEnemy;
         this.enemyID = enemyID;
         this.tileType = tileType;
-
+        this.walkable = walkable;
     }
 
     // Override toString voor debugging
@@ -31,18 +32,13 @@ public class Tile {
     public boolean isWalkable() {
 
         // Je CSV gebruikt hoofdletters (Grass, Water, Stone, Dirt)
-        switch (tileType) {
-            case "Water":
-                return false;   // blokkeren
-            case "Stone":
-                return true;    // mag lopen
-            case "Grass":
-                return true;
-            case "Dirt":
-                return true;
-            default:
-                return true;    // onbekende tile? → gewoon walkable
-        }
+        return switch (tileType) {
+            case "Water" -> false;   // blokkeren
+            case "Stone" -> true;    // mag lopen
+            case "Grass" -> true;
+            case "Dirt" -> true;
+            default -> true;    // onbekende tile? → gewoon walkable
+        };
 
 
     }
