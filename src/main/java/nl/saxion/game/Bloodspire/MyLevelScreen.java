@@ -120,7 +120,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         }
 
         inventory = new Inventory();
-
+        //aan het testen
         if (GameApp.isKeyJustPressed(Input.Keys.I)) {
             inventory.loadItems();
             inventory.addToInventory(1);

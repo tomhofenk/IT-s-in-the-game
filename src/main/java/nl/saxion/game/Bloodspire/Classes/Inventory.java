@@ -60,8 +60,6 @@ public class Inventory {
             } catch (Exception e) {
 
             }
-
-
         }
     }
 
@@ -76,7 +74,6 @@ public class Inventory {
         }
     }
 
-
     public void addToInventory(int itemID){
         itemsInInventory.add(itemList.get(itemID));
         System.out.println("Item added to inventory: " + this.itemList.get(itemID));
@@ -88,12 +85,10 @@ public class Inventory {
         System.out.println("Item removed from inventory: " + itemList.get(itemID));
     }
 
-
     //om snel te kunnen testen tot waar code werkt
     public void test(){
         System.out.println("Test");
     }
-
 
     //TODO equipItem geen error laten geven
     public void equipItem(int itemID){
