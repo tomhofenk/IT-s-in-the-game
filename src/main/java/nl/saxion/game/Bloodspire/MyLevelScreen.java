@@ -86,8 +86,6 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         GameApp.disposeTexture("CharacterTexture");
     }
 
-
-
     public void gameLogic() {
         // verhoog lokale frame counter en geef door aan mv
         framesCounter++;
@@ -122,9 +120,9 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         }
     }
 
-
     public void renderWorld() {
         switchToWorldRendering();
+
         renderGridTiles();
 
         GameApp.startSpriteRendering();
@@ -141,6 +139,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
     public void renderGridTiles() {
         switchToWorldRendering();
+
         drawGrid();
         drawHighlightedTiles();
         renderTextures();
@@ -220,30 +219,6 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         GameApp.endSpriteRendering();
     }
 
-    // Methode die de juiste texture naam retourneert op basis van tileType
-    private String getTextureForTileType(String tileType) {
-        return switch (tileType) {
-            case "Stone" -> "Stone";
-            case "Water" -> "Water";
-            case "Grass" -> "Grass";
-            case "Wall" -> "Wall";
-            default -> null;  // Geen texture, gebruik kleur
-        };
-    }
-
-
-
-    // Voeg deze methode toe aan de MyLevelScreen of de klasse waar je de tiles renderen
-    private Color getTileColor(String tileType) {
-        return switch (tileType) {
-            case "stone" -> new Color(0.5f, 0.5f, 0.5f, 1f);  // Grijze kleur voor stenen tegels
-            case "water" -> new Color(0f, 0f, 1f, 1f);  // Blauw voor water
-            case "grass" -> new Color(0f, 1f, 0f, 1f);  // Groen voor gras
-            case "dirt" -> new Color(0.6f, 0.3f, 0f, 1f);  // Bruin voor aarde
-            default -> new Color(1f, 1f, 1f, 1f);  // Wit als default
-        };
-    }
-   
     public class CsvLoader {
 
         public static ArrayList<Tile> loadCsv(String path) {

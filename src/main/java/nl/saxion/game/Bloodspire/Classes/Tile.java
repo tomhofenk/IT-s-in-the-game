@@ -29,19 +29,6 @@ public class Tile {
         return "TileID: " + tileID + ", GridX: " + gridX + ", GridY: " + gridY + ", HasEnemy: " + hasEnemy + ", TileType: " + tileType;
     }
 
-    public boolean isWalkable() {
-
-        // Je CSV gebruikt hoofdletters (Grass, Water, Stone, Dirt)
-        return switch (tileType) {
-            case "Water" -> false;   // blokkeren
-            case "Stone" -> true;    // mag lopen
-            case "Grass" -> true;
-            case "Wall" -> true;
-            default -> true;    // onbekende tile? → gewoon walkable
-        };
-
-
-    }
 
 
 
