@@ -124,11 +124,11 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         }
 
         // escape -> main menu
-        if (GameApp.isKeyPressed(Input.Keys.ESCAPE)) {
+        if (GameApp.isKeyJustPressed(Input.Keys.ESCAPE)) {
             GameApp.switchScreen("MainMenuScreen");
         }
 
-        //Inventory scherm openen //TODO als je terugswitched wordt je bij het begin geplaatst, manier maken om plek te onthouden.
+        //Inventory scherm openen
         if (GameApp.isKeyJustPressed(Input.Keys.I)) {
             GameApp.switchScreen("InventoryScreen");
         }
@@ -184,7 +184,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
                     GameApp.drawTexture("WallOpenSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
                 } else if (!leftSideIsWall && rightSideIsWall) {
                     GameApp.drawTexture("WallRightSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
-                } else if (leftSideIsWall && !rightSideIsWall) {
+                } else if (leftSideIsWall) {
                     GameApp.drawTexture("WallLeftSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
                 } else {
                     GameApp.drawTexture("WallBothSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
