@@ -60,6 +60,8 @@ public class Inventory {
             } catch (Exception e) {
 
             }
+        } else {
+            System.out.println("Lijst was al ingeladen!");
         }
     }
 
@@ -85,6 +87,23 @@ public class Inventory {
         System.out.println("Item removed from inventory: " + itemList.get(itemID));
     }
 
+    //Controleren of het item wel in de inventory zit voordat je hem kan equippen
+    public boolean checkIfInInventory(int itemID) {
+        System.out.println("Checking if player has the item");
+        if (!itemsInInventory.isEmpty()) {
+            for (Item tempItem : itemsInInventory){
+                if (tempItem.itemID == itemID){
+                    System.out.println("Player has item in inventory!");
+                    return true;
+                }
+            }
+        } else {
+            System.out.println("Inventory is empty");
+        }
+        System.out.println("Player doesnt have the item!");
+        return false;
+    }
+
     //om snel te kunnen testen tot waar code werkt
     public void test(){
         System.out.println("Test");
@@ -94,12 +113,17 @@ public class Inventory {
     public void equipItem(int itemID){
         Item currentItem = itemList.get(itemID);
         for (int i = 0; i <= 6; i++){
-            if (equipped.get(i).itemType.equals(itemTypes.get(i))){
-                addToInventory(equipped.get(i).itemID);
-                equipped.add(i,itemList.get(itemID));
-                System.out.println("Item equipped: " + this.equipped.get(i));
-            }else {
-                System.out.println("No item currently equipped in this slot");
+            try {
+                if (equipped.get(i).itemType.equals(itemTypes.get(i))) {
+                    addToInventory(equipped.get(i).itemID);
+                    equipped.add(i, itemList.get(itemID));
+                    System.out.println("Item equipped: " + this.equipped.get(i));
+                } else {
+                    System.out.println("No item currently equipped in this slot");
+                }
+            } catch (Exception e){
+                System.out.println("BOEM");
+                e.printStackTrace();
             }
             if (Objects.equals(currentItem.itemType, itemTypes.get(i))) {
                 equipped.add(i,currentItem);

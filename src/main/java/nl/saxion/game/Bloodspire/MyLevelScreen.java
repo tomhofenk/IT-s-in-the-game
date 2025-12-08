@@ -23,11 +23,6 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     private int framesCounter = 0;
 
 
-    //test purposes
-    private Inventory inventory;
-
-
-
     public MyLevelScreen(int viewportWidth, int viewportHeight, int worldWidth, int worldHeight) {
         super(viewportWidth, viewportHeight, worldWidth, worldHeight);
     }
@@ -119,14 +114,9 @@ public class MyLevelScreen extends CameraControlledGameScreen {
             GameApp.switchScreen("MainMenuScreen");
         }
 
-        inventory = new Inventory();
-        //aan het testen
+        //Inventory scherm openen //TODO als je terugswitched wordt je bij het begin geplaatst, manier maken om plek te onthouden.
         if (GameApp.isKeyJustPressed(Input.Keys.I)) {
-            inventory.loadItems();
-            inventory.addToInventory(1);
-            inventory.showInventory();
-            inventory.removeItems(0);
-            inventory.showInventory();
+            GameApp.switchScreen("InventoryScreen");
         }
     }
 
