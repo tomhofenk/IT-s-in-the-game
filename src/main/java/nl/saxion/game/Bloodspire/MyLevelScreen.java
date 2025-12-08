@@ -58,9 +58,6 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         GameApp.addTexture("BlackHighlight", "textures/BlackHighlight.png");
         GameApp.addTexture("HUDShadow", "textures/HUDShadow.png");
         // Objecten
-        GameApp.addTexture("Stone", "textures/stone.png");
-        GameApp.addTexture("Grass", "textures/grass.png");
-        GameApp.addTexture("Water", "textures/water.png");
         GameApp.addTexture("WallOpenSide", "textures/Wall20.png");
         GameApp.addTexture("WallLeftSide", "textures/Wall21.png");
         GameApp.addTexture("WallRightSide", "textures/Wall22.png");
