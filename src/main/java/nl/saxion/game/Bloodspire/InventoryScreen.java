@@ -2,13 +2,12 @@ package nl.saxion.game.Bloodspire;
 
 import com.badlogic.gdx.Input;
 import nl.saxion.game.Bloodspire.Classes.Inventory;
-import nl.saxion.game.Bloodspire.Classes.Item;
 import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.ScalableGameScreen;
 
 
 public class InventoryScreen extends ScalableGameScreen {
-    Inventory inventory = new Inventory();
+    public static Inventory inventory = new Inventory();
 
 
 
@@ -18,12 +17,10 @@ public class InventoryScreen extends ScalableGameScreen {
 
     @Override
     public void show() {
-
     }
+
     public void render(float delta) {
-        //scherm leegmaken en (als dat nog niet eerder is gedaan) items inladen.
         GameApp.clearScreen();
-        inventory.loadItems();
 
 
         //terug naar main menu
@@ -37,12 +34,30 @@ public class InventoryScreen extends ScalableGameScreen {
             GameApp.switchScreen("MyLevelScreen");
         }
 
-        //testen
-        if (GameApp.isKeyJustPressed(Input.Keys.K)) {
-            inventory.addToInventory(1);
-            inventory.checkIfInInventory(1);
-            inventory.removeItems(0);
+        if (GameApp.isKeyJustPressed(Input.Keys.A)) {
             inventory.showInventory();
+        }
+
+        if (GameApp.isKeyJustPressed(Input.Keys.S)) {
+            inventory.addToInventory(0);
+        }
+
+        if (GameApp.isKeyJustPressed(Input.Keys.D)) {
+            inventory.removeItems(0);
+        }
+
+        if (GameApp.isKeyJustPressed(Input.Keys.F)) {
+            inventory.equipItem(0);
+        }
+
+        if (GameApp.isKeyJustPressed(Input.Keys.G)) {
+            System.out.println(MyLevelScreen.mainPlayer);
+        }
+
+        //testen (Stats maxen)
+        if (GameApp.isKeyJustPressed(Input.Keys.M)) {
+            inventory.addToInventory(0);
+            inventory.equipItem(0);
         }
 
         // ALWAYS CALL super.render(delta) AFTERWARDS!!!
