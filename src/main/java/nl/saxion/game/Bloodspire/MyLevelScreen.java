@@ -54,10 +54,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         );
 
         methodes = new Methodes();
-        System.out.println(lv.getOldX() + " " + lv.getOldY());
         if ((startX != lv.getOldX() || startY != lv.getOldY()) && lv.getOldX() != 0 && lv.getOldY() != 0) {
-            mv.playerTileX = lv.getOldX();
-            mv.playerTileY = lv.getOldY();
             mv.playerWorldX = lv.getOldX() * mv.pixelPerGridTile;
             mv.playerWorldY = lv.getOldY() *  mv.pixelPerGridTile;
         }
@@ -68,6 +65,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         GameApp.addTexture("CharacterTexture", "textures/DungeonCharacterpng.png");
         GameApp.addTexture("TileTexture", "textures/DungeonCharacter.png");
         GameApp.addTexture("Black", "textures/Black.png");
+        GameApp.addTexture("Enemy", "textures/Red.png");
         GameApp.addTexture("BlackGrid", "textures/BlackGrid.png");
         GameApp.addTexture("BlackHighlight", "textures/BlackHighlight.png");
         GameApp.addTexture("HUDShadow", "textures/HUDShadow.png");
@@ -99,7 +97,6 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         GameApp.disposeTexture("CharacterTexture");
         lv.setOldX(mv.playerTileX);
         lv.setOldY(mv.playerTileY);
-        System.out.println(lv.getOldX() + " " + lv.getOldY());
 
     }
 

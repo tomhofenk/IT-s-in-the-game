@@ -46,3 +46,4 @@ TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID,tileType,walkable
 45,640,512,10,8,false,\N,Wall,false
 46,576,704,9,11,false,\N,Wall,false
 47,704,576,11,9,false,\N,Wall,false
+48,832,832,13,13,true,1,Enemy,true
