@@ -2,8 +2,6 @@ package nl.saxion.game.Bloodspire.Classes;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -52,11 +50,19 @@ public class Inventory {
                         if (!itemTypes.contains(itemType)) {
                             itemTypes.add(itemType);
                         }
+
                     }
                 }
 
                 reader.close();
                 System.out.println("Lijst succesvol ingeladen!");
+                //starter gear equippen als er nog niks equipped is.
+                if (equipped.isEmpty()) {
+                    for (int i =0;i<=6;i++) {
+                        equipped.add(i,itemList.get(i+183));
+                    }
+                    System.out.println("Starting gear equipped");
+                }
             } catch (Exception e) {
 
             }
@@ -70,6 +76,7 @@ public class Inventory {
         if (itemsInInventory.isEmpty()) {
             System.out.println("Inventory empty");
         } else {
+            System.out.println("Dit zit er in de inventory:");
             for (Item item : itemsInInventory){
                 System.out.println(item);
             }
@@ -100,7 +107,7 @@ public class Inventory {
         } else {
             System.out.println("Inventory is empty");
         }
-        System.out.println("Player doesnt have the item!");
+        System.out.println("Player doesn't have the item!");
         return false;
     }
 
@@ -112,23 +119,28 @@ public class Inventory {
     //TODO equipItem geen error laten geven
     public void equipItem(int itemID){
         Item currentItem = itemList.get(itemID);
-        for (int i = 0; i <= 6; i++){
-            try {
-                if (equipped.get(i).itemType.equals(itemTypes.get(i))) {
-                    addToInventory(equipped.get(i).itemID);
-                    equipped.add(i, itemList.get(itemID));
-                    System.out.println("Item equipped: " + this.equipped.get(i));
-                } else {
-                    System.out.println("No item currently equipped in this slot");
+        if (checkIfInInventory(itemID)) {
+            for (int i = 0; i <= 6; i++) {
+                try {
+                    if (equipped.get(i).itemType.equals(itemTypes.get(i))) {
+                        addToInventory(equipped.get(i).itemID);
+                        equipped.add(i, itemList.get(itemID));
+                        System.out.println("Item equipped: " + this.equipped.get(i));
+                        break;
+                    } else {
+                        System.out.println("No item currently equipped in this slot");
+                    }
+                } catch (Exception e) {
+                    System.out.println("BOEM");
+                    e.printStackTrace();
                 }
-            } catch (Exception e){
-                System.out.println("BOEM");
-                e.printStackTrace();
+                if (Objects.equals(currentItem.itemType, itemTypes.get(i))) {
+                    equipped.add(i, currentItem);
+                    System.out.println("Item equipped on empty slot: " + equipped.get(i));
+                }
             }
-            if (Objects.equals(currentItem.itemType, itemTypes.get(i))) {
-                equipped.add(i,currentItem);
-                System.out.println("Item equipped: " + equipped.get(i));
-            }
+        }else {
+            System.out.println("Cannot equip an item you dont have");
         }
     }
 }

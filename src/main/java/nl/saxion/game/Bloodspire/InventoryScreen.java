@@ -2,7 +2,6 @@ package nl.saxion.game.Bloodspire;
 
 import com.badlogic.gdx.Input;
 import nl.saxion.game.Bloodspire.Classes.Inventory;
-import nl.saxion.game.Bloodspire.Classes.Item;
 import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.ScalableGameScreen;
 
@@ -18,12 +17,11 @@ public class InventoryScreen extends ScalableGameScreen {
 
     @Override
     public void show() {
-
+        //items inladen als dit nog niet gedaan is.
+        inventory.loadItems();
     }
     public void render(float delta) {
-        //scherm leegmaken en (als dat nog niet eerder is gedaan) items inladen.
         GameApp.clearScreen();
-        inventory.loadItems();
 
 
         //terug naar main menu
@@ -35,6 +33,22 @@ public class InventoryScreen extends ScalableGameScreen {
         //terugkeren naar het speelscherm
         if (GameApp.isKeyJustPressed(Input.Keys.I)) {
             GameApp.switchScreen("MyLevelScreen");
+        }
+
+        if (GameApp.isKeyJustPressed(Input.Keys.A)) {
+            inventory.showInventory();
+        }
+
+        if (GameApp.isKeyJustPressed(Input.Keys.S)) {
+            inventory.addToInventory(0);
+        }
+
+        if (GameApp.isKeyJustPressed(Input.Keys.D)) {
+            inventory.removeItems(0);
+        }
+
+        if (GameApp.isKeyJustPressed(Input.Keys.F)) {
+            inventory.equipItem(0);
         }
 
         //testen
