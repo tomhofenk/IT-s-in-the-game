@@ -1,16 +1,13 @@
 package nl.saxion.game.Bloodspire.Classes;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 public class Player {
-    double hitpoints = 100;
-    double attackSpeed = 1;
-    double attackDamage = 1;
-    double defense = 0;
-    double experience = 0;
-    int level = 1;
+    private double hitpoints = 100;
+    private double attackSpeed = 1;
+    private double attackDamage = 1;
+    private double defense = 0;
+    private double experience = 0;
+    private int level = 1;
+
 
 
     public double getHitpoints() {
