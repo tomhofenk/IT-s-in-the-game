@@ -84,5 +84,13 @@ public class Methodes {
         return possibleDirections;
     }
 
+    public int getStartX (int oldX, boolean hasBeenPlayed, int startX) {
+        if (hasBeenPlayed) {
+            return oldX;
+        } else {
+            return startX;
+        }
+    }
+
 
 }

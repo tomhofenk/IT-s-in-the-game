@@ -3,6 +3,7 @@ package nl.saxion.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import nl.saxion.game.Bloodspire.*;
+import nl.saxion.game.Bloodspire.Methodes.LevelVars;
 import nl.saxion.gameapp.GameApp;
 
 public class Main {

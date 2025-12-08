@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import nl.saxion.game.Bloodspire.Classes.Player;
 import nl.saxion.game.Bloodspire.Classes.Tile;
+import nl.saxion.game.Bloodspire.Methodes.LevelVars;
 import nl.saxion.game.Bloodspire.Methodes.MovementVars;
 import nl.saxion.game.Bloodspire.Methodes.Methodes;
 import nl.saxion.gameapp.GameApp;
@@ -19,6 +20,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
     private Methodes methodes;
     private MovementVars mv;
+    public LevelVars lv = new LevelVars();
     private int framesCounter = 0;
     public static Player mainPlayer = new Player();
 
@@ -38,6 +40,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         // startpositie (in pixels) — hier 0,0 maar je kunt dit veranderen
         int startX = 11;
         int startY = 11;
+        //lv  = new LevelVars();
 
         mv = new MovementVars(
                 startX*64,
@@ -51,6 +54,13 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         );
 
         methodes = new Methodes();
+        System.out.println(lv.getOldX() + " " + lv.getOldY());
+        if ((startX != lv.getOldX() || startY != lv.getOldY()) && lv.getOldX() != 0 && lv.getOldY() != 0) {
+            mv.playerTileX = lv.getOldX();
+            mv.playerTileY = lv.getOldY();
+            mv.playerWorldX = lv.getOldX() * mv.pixelPerGridTile;
+            mv.playerWorldY = lv.getOldY() *  mv.pixelPerGridTile;
+        }
 
         // camera direct naar de speler
         setCameraTargetInstantly(mv.playerWorldX, mv.playerWorldY);
@@ -87,6 +97,10 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     @Override
     public void hide() {
         GameApp.disposeTexture("CharacterTexture");
+        lv.setOldX(mv.playerTileX);
+        lv.setOldY(mv.playerTileY);
+        System.out.println(lv.getOldX() + " " + lv.getOldY());
+
     }
 
     public void gameLogic() {
