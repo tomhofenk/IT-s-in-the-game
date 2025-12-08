@@ -63,9 +63,7 @@ public class Inventory {
                     }
                     System.out.println("Starting gear equipped");
                 }
-            } catch (Exception e) {
-
-            }
+            } catch (Exception ignored) {}
         } else {
             System.out.println("Lijst was al ingeladen!");
         }
@@ -110,37 +108,21 @@ public class Inventory {
         System.out.println("Player doesn't have the item!");
         return false;
     }
-
-    //om snel te kunnen testen tot waar code werkt
-    public void test(){
-        System.out.println("Test");
-    }
-
-    //TODO equipItem geen error laten geven
+    
     public void equipItem(int itemID){
+        //initializing the item and getting the right spot for the array
         Item currentItem = itemList.get(itemID);
+        int equipslot = itemTypes.indexOf(currentItem.itemType);
+
         if (checkIfInInventory(itemID)) {
-            for (int i = 0; i <= 6; i++) {
-                try {
-                    if (equipped.get(i).itemType.equals(itemTypes.get(i))) {
-                        addToInventory(equipped.get(i).itemID);
-                        equipped.add(i, itemList.get(itemID));
-                        System.out.println("Item equipped: " + this.equipped.get(i));
-                        break;
-                    } else {
-                        System.out.println("No item currently equipped in this slot");
-                    }
-                } catch (Exception e) {
-                    System.out.println("BOEM");
-                    e.printStackTrace();
-                }
-                if (Objects.equals(currentItem.itemType, itemTypes.get(i))) {
-                    equipped.add(i, currentItem);
-                    System.out.println("Item equipped on empty slot: " + equipped.get(i));
-                }
-            }
-        }else {
-            System.out.println("Cannot equip an item you dont have");
+            //putting the currently equipped item in the inventory
+            addToInventory(equipped.get(equipslot).itemID);
+            //equipping the new item and removing it from the inventory
+            equipped.add(equipslot, currentItem);
+            System.out.println("Item equipped: " + currentItem);
+            removeItems(itemsInInventory.indexOf(currentItem));
+        } else {
+            System.out.println("Cannot equip an item if you dont have it!");
         }
     }
 }
