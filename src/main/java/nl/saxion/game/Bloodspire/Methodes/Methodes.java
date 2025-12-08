@@ -2,6 +2,7 @@ package nl.saxion.game.Bloodspire.Methodes;
 
 import com.badlogic.gdx.Input;
 import nl.saxion.game.Bloodspire.Classes.Tile;
+import nl.saxion.game.Bloodspire.MyLevelScreen;
 import nl.saxion.gameapp.GameApp;
 
 import java.util.ArrayList;
@@ -84,13 +85,155 @@ public class Methodes {
         return possibleDirections;
     }
 
-    public int getStartX (int oldX, boolean hasBeenPlayed, int startX) {
-        if (hasBeenPlayed) {
-            return oldX;
-        } else {
-            return startX;
+    public void getOldCords (MovementVars mv, LevelVars lv, int startX, int startY) {
+        if ((startX != lv.getOldX() || startY != lv.getOldY()) && lv.getOldX() != 0 && lv.getOldY() != 0) {
+            mv.playerWorldX = lv.getOldX() * mv.pixelPerGridTile;
+            mv.playerWorldY = lv.getOldY() *  mv.pixelPerGridTile;
         }
     }
 
+    public void setOldCords (MovementVars mv, LevelVars lv) {
+        lv.setOldX(mv.playerTileX);
+        lv.setOldY(mv.playerTileY);
+    }
 
+    public void addAllTextures () {
+        GameApp.addTexture("CharacterTexture", "textures/DungeonCharacterpng.png");
+        GameApp.addTexture("Enemy", "textures/Red.png");
+        GameApp.addTexture("Black", "textures/Black.png");
+        GameApp.addTexture("BlackGrid", "textures/BlackGrid.png");
+        GameApp.addTexture("BlackHighlight", "textures/BlackHighlight.png");
+        GameApp.addTexture("HUDShadow", "textures/HUDShadow.png");
+        // Objecten
+        GameApp.addTexture("WallOpenSide", "textures/Wall20.png");
+        GameApp.addTexture("WallLeftSide", "textures/Wall21.png");
+        GameApp.addTexture("WallRightSide", "textures/Wall22.png");
+        GameApp.addTexture("WallBothSide", "textures/Wall23.png");
+    }
+
+    public void disposeAllTextures () {
+        GameApp.disposeTexture("CharacterTexture");
+        GameApp.disposeTexture("Enemy");
+        GameApp.disposeTexture("Black");
+        GameApp.disposeTexture("BlackGrid");
+        GameApp.disposeTexture("BlackHighlight");
+        GameApp.disposeTexture("HUDShadow");
+        // Objecten
+        GameApp.disposeTexture("WallOpenSide");
+        GameApp.disposeTexture("WallLeftSide");
+        GameApp.disposeTexture("WallRightSide");
+        GameApp.disposeTexture("WallBothSide");
+    }
+
+    public void gameLogic(MovementVars mv) {
+
+        // roep de gedeelde movement aan
+        Movement(mv);
+
+        // optioneel: debug print
+        if (GameApp.isKeyJustPressed(Input.Keys.P)) {
+            System.out.println("tile: " + mv.playerTileX + "x " + mv.playerTileY
+                    + "y world: " + mv.playerWorldX + "x " + mv.playerWorldY + "y");
+        }
+
+        // escape -> main menu
+        if (GameApp.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            GameApp.switchScreen("MainMenuScreen");
+        }
+
+        //Inventory scherm openen
+        if (GameApp.isKeyJustPressed(Input.Keys.I)) {
+            GameApp.switchScreen("InventoryScreen");
+        }
+    }
+
+    public void renderWorld(MovementVars mv) {
+
+        renderGridTiles(mv);
+
+        GameApp.startSpriteRendering();
+        GameApp.drawTexture("CharacterTexture", mv.playerWorldX, mv.playerWorldY);
+        GameApp.endSpriteRendering();
+
+    }
+
+    public void renderHUD() {
+        drawShadows();
+    }
+
+    private void renderGridTiles(MovementVars mv) {
+        drawGrid(mv);
+        drawHighlightedTiles(mv);
+        renderTextures(mv);
+
+    }
+
+    private void renderTextures(MovementVars mv) {
+        boolean rightSideIsWall;
+        boolean leftSideIsWall;
+
+        GameApp.startSpriteRendering();
+        for (Tile tile : mv.mapData) {
+            //String textureName = getTextureForTileType(tile.tileType);
+            rightSideIsWall = false;
+            leftSideIsWall = false;
+            if (tile.tileType.equals("Wall")) {
+                //GameApp.drawTexture(textureName, tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                for (Tile tile2 : mv.mapData) {
+                    if ((tile2.gridX-1 == tile.gridX && tile2.gridY == tile.gridY) && tile2.tileType.equalsIgnoreCase("Wall")) {
+                        leftSideIsWall = true;
+                    }
+                    if ((tile2.gridX+1 == tile.gridX && tile2.gridY == tile.gridY) && tile2.tileType.equalsIgnoreCase("Wall")) {
+                        rightSideIsWall = true;
+                    }
+                }
+                if (leftSideIsWall && rightSideIsWall) {
+                    GameApp.drawTexture("WallOpenSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                } else if (!leftSideIsWall && rightSideIsWall) {
+                    GameApp.drawTexture("WallRightSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                } else if (leftSideIsWall) {
+                    GameApp.drawTexture("WallLeftSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                } else {
+                    GameApp.drawTexture("WallBothSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                }
+
+            } else {
+                GameApp.drawTexture(tile.tileType, tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+
+            }
+
+        }
+        GameApp.endSpriteRendering();
+    }
+
+    private void drawShadows() {
+        GameApp.enableTransparency();
+        GameApp.startSpriteRendering();
+        GameApp.drawTexture("HUDShadow", 0, 0);
+        GameApp.endSpriteRendering();
+        GameApp.disableTransparency();
+    }
+
+    private void drawGrid(MovementVars mv) {
+        GameApp.startSpriteRendering();
+        for (int y = 0; y < mv.worldHeight / mv.pixelPerGridTile; y++) {
+            for (int x = 0; x < mv.worldWidth / mv.pixelPerGridTile; x++) {
+                GameApp.drawTexture("BlackGrid",x * mv.pixelPerGridTile, y * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
+            }
+        }
+        GameApp.endSpriteRendering();
+    }
+
+    private void drawHighlightedTiles(MovementVars mv) {
+        int tx = mv.playerTileX;
+        int ty = mv.playerTileY;
+
+        GameApp.startSpriteRendering();
+        GameApp.drawTexture("BlackHighLight", tx * mv.pixelPerGridTile, ty * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
+        GameApp.drawTexture("BlackHighLight", (tx - 1) * mv.pixelPerGridTile, ty * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
+        GameApp.drawTexture("BlackHighLight", (tx + 1) * mv.pixelPerGridTile, ty * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
+        GameApp.drawTexture("BlackHighLight", tx * mv.pixelPerGridTile, (ty - 1) * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
+        GameApp.drawTexture("BlackHighLight", tx * mv.pixelPerGridTile, (ty + 1) * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
+        GameApp.endSpriteRendering();
+    }
 }
