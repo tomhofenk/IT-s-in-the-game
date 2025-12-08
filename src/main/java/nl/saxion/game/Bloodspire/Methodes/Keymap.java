@@ -7,12 +7,6 @@ import java.util.Map;
 public class Keymap {
     public static final Map<String, Integer> keyMap = new HashMap<>();
 
-//    static {
-//        keyMap.put("W", Input.Keys.W);
-//        keyMap.put("A", Input.Keys.A);
-//        keyMap.put("S", Input.Keys.S);
-//        keyMap.put("D", Input.Keys.D);
-//    }
     static {
         keyMap.put("W", 51);
         keyMap.put("A", 29);
