@@ -82,15 +82,20 @@ public class Inventory {
         System.out.println("Item added to inventory: " + this.itemList.get(itemID));
     }
 
-    public void removeItems(int itemID){
-        itemsInInventory.remove(itemID);
+    public void removeItems(int itemLocation){
+        int itemID = itemsInInventory.get(itemLocation).itemID;
+        itemsInInventory.remove(itemLocation);
         System.out.println("Item removed from inventory: " + itemList.get(itemID));
     }
 
+
+    //om snel te kunnen testen tot waar code werkt
     public void test(){
         System.out.println("Test");
     }
 
+
+    //TODO equipItem geen error laten geven
     public void equipItem(int itemID){
         Item currentItem = itemList.get(itemID);
         for (int i = 0; i <= 6; i++){
