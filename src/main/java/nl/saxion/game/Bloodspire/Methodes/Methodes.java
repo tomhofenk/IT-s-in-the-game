@@ -84,6 +84,14 @@ public class Methodes {
         return possibleDirections;
     }
 
+    public int getStartX (int oldX, boolean hasBeenPlayed, int startX) {
+        if (hasBeenPlayed) {
+            return oldX;
+        } else {
+            return startX;
+        }
+    }
+
 /*
         // -- W (omhoog)
         if ((GameApp.isKeyPressed(Input.Keys.W) || GameApp.isKeyPressed(Input.Keys.UP))
