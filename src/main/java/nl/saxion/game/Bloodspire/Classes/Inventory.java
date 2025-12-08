@@ -1,11 +1,10 @@
 package nl.saxion.game.Bloodspire.Classes;
 
+import nl.saxion.game.Bloodspire.MyLevelScreen;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Inventory {
     ArrayList<Item> itemsInInventory = new ArrayList<>();
@@ -52,14 +51,23 @@ public class Inventory {
                         if (!itemTypes.contains(itemType)) {
                             itemTypes.add(itemType);
                         }
+
                     }
                 }
 
                 reader.close();
                 System.out.println("Lijst succesvol ingeladen!");
-            } catch (Exception e) {
-
-            }
+                //starter gear equippen als er nog niks equipped is.
+                if (equipped.isEmpty()) {
+                    for (int i =0;i<=6;i++) {
+                        Item currentItem = itemList.get(i+183);
+                        equipped.add(i,currentItem);
+                        System.out.println("Item equipped: " + currentItem);
+                        changeStats(currentItem);
+                    }
+                    System.out.println("Starting gear equipped");
+                }
+            } catch (Exception ignored) {}
         } else {
             System.out.println("Lijst was al ingeladen!");
         }
@@ -70,6 +78,7 @@ public class Inventory {
         if (itemsInInventory.isEmpty()) {
             System.out.println("Inventory empty");
         } else {
+            System.out.println("Dit zit er in de inventory:");
             for (Item item : itemsInInventory){
                 System.out.println(item);
             }
@@ -100,35 +109,35 @@ public class Inventory {
         } else {
             System.out.println("Inventory is empty");
         }
-        System.out.println("Player doesnt have the item!");
+        System.out.println("Player doesn't have the item!");
         return false;
     }
-
-    //om snel te kunnen testen tot waar code werkt
-    public void test(){
-        System.out.println("Test");
-    }
-
-    //TODO equipItem geen error laten geven
+    
     public void equipItem(int itemID){
+        //initializing the item and getting the right spot for the array
         Item currentItem = itemList.get(itemID);
-        for (int i = 0; i <= 6; i++){
-            try {
-                if (equipped.get(i).itemType.equals(itemTypes.get(i))) {
-                    addToInventory(equipped.get(i).itemID);
-                    equipped.add(i, itemList.get(itemID));
-                    System.out.println("Item equipped: " + this.equipped.get(i));
-                } else {
-                    System.out.println("No item currently equipped in this slot");
-                }
-            } catch (Exception e){
-                System.out.println("BOEM");
-                e.printStackTrace();
-            }
-            if (Objects.equals(currentItem.itemType, itemTypes.get(i))) {
-                equipped.add(i,currentItem);
-                System.out.println("Item equipped: " + equipped.get(i));
-            }
+        int equipslot = itemTypes.indexOf(currentItem.itemType);
+
+        if (checkIfInInventory(itemID)) {
+            //putting the currently equipped item in the inventory
+            addToInventory(equipped.get(equipslot).itemID);
+            //equipping the new item and removing it from the inventory
+            equipped.add(equipslot, currentItem);
+            System.out.println("Item equipped: " + currentItem);
+            changeStats(currentItem);
+            removeItems(itemsInInventory.indexOf(currentItem));
+        } else {
+            System.out.println("Cannot equip an item if you dont have it!");
         }
     }
+
+    public void changeStats(Item item) {
+        MyLevelScreen.mainPlayer.setHitpoints(MyLevelScreen.mainPlayer.getHitpoints()+item.hitpointsValue);
+        MyLevelScreen.mainPlayer.setAttackDamage(MyLevelScreen.mainPlayer.getAttackDamage()+item.damageValue);
+        MyLevelScreen.mainPlayer.setDefense(MyLevelScreen.mainPlayer.getDefense()+item.defenseValue);
+        MyLevelScreen.mainPlayer.setAttackSpeed(MyLevelScreen.mainPlayer.getAttackSpeed()+item.speedPenalty);
+        System.out.println("New player stats: \n" + MyLevelScreen.mainPlayer);
+    }
+
+
 }
