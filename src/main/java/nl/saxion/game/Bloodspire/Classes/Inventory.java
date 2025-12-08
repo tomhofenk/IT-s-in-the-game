@@ -1,9 +1,10 @@
 package nl.saxion.game.Bloodspire.Classes;
 
+import nl.saxion.game.Bloodspire.MyLevelScreen;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Inventory {
     ArrayList<Item> itemsInInventory = new ArrayList<>();
@@ -59,7 +60,10 @@ public class Inventory {
                 //starter gear equippen als er nog niks equipped is.
                 if (equipped.isEmpty()) {
                     for (int i =0;i<=6;i++) {
-                        equipped.add(i,itemList.get(i+183));
+                        Item currentItem = itemList.get(i+183);
+                        equipped.add(i,currentItem);
+                        System.out.println("Item equipped: " + currentItem);
+                        changeStats(currentItem);
                     }
                     System.out.println("Starting gear equipped");
                 }
@@ -120,9 +124,20 @@ public class Inventory {
             //equipping the new item and removing it from the inventory
             equipped.add(equipslot, currentItem);
             System.out.println("Item equipped: " + currentItem);
+            changeStats(currentItem);
             removeItems(itemsInInventory.indexOf(currentItem));
         } else {
             System.out.println("Cannot equip an item if you dont have it!");
         }
     }
+
+    public void changeStats(Item item) {
+        MyLevelScreen.mainPlayer.setHitpoints(MyLevelScreen.mainPlayer.getHitpoints()+item.hitpointsValue);
+        MyLevelScreen.mainPlayer.setAttackDamage(MyLevelScreen.mainPlayer.getAttackDamage()+item.damageValue);
+        MyLevelScreen.mainPlayer.setDefense(MyLevelScreen.mainPlayer.getDefense()+item.defenseValue);
+        MyLevelScreen.mainPlayer.setAttackSpeed(MyLevelScreen.mainPlayer.getAttackSpeed()+item.speedPenalty);
+        System.out.println("New player stats: \n" + MyLevelScreen.mainPlayer);
+    }
+
+
 }

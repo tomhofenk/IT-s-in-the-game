@@ -2,7 +2,7 @@ package nl.saxion.game.Bloodspire;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import nl.saxion.game.Bloodspire.Classes.Inventory;
+import nl.saxion.game.Bloodspire.Classes.Player;
 import nl.saxion.game.Bloodspire.Classes.Tile;
 import nl.saxion.game.Bloodspire.Methodes.MovementVars;
 import nl.saxion.game.Bloodspire.Methodes.Methodes;
@@ -20,6 +20,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     private Methodes methodes;
     private MovementVars mv;
     private int framesCounter = 0;
+    public static Player mainPlayer = new Player();
 
 
     public MyLevelScreen(int viewportWidth, int viewportHeight, int worldWidth, int worldHeight) {
@@ -29,6 +30,8 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
     @Override
     public void show() {
+        //items inladen als dit nog niet gedaan is, en het equippen van de starterkit.
+        InventoryScreen.inventory.loadItems();
         enableHUD(160, 90);
         //mapData = CsvLoader.loadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv");
 

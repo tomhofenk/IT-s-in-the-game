@@ -7,7 +7,7 @@ import nl.saxion.gameapp.screens.ScalableGameScreen;
 
 
 public class InventoryScreen extends ScalableGameScreen {
-    Inventory inventory = new Inventory();
+    public static Inventory inventory = new Inventory();
 
 
 
@@ -17,9 +17,8 @@ public class InventoryScreen extends ScalableGameScreen {
 
     @Override
     public void show() {
-        //items inladen als dit nog niet gedaan is.
-        inventory.loadItems();
     }
+
     public void render(float delta) {
         GameApp.clearScreen();
 
@@ -51,12 +50,14 @@ public class InventoryScreen extends ScalableGameScreen {
             inventory.equipItem(0);
         }
 
-        //testen
-        if (GameApp.isKeyJustPressed(Input.Keys.K)) {
-            inventory.addToInventory(1);
-            inventory.checkIfInInventory(1);
-            inventory.removeItems(0);
-            inventory.showInventory();
+        if (GameApp.isKeyJustPressed(Input.Keys.G)) {
+            System.out.println(MyLevelScreen.mainPlayer);
+        }
+
+        //testen (Stats maxen)
+        if (GameApp.isKeyJustPressed(Input.Keys.M)) {
+            inventory.addToInventory(0);
+            inventory.equipItem(0);
         }
 
         // ALWAYS CALL super.render(delta) AFTERWARDS!!!
