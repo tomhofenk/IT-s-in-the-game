@@ -36,7 +36,7 @@ public class Tile {
             case "Water" -> false;   // blokkeren
             case "Stone" -> true;    // mag lopen
             case "Grass" -> true;
-            case "Dirt" -> true;
+            case "Wall" -> true;
             default -> true;    // onbekende tile? → gewoon walkable
         };
 

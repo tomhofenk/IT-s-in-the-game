@@ -53,12 +53,18 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
         GameApp.addTexture("CharacterTexture", "textures/DungeonCharacterpng.png");
         GameApp.addTexture("TileTexture", "textures/DungeonCharacter.png");
+        GameApp.addTexture("Black", "textures/Black.png");
+        GameApp.addTexture("BlackGrid", "textures/BlackGrid.png");
+        GameApp.addTexture("BlackHighlight", "textures/BlackHighlight.png");
+        GameApp.addTexture("HUDShadow", "textures/HUDShadow.png");
         // Objecten
         GameApp.addTexture("Stone", "textures/stone.png");
         GameApp.addTexture("Grass", "textures/grass.png");
         GameApp.addTexture("Water", "textures/water.png");
-        GameApp.addTexture("Dirt", "textures/dirt.png");
-
+        GameApp.addTexture("WallOpenSide", "textures/Wall20.png");
+        GameApp.addTexture("WallLeftSide", "textures/Wall21.png");
+        GameApp.addTexture("WallRightSide", "textures/Wall22.png");
+        GameApp.addTexture("WallBothSide", "textures/Wall23.png");
 
     }
 
@@ -116,63 +122,99 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
     public void renderWorld() {
         switchToWorldRendering();
-
         renderGridTiles();
 
         GameApp.startSpriteRendering();
         GameApp.drawTexture("CharacterTexture", mv.playerWorldX, mv.playerWorldY);
         GameApp.endSpriteRendering();
+
     }
 
     public void renderHUD() {
         switchToHudRendering();
 
-        GameApp.startShapeRenderingFilled();
-        GameApp.drawRect(10, 10, 30, 5, Color.WHITE);
-        GameApp.endShapeRendering();
+        drawShadows();
     }
 
     public void renderGridTiles() {
         switchToWorldRendering();
         drawGrid();
         drawHighlightedTiles();
+        renderTextures();
+
+    }
+
+    private void renderTextures() {
+        switchToWorldRendering();
+        boolean rightSideIsWall;
+        boolean leftSideIsWall;
 
         GameApp.startSpriteRendering();
         for (Tile tile : mv.mapData) {
-            String textureName = getTextureForTileType(tile.tileType);
-            if (textureName != null) {
-                GameApp.drawTexture(textureName, tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+            //String textureName = getTextureForTileType(tile.tileType);
+            rightSideIsWall = false;
+            leftSideIsWall = false;
+            if (tile.tileType.equals("Wall")) {
+                //GameApp.drawTexture(textureName, tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                for (Tile tile2 : mv.mapData) {
+                    if ((tile2.gridX-1 == tile.gridX && tile2.gridY == tile.gridY) && tile2.tileType.equalsIgnoreCase("Wall")) {
+                        leftSideIsWall = true;
+                    }
+                    if ((tile2.gridX+1 == tile.gridX && tile2.gridY == tile.gridY) && tile2.tileType.equalsIgnoreCase("Wall")) {
+                        rightSideIsWall = true;
+                    }
+                }
+                if (leftSideIsWall && rightSideIsWall) {
+                    GameApp.drawTexture("WallOpenSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                } else if (!leftSideIsWall && rightSideIsWall) {
+                    GameApp.drawTexture("WallRightSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                } else if (leftSideIsWall && !rightSideIsWall) {
+                    GameApp.drawTexture("WallLeftSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                } else {
+                    GameApp.drawTexture("WallBothSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                }
+
+            } else {
+                GameApp.drawTexture(tile.tileType, tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+
+            }
+
+        }
+        GameApp.endSpriteRendering();
+    }
+
+    private void drawShadows() {
+        switchToHudRendering();
+        GameApp.enableTransparency();
+        GameApp.startSpriteRendering();
+        GameApp.drawTexture("HUDShadow", 0, 0);
+        GameApp.endSpriteRendering();
+        GameApp.disableTransparency();
+    }
+
+    private void drawGrid() {
+        switchToWorldRendering();
+        GameApp.startSpriteRendering();
+        for (int y = 0; y < getWorldHeight() / mv.pixelPerGridTile; y++) {
+            for (int x = 0; x < getWorldWidth() / mv.pixelPerGridTile; x++) {
+                GameApp.drawTexture("BlackGrid",x * mv.pixelPerGridTile, y * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
             }
         }
         GameApp.endSpriteRendering();
     }
 
-    private void drawGrid() {
-        switchToWorldRendering();
-        GameApp.startShapeRenderingOutlined();
-        GameApp.setLineWidth(1);
-
-        for (int y = 0; y < getWorldHeight() / mv.pixelPerGridTile; y++) {
-            for (int x = 0; x < getWorldWidth() / mv.pixelPerGridTile; x++) {
-                GameApp.drawRect(x * mv.pixelPerGridTile, y * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile, "stone-500");
-            }
-        }
-        GameApp.endShapeRendering();
-    }
-
     private void drawHighlightedTiles() {
         switchToWorldRendering();
-        GameApp.startShapeRenderingOutlined();
-        GameApp.setLineWidth(1);
         int tx = mv.playerTileX;
         int ty = mv.playerTileY;
 
-        GameApp.drawRect(tx * mv.pixelPerGridTile, ty * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile, "stone-50");
-        GameApp.drawRect((tx - 1) * mv.pixelPerGridTile, ty * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile, "stone-50");
-        GameApp.drawRect((tx + 1) * mv.pixelPerGridTile, ty * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile, "stone-50");
-        GameApp.drawRect(tx * mv.pixelPerGridTile, (ty - 1) * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile, "stone-50");
-        GameApp.drawRect(tx * mv.pixelPerGridTile, (ty + 1) * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile, "stone-50");
-        GameApp.endShapeRendering();
+        GameApp.startSpriteRendering();
+        GameApp.drawTexture("BlackHighLight", tx * mv.pixelPerGridTile, ty * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
+        GameApp.drawTexture("BlackHighLight", (tx - 1) * mv.pixelPerGridTile, ty * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
+        GameApp.drawTexture("BlackHighLight", (tx + 1) * mv.pixelPerGridTile, ty * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
+        GameApp.drawTexture("BlackHighLight", tx * mv.pixelPerGridTile, (ty - 1) * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
+        GameApp.drawTexture("BlackHighLight", tx * mv.pixelPerGridTile, (ty + 1) * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
+        GameApp.endSpriteRendering();
     }
 
     // Methode die de juiste texture naam retourneert op basis van tileType
@@ -181,7 +223,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
             case "Stone" -> "Stone";
             case "Water" -> "Water";
             case "Grass" -> "Grass";
-            case "Dirt" -> "Dirt";
+            case "Wall" -> "Wall";
             default -> null;  // Geen texture, gebruik kleur
         };
     }
