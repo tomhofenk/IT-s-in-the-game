@@ -24,8 +24,8 @@ public class InventoryScreen extends ScalableGameScreen {
 
 
         //terug naar main menu
-        if (GameApp.isKeyPressed(Input.Keys.ESCAPE)) {
-            GameApp.switchScreen("MainMenuScreen");
+        if (GameApp.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            GameApp.switchScreen("MyLevelScreen");
         }
 
 
