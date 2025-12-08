@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Inventory {
-    ArrayList<Item> itemsInInventory;
-    ArrayList<String> itemTypes;
-    ArrayList<Item> itemList;
-    ArrayList<Item> equipped;
+    ArrayList<Item> itemsInInventory = new ArrayList<>();
+    ArrayList<String> itemTypes = new ArrayList<>();
+    ArrayList<Item> itemList = new ArrayList<>();
+    ArrayList<Item> equipped = new ArrayList<>();
 
 
     //Csv-bestand met alle items inladen en in een arraylist plaatsen
@@ -58,7 +58,7 @@ public class Inventory {
                 reader.close();
 
             } catch (Exception e) {
-                System.out.println("FOUT bij inlezen CSV items: " + e.getMessage());
+
             }
 
 
@@ -79,12 +79,16 @@ public class Inventory {
 
     public void addToInventory(int itemID){
         itemsInInventory.add(itemList.get(itemID));
-        System.out.println("Item added to inventory: " + itemList.get(itemID));
+        System.out.println("Item added to inventory: " + this.itemList.get(itemID));
     }
 
     public void removeItems(int itemID){
         itemsInInventory.remove(itemID);
         System.out.println("Item removed from inventory: " + itemList.get(itemID));
+    }
+
+    public void test(){
+        System.out.println("Test");
     }
 
     public void equipItem(int itemID){
@@ -93,7 +97,7 @@ public class Inventory {
             if (equipped.get(i).itemType.equals(itemTypes.get(i))){
                 addToInventory(equipped.get(i).itemID);
                 equipped.add(i,itemList.get(itemID));
-                System.out.println("Item equipped: " + equipped.get(i));
+                System.out.println("Item equipped: " + this.equipped.get(i));
             }else {
                 System.out.println("No item currently equipped in this slot");
             }

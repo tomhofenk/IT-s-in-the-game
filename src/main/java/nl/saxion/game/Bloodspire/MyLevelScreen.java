@@ -118,8 +118,13 @@ public class MyLevelScreen extends CameraControlledGameScreen {
             GameApp.switchScreen("MainMenuScreen");
         }
 
-        if (GameApp.isKeyPressed(Input.Keys.I)) {
+        inventory = new Inventory();
+
+        if (GameApp.isKeyJustPressed(Input.Keys.I)) {
             inventory.loadItems();
+            inventory.addToInventory(1);
+            inventory.showInventory();
+            
         }
     }
 
