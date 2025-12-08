@@ -56,7 +56,7 @@ public class Inventory {
                 }
 
                 reader.close();
-
+                System.out.println("Lijst succesvol ingeladen!");
             } catch (Exception e) {
 
             }

@@ -8,6 +8,7 @@ import nl.saxion.gameapp.screens.ScalableGameScreen;
 
 
 public class InventoryScreen extends ScalableGameScreen {
+    Inventory inventory = new Inventory();
 
 
 
@@ -22,7 +23,6 @@ public class InventoryScreen extends ScalableGameScreen {
     public void render(float delta) {
         //scherm leegmaken en (als dat nog niet eerder is gedaan) items inladen.
         GameApp.clearScreen();
-        Inventory inventory = new Inventory();
         inventory.loadItems();
 
 
