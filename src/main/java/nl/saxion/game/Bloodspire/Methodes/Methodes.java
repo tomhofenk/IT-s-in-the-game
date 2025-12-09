@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Methodes {
 
-    //private MovementVars movementVars;
+    public MapData mp = new MapData();
 
     // public zodat MyLevelScreen deze kan aanroepen: methodes.Movement(mv);
     public void Movement(MovementVars mv) {
@@ -49,6 +49,7 @@ public class Methodes {
                 MovementVars.framesKeyIsPressed.put(currentDirection, 0);
             }
         }
+        switchToBattle(mv);
     }
 
     public ArrayList<String> canMoveTo(MovementVars mv) {
@@ -59,7 +60,7 @@ public class Methodes {
         possibleDirections.add("S");
         possibleDirections.add("D");
 
-        for (Tile ct : mv.mapData) { //ct = currentTile
+        for (Tile ct : mp.Level1MapData) { //ct = currentTile
             // W (omhoog)
             if (mv.playerTileY + 1 == ct.gridY && mv.playerTileX == ct.gridX) {
                 if (!ct.walkable) possibleDirections.remove("W");
@@ -235,5 +236,13 @@ public class Methodes {
         GameApp.drawTexture("BlackHighLight", tx * mv.pixelPerGridTile, (ty - 1) * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
         GameApp.drawTexture("BlackHighLight", tx * mv.pixelPerGridTile, (ty + 1) * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
         GameApp.endSpriteRendering();
+    }
+
+    private void switchToBattle(MovementVars mv) {
+        for (Tile ct : mv.mapData) {
+            if (ct.tileType.equalsIgnoreCase("Enemy") && ct.gridX == mv.playerTileX && ct.gridY == mv.playerTileY) {
+                GameApp.switchScreen("BattleScreen");
+            }
+        }
     }
 }

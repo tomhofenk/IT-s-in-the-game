@@ -4,10 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import nl.saxion.game.Bloodspire.Classes.Player;
 import nl.saxion.game.Bloodspire.Classes.Tile;
-import nl.saxion.game.Bloodspire.Methodes.CsvLoader;
-import nl.saxion.game.Bloodspire.Methodes.LevelVars;
-import nl.saxion.game.Bloodspire.Methodes.MovementVars;
-import nl.saxion.game.Bloodspire.Methodes.Methodes;
+import nl.saxion.game.Bloodspire.Methodes.*;
 import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.CameraControlledGameScreen;
 
@@ -22,6 +19,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     private Methodes methodes;
     private MovementVars mv;
     public LevelVars lv = new LevelVars();
+    public MapData md = new MapData();
     private CsvLoader csvLoader;
     private int framesCounter = 0;
     public static Player mainPlayer = new Player();
@@ -51,7 +49,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
                 (int)getMouseX(),
                 (int)getMouseY(),
                 GameApp.getFramesPerSecond() / 3,
-                csvLoader.loadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv")
+                md.L
         );
 
         methodes = new Methodes();

@@ -59,27 +59,11 @@ public class MovementVars {
         framesWhenKeyWasPressed.put("D", 0);
     }
 
-
-    // toets-hold state
-//    public int framesWIsPressed = 0;
-//    public boolean hasWBeenPressedOnce = false;
-//    public int framesWhenWWasPressed = 0;
-//
-//    public int framesAIsPressed = 0;
-//    public boolean hasABeenPressedOnce = false;
-//    public int framesWhenAWasPressed = 0;
-//
-//    public int framesSIsPressed = 0;
-//    public boolean hasSBeenPressedOnce = false;
-//    public int framesWhenSWasPressed = 0;
-//
-//    public int framesDIsPressed = 0;
-//    public boolean hasDBeenPressedOnce = false;
-//    public int framesWhenDWasPressed = 0;
-//
-//    public int framesMouseIsPressed = 0;
-//    public boolean hasMouseBeenPressedOnce = false;
-//    public int framesWhenMouseWasPressed = 0;
+//    public static Map<Integer, ArrayList<Tile>> LevelMapData = new HashMap<>();
+//    static {
+//        LevelMapData.put(1, new ArrayList<Tile>());
+//        LevelMapData.put(2, new ArrayList<Tile>());
+//    }
 
     public ArrayList<Tile> mapData;
 
