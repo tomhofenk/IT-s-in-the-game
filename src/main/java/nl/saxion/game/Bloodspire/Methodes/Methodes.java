@@ -60,7 +60,7 @@ public class Methodes {
         possibleDirections.add("S");
         possibleDirections.add("D");
 
-        for (Tile ct : mp.Level1MapData) { //ct = currentTile
+        for (Tile ct : mv.mapData) { //ct = currentTile
             // W (omhoog)
             if (mv.playerTileY + 1 == ct.gridY && mv.playerTileX == ct.gridX) {
                 if (!ct.walkable) possibleDirections.remove("W");

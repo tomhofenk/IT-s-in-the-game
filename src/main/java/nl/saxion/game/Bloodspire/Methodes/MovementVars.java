@@ -59,12 +59,6 @@ public class MovementVars {
         framesWhenKeyWasPressed.put("D", 0);
     }
 
-//    public static Map<Integer, ArrayList<Tile>> LevelMapData = new HashMap<>();
-//    static {
-//        LevelMapData.put(1, new ArrayList<Tile>());
-//        LevelMapData.put(2, new ArrayList<Tile>());
-//    }
-
     public ArrayList<Tile> mapData;
 
     // constructor: geef world sizes en startpositie (pixel coords)

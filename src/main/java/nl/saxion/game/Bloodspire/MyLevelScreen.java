@@ -19,8 +19,6 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     private Methodes methodes;
     private MovementVars mv;
     public LevelVars lv = new LevelVars();
-    public MapData md = new MapData();
-    private CsvLoader csvLoader;
     private int framesCounter = 0;
     public static Player mainPlayer = new Player();
 
@@ -39,7 +37,6 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         // startpositie (in pixels) — hier 0,0 maar je kunt dit veranderen
         int startX = 11;
         int startY = 11;
-        //lv  = new LevelVars();
 
         mv = new MovementVars(
                 startX*64,
@@ -49,7 +46,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
                 (int)getMouseX(),
                 (int)getMouseY(),
                 GameApp.getFramesPerSecond() / 3,
-                md.L
+                MapData.getLevel(1)
         );
 
         methodes = new Methodes();

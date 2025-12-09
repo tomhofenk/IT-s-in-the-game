@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+// Niet actief nodig maar voor zekerheid laten staan
 public class CsvLoader {
 
     public static ArrayList<Tile> loadCsv(String path) {

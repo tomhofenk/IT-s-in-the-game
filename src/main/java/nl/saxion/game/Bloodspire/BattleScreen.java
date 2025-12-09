@@ -2,6 +2,7 @@ package nl.saxion.game.Bloodspire;
 
 import com.badlogic.gdx.Input;
 import nl.saxion.game.Bloodspire.Methodes.CsvLoader;
+import nl.saxion.game.Bloodspire.Methodes.MapData;
 import nl.saxion.game.Bloodspire.Methodes.MovementVars;
 import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.ScalableGameScreen;
@@ -18,7 +19,7 @@ public class BattleScreen extends ScalableGameScreen {
     @Override
     public void show() {
         mv = new MovementVars(0,0,0,0,0,0,0,
-                csvLoader.loadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv")
+                MapData.getLevel(1)
         );
     }
 
