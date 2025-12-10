@@ -20,7 +20,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     private MovementVars mv;
     public LevelVars lv = new LevelVars();
     private int framesCounter = 0;
-    public static Player mainPlayer = new Player();
+    public Player mainPlayer = new Player();
 
 
     public MyLevelScreen(int viewportWidth, int viewportHeight, int worldWidth, int worldHeight) {

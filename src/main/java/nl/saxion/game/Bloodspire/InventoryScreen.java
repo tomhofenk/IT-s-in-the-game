@@ -2,12 +2,14 @@ package nl.saxion.game.Bloodspire;
 
 import com.badlogic.gdx.Input;
 import nl.saxion.game.Bloodspire.Classes.Inventory;
+import nl.saxion.game.Bloodspire.Classes.Player;
 import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.ScalableGameScreen;
 
 
 public class InventoryScreen extends ScalableGameScreen {
     public static Inventory inventory = new Inventory();
+    public Player mainPlayer = new Player();
 
 
 
@@ -52,7 +54,7 @@ public class InventoryScreen extends ScalableGameScreen {
         }
 
         if (GameApp.isKeyJustPressed(Input.Keys.G)) {
-            System.out.println(MyLevelScreen.mainPlayer);
+            System.out.println(mainPlayer.toString());
         }
 
         //testen (Stats maxen)

@@ -29,7 +29,7 @@ public class Main {
 
         // Add screens
         GameApp.addScreen("MainMenuScreen", new MainMenuScreen());
-        GameApp.addScreen("BloodspireScreen", new BloodspireScreen());
+        GameApp.addScreen("DrawMapScreen", new DrawMapScreen());
         GameApp.addScreen("MyLevelScreen", new MyLevelScreen(viewportWidth, viewportHeight, worldWidth, worldHeight));
         GameApp.addScreen("BattleScreen", new BattleScreen());
         GameApp.addScreen("InventoryScreen", new InventoryScreen());

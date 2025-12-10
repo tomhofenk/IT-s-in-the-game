@@ -1,12 +1,12 @@
 package nl.saxion.game.Bloodspire.Classes;
 
 public class Player {
-    private double hitpoints = 100;
-    private double attackSpeed = 1;
-    private double attackDamage = 1;
-    private double defense = 0;
-    private double experience = 0;
-    private int level = 1;
+    private static double hitpoints = 100;
+    private static double attackSpeed = 1;
+    private static double attackDamage = 1;
+    private static double defense = 0;
+    private static double experience = 0;
+    private static int level = 1;
 
 
 

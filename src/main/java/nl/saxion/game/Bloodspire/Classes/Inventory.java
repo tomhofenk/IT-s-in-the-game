@@ -11,6 +11,7 @@ public class Inventory {
     ArrayList<String> itemTypes = new ArrayList<>();
     ArrayList<Item> itemList = new ArrayList<>();
     ArrayList<Item> equipped = new ArrayList<>();
+    public Player mainPlayer = new Player();
 
 
     //Csv-bestand met alle items inladen en in een arraylist plaatsen
@@ -132,11 +133,12 @@ public class Inventory {
     }
 
     public void changeStats(Item item) {
-        MyLevelScreen.mainPlayer.setHitpoints(MyLevelScreen.mainPlayer.getHitpoints()+item.hitpointsValue);
-        MyLevelScreen.mainPlayer.setAttackDamage(MyLevelScreen.mainPlayer.getAttackDamage()+item.damageValue);
-        MyLevelScreen.mainPlayer.setDefense(MyLevelScreen.mainPlayer.getDefense()+item.defenseValue);
-        MyLevelScreen.mainPlayer.setAttackSpeed(MyLevelScreen.mainPlayer.getAttackSpeed()+item.speedPenalty);
-        System.out.println("New player stats: \n" + MyLevelScreen.mainPlayer);
+        mainPlayer.setHitpoints(mainPlayer.getHitpoints()+item.hitpointsValue);
+        mainPlayer.setAttackDamage(mainPlayer.getAttackDamage()+item.damageValue);
+        mainPlayer.setDefense(mainPlayer.getDefense()+item.defenseValue);
+        mainPlayer.setAttackSpeed(mainPlayer.getAttackSpeed()+item.speedPenalty);
+        System.out.println("New player stats: \n" + mainPlayer);
+
     }
 
 

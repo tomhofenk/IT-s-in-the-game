@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class LevelVars {
 
     public boolean level1BeenPlayed = false;
-    private int oldX;
-    private int oldY;
+    private static int oldX;
+    private static int oldY;
 
     public int getOldX() {
         return oldX;

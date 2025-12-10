@@ -100,7 +100,7 @@ public class Methodes {
 
     public void addAllTextures () {
         GameApp.addTexture("CharacterTexture", "textures/DungeonCharacterpng.png");
-        GameApp.addTexture("Enemy", "textures/Red.png");
+        GameApp.addTexture("Enemy", "textures/Enemy.png");
         GameApp.addTexture("Black", "textures/Black.png");
         GameApp.addTexture("BlackGrid", "textures/BlackGrid.png");
         GameApp.addTexture("BlackHighlight", "textures/BlackHighlight.png");
