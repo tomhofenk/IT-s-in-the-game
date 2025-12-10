@@ -14,7 +14,7 @@ public class MainMenuScreen extends ScalableGameScreen {
 
     @Override
     public void show() {
-        GameApp.addFont("basic", "fonts/basic.ttf", 100);
+        GameApp.addFont("basic", "fonts/basic.ttf", getWorldWidth()/12);
     }
 
     @Override
@@ -27,18 +27,20 @@ public class MainMenuScreen extends ScalableGameScreen {
                 GameApp.switchScreen("MyLevelScreen");
             } else if (selectedOption == 1) {
                 GameApp.quit();
+            } else if (selectedOption == 2) {
+                GameApp.switchScreen("DrawMapScreen");
             }
 
         }
 
         // Select option
         if (GameApp.isKeyJustPressed(Input.Keys.S) || GameApp.isKeyJustPressed(Input.Keys.DOWN)) {
-            selectedOption = (selectedOption + 1)%2;
+            selectedOption = (selectedOption + 1)%3;
         }
         if (GameApp.isKeyJustPressed(Input.Keys.W) || GameApp.isKeyJustPressed(Input.Keys.UP)) {
-            selectedOption = (selectedOption - 1)%2;
+            selectedOption = (selectedOption - 1)%3;
             if (selectedOption < 0) {
-                selectedOption = 1;
+                selectedOption = 2;
             }
         }
 
@@ -56,6 +58,11 @@ public class MainMenuScreen extends ScalableGameScreen {
             GameApp.drawTextCentered("basic", "Quit", getWorldWidth()/2, getWorldHeight()/2-100, "amber-500");
         } else {
             GameApp.drawTextCentered("basic", "Quit", getWorldWidth()/2, getWorldHeight()/2-100, "white");
+        }
+        if (selectedOption == 2) {
+            GameApp.drawTextCentered("basic", "Draw a Map", getWorldWidth()/2, getWorldHeight()/2-200, "amber-500");
+        } else {
+            GameApp.drawTextCentered("basic", "Draw a Map", getWorldWidth()/2, getWorldHeight()/2-200, "white");
         }
         GameApp.endSpriteRendering();
     }

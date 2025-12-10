@@ -16,7 +16,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        MapData.setLevel(1, loadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv"));
+        MapData.setLevel(1, loadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/LevelTestTile.csv"));
         // Variabels for size of world and viewport (for now only in MyLevelScreen)
         // Amount of pixels per tile
         int pixelsPerGridTile = 64; // 64 Because sprite is 64x64
