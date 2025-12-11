@@ -3,6 +3,7 @@ package nl.saxion.game.Bloodspire;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import nl.saxion.game.Bloodspire.Classes.Enemy;
+import nl.saxion.game.Bloodspire.Classes.EnemyData;
 import nl.saxion.game.Bloodspire.Classes.Player;
 import nl.saxion.game.Bloodspire.Classes.Tile;
 import nl.saxion.game.Bloodspire.Methodes.*;
@@ -45,6 +46,7 @@ public class BattleScreen extends ScalableGameScreen {
 
         if (GameApp.isKeyJustPressed(Input.Keys.SPACE)) {
             mainPlayer.setHitpoints(mainPlayer.getHitpoints() - 5);
+
         }
 
         // Kill the enemy and return to MyLevelScreen (For Testing)

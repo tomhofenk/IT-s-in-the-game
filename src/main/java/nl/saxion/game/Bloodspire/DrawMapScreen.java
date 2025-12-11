@@ -32,8 +32,8 @@ public class DrawMapScreen extends ScalableGameScreen {
                 DrawnTiles.add(newTile);
             }
         }
-        printColors();
-        printSizes();
+        //printColors();
+        //printSizes();
         GameApp.addColor("GridColor", 255,255,255,102);
         GameApp.addFont("basic", "fonts/5x5_pixel.ttf", 1);
     }
@@ -128,7 +128,8 @@ public class DrawMapScreen extends ScalableGameScreen {
     }
 
     private void printData() {
-        int index = 0;
+        int index = 1;
+        System.out.println("TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID,tileType,walkable");
         for (DrawnTile dt : DrawnTiles) {
             if (dt.color != Color.BLACK) {
                 if (dt.color == Color.RED) {
