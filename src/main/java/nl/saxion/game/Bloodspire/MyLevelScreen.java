@@ -1,17 +1,9 @@
 package nl.saxion.game.Bloodspire;
 
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import nl.saxion.game.Bloodspire.Classes.Player;
-import nl.saxion.game.Bloodspire.Classes.Tile;
 import nl.saxion.game.Bloodspire.Methodes.*;
 import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.CameraControlledGameScreen;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 
 
 public class MyLevelScreen extends CameraControlledGameScreen {
@@ -20,7 +12,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     private MovementVars mv;
     public LevelVars lv = new LevelVars();
     private int framesCounter = 0;
-    public Player mainPlayer = new Player();
+    //public Player mainPlayer = new Player();
 
 
     public MyLevelScreen(int viewportWidth, int viewportHeight, int worldWidth, int worldHeight) {

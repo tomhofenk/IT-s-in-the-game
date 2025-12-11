@@ -1,7 +1,5 @@
 package nl.saxion.game.Bloodspire.Classes;
 
-import nl.saxion.game.Bloodspire.MyLevelScreen;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -36,10 +34,10 @@ public class Inventory {
                         String itemName = parts[0].trim();
                         String itemType = parts[1].trim();
                         String rarity = parts[2].trim();
-                        double hitpointsValue = Double.parseDouble(parts[3].trim());
-                        double defenseValue = Double.parseDouble(parts[4].trim());
-                        double damageValue = Double.parseDouble(parts[5].trim());
-                        double speedPenalty = Double.parseDouble(parts[6].trim());
+                        int hitpointsValue = Integer.parseInt(parts[3].trim());
+                        int defenseValue = Integer.parseInt(parts[4].trim());
+                        int damageValue = Integer.parseInt(parts[5].trim());
+                        int speedPenalty = Integer.parseInt(parts[6].trim());
                         int itemID = Integer.parseInt(parts[7].trim());
 
                         // Nieuw Item aanmaken en toevoegen aan lijst
@@ -93,6 +91,7 @@ public class Inventory {
 
     public void removeItems(int itemLocation){
         int itemID = itemsInInventory.get(itemLocation).itemID;
+
         itemsInInventory.remove(itemLocation);
         System.out.println("Item removed from inventory: " + itemList.get(itemID));
     }
