@@ -46,7 +46,7 @@ public class BattleScreen extends ScalableGameScreen {
 
         if (GameApp.isKeyJustPressed(Input.Keys.SPACE)) {
             mainPlayer.setHitpoints(mainPlayer.getHitpoints() - 5);
-
+            EnemyData.getEnemyFromID(1);
         }
 
         // Kill the enemy and return to MyLevelScreen (For Testing)

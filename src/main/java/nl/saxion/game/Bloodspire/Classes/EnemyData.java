@@ -20,7 +20,7 @@ public class EnemyData {
 //    }
     public static ArrayList<Enemy> EnemyArraylist = new ArrayList<>();
 
-    public Enemy getEnemyFromID(int id) {
+    public static Enemy getEnemyFromID(int id) {
         for (Enemy ce : EnemyArraylist) {
             if (ce.enemyID == id) {
                 return ce;
