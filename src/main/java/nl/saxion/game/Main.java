@@ -40,7 +40,7 @@ public class Main {
         GameApp.addScreen("InventoryScreen", new InventoryScreen());
 
         // Start game loop and show main menu screen
-        GameApp.start("Bloodspire", 800, 450, 60, false, "MainMenuScreen");
+        GameApp.start("Bloodspire", 2560, 1600, 60, true, "MainMenuScreen");
     }
 
 //    private static ArrayList<Tile> loadLevelCsv(String path) {
