@@ -37,6 +37,7 @@ public class MainMenuScreen extends ScalableGameScreen {
         if (GameApp.isKeyJustPressed(Input.Keys.S) || GameApp.isKeyJustPressed(Input.Keys.DOWN)) {
             selectedOption = (selectedOption + 1)%3;
         }
+        
         if (GameApp.isKeyJustPressed(Input.Keys.W) || GameApp.isKeyJustPressed(Input.Keys.UP)) {
             selectedOption = (selectedOption - 1)%3;
             if (selectedOption < 0) {

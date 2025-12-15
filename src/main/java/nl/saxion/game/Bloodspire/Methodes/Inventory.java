@@ -1,4 +1,7 @@
-package nl.saxion.game.Bloodspire.Classes;
+package nl.saxion.game.Bloodspire.Methodes;
+
+import nl.saxion.game.Bloodspire.Classes.Item;
+import nl.saxion.game.Bloodspire.Classes.Player;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -86,48 +89,51 @@ public class Inventory {
 
     public void addToInventory(int itemID){
         itemsInInventory.add(itemList.get(itemID));
-        System.out.println("Item added to inventory: " + this.itemList.get(itemID));
+        System.out.println("Item toegevoegd aan de inventory: " + this.itemList.get(itemID));
     }
 
     public void removeItems(int itemLocation){
-        int itemID = itemsInInventory.get(itemLocation).itemID;
+        try {
+            int itemID = itemsInInventory.get(itemLocation).itemID;
+            itemsInInventory.remove(itemLocation);
+            System.out.println("Item verwijderd van de inventory: " + itemList.get(itemID));
+        } catch (Exception e){
+            System.out.println("Item zit niet in je inventory!!");
+        }
 
-        itemsInInventory.remove(itemLocation);
-        System.out.println("Item removed from inventory: " + itemList.get(itemID));
     }
 
     //Controleren of het item wel in de inventory zit voordat je hem kan equippen
     public boolean checkIfInInventory(int itemID) {
-        System.out.println("Checking if player has the item");
+        System.out.println("Checken of de speler het item heeft");
         if (!itemsInInventory.isEmpty()) {
             for (Item tempItem : itemsInInventory){
                 if (tempItem.itemID == itemID){
-                    System.out.println("Player has item in inventory!");
+                    System.out.println("Speler heeft het item in zijn inventory!");
                     return true;
                 }
             }
         } else {
-            System.out.println("Inventory is empty");
+            System.out.println("Inventory is leeg");
         }
-        System.out.println("Player doesn't have the item!");
+        System.out.println("Speler heeft het item niet!");
         return false;
     }
-    
+
     public void equipItem(int itemID){
-        //initializing the item and getting the right spot for the array
         Item currentItem = itemList.get(itemID);
-        int equipslot = itemTypes.indexOf(currentItem.itemType);
+        int equipSlot = itemTypes.indexOf(currentItem.itemType);
 
         if (checkIfInInventory(itemID)) {
-            //putting the currently equipped item in the inventory
-            addToInventory(equipped.get(equipslot).itemID);
-            //equipping the new item and removing it from the inventory
-            equipped.add(equipslot, currentItem);
+            //Stopt het huidige equipped item terug in de inventory
+            addToInventory(equipped.get(equipSlot).itemID);
+            //equipped het nieuwe item en haalt het uit de inventory
+            equipped.add(equipSlot, currentItem);
             System.out.println("Item equipped: " + currentItem);
             changeStats(currentItem);
             removeItems(itemsInInventory.indexOf(currentItem));
         } else {
-            System.out.println("Cannot equip an item if you dont have it!");
+            System.out.println("Je kan een item niet equippen als je hem niet hebt!");
         }
     }
 
@@ -136,8 +142,7 @@ public class Inventory {
         mainPlayer.setAttackDamage(mainPlayer.getAttackDamage()+item.damageValue);
         mainPlayer.setDefense(mainPlayer.getDefense()+item.defenseValue);
         mainPlayer.setAttackSpeed(mainPlayer.getAttackSpeed()+item.speedPenalty);
-        System.out.println("New player stats: \n" + mainPlayer);
-
+        System.out.println("Nieuwe speler stats: \n" + mainPlayer);
     }
 
 

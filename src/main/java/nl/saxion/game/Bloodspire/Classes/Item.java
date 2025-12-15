@@ -1,14 +1,14 @@
 package nl.saxion.game.Bloodspire.Classes;
 
 public class Item {
-    String itemName;
-    String itemType;
-    String rarity;
-    int hitpointsValue;
-    int defenseValue;
-    int damageValue;
-    int speedPenalty;
-    int itemID;
+    public String itemName;
+    public String itemType;
+    public String rarity;
+    public int hitpointsValue;
+    public int defenseValue;
+    public int damageValue;
+    public int speedPenalty;
+    public int itemID;
 
     public Item(String itemName, String itemType, String rarity, int hitpointsValue, int defenseValue, int damageValue, int speedPenalty, int itemID) {
         this.itemName = itemName;
