@@ -5,6 +5,7 @@ import nl.saxion.game.Bloodspire.Classes.Enemy;
 import nl.saxion.game.Bloodspire.Classes.EnemyData;
 import nl.saxion.game.Bloodspire.Classes.Tile;
 import nl.saxion.game.Bloodspire.Methodes.CsvLoader;
+import nl.saxion.game.Bloodspire.Methodes.LevelVars;
 import nl.saxion.game.Bloodspire.Methodes.MapData;
 import nl.saxion.gameapp.GameApp;
 
@@ -12,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Main {
 //    public MapData md = new MapData();
@@ -19,7 +21,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        MapData.setLevel(1, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/LevelTestTile.csv"));
+        MapData.setLevel(1, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv"));
+        LevelVars.setLevelStartX(1, 11);
+        LevelVars.setLevelStartY(1, 11);
+        MapData.setLevel(2, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/LevelTestTile.csv"));
+        LevelVars.setLevelStartX(2, 10);
+        LevelVars.setLevelStartY(2, 10);
+
         EnemyData.EnemyArraylist = CsvLoader.enemyLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Enemy.csv");
         //EnemyData.setId(1, loadEnemyCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Enemy.csv"));
         // Variabels for size of world and viewport (for now only in MyLevelScreen)

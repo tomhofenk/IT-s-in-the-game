@@ -34,6 +34,7 @@ public class BattleScreen extends ScalableGameScreen {
         enemyTileData = getEnemeyData();
         maxHitPoints = (int)mainPlayer.getHitpoints();
         GameApp.addFont("Basic", "fonts/basic.ttf", 2);
+        System.out.println(mainPlayer.getHitpoints());
     }
 
     @Override

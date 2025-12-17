@@ -35,8 +35,8 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         enableHUD(160, 90);
 
         // startpositie (in pixels) — hier 0,0 maar je kunt dit veranderen
-        int startX = 11;
-        int startY = 11;
+        int startX = LevelVars.getLevelStartX(lv.getCurrentLevel());
+        int startY = LevelVars.getLevelStartY(lv.getCurrentLevel());
 
         mv = new MovementVars(
                 startX*64,
@@ -46,15 +46,16 @@ public class MyLevelScreen extends CameraControlledGameScreen {
                 (int)getMouseX(),
                 (int)getMouseY(),
                 GameApp.getFramesPerSecond() / 3,
-                MapData.getLevel(1)
+                MapData.getLevel(lv.getCurrentLevel())
         );
 
         methodes = new Methodes();
-        methodes.getOldCords(mv, lv, startX, startY);
+        if (lv.getCurrentLevel() == LevelVars.getOldLevel()) {
+            methodes.getOldCords(mv, lv, startX, startY);
+        }
 
         // camera direct naar de speler
         setCameraTargetInstantly(mv.playerWorldX, mv.playerWorldY);
-
         methodes.addAllTextures();
 
     }
@@ -64,6 +65,12 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public void render(float delta) {
         updateMV();
         methodes.gameLogic(mv);
+
+        if (GameApp.isKeyJustPressed(Input.Keys.TAB)) {
+            LevelVars.setCurrentLevel(lv.getCurrentLevel()+1);
+            GameApp.switchScreen("MainMenuScreen");
+        }
+
 
         // camera volgen
         setCameraTarget(mv.playerWorldX, mv.playerWorldY);
@@ -81,6 +88,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public void hide() {
         methodes.disposeAllTextures();
         methodes.setOldCords(mv, lv);
+        LevelVars.setOldLevel(lv.getCurrentLevel());
     }
 
     private void updateMV() {
