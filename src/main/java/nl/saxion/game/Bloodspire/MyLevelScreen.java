@@ -1,7 +1,10 @@
 package nl.saxion.game.Bloodspire;
 
 import com.badlogic.gdx.Input;
+<<<<<<< Updated upstream
 import com.badlogic.gdx.graphics.Color;
+=======
+>>>>>>> Stashed changes
 import nl.saxion.game.Bloodspire.Classes.Player;
 import nl.saxion.game.Bloodspire.Classes.Tile;
 import nl.saxion.game.Bloodspire.Methodes.*;
