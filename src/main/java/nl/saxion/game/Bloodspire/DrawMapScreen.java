@@ -137,7 +137,7 @@ public class DrawMapScreen extends ScalableGameScreen {
                     index++;
                 }
                 if (dt.color == Color.GRAY) {
-                    System.out.println(index + "," + dt.x*64 + "," + dt.y*64 + "," + dt.x + "," + dt.y + "," + "false" + "," + "\\N" + "," + "Wall" + "," + "false");
+                    System.out.println(index + "," + dt.x*64 + "," + dt.y*64 + "," + dt.x + "," + dt.y + "," + "false" + "," + "0" + "," + "Wall" + "," + "false");
                     index++;
                 }
 
