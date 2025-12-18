@@ -28,7 +28,7 @@ public class CsvLoader {
                     int gridX = Integer.parseInt(columns[3].trim());
                     int gridY = Integer.parseInt(columns[4].trim());
                     boolean hasEnemy = columns[5].trim().equals("true");
-                    String enemyID = columns[6].trim().equals("\\N") ? null : columns[6].trim();
+                    int enemyID = Integer.parseInt(columns[6].trim());
                     String tileType = columns[7].trim();  // Nieuwe kolom tileType
                     boolean walkable = columns[8].trim().equals("true");
 

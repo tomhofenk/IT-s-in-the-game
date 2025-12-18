@@ -8,13 +8,13 @@ public class MainMenuScreen extends ScalableGameScreen {
     int selectedOption = 0;
 
     public MainMenuScreen() {
-        super(1280, 720);
+        super(2560, 1600);
     }
 
 
     @Override
     public void show() {
-        GameApp.addFont("basic", "fonts/basic.ttf", getWorldWidth()/12);
+        GameApp.addFont("basic", "fonts/basic.ttf", getWorldWidth()/25);
     }
 
     @Override
@@ -37,6 +37,7 @@ public class MainMenuScreen extends ScalableGameScreen {
         if (GameApp.isKeyJustPressed(Input.Keys.S) || GameApp.isKeyJustPressed(Input.Keys.DOWN)) {
             selectedOption = (selectedOption + 1)%3;
         }
+
         if (GameApp.isKeyJustPressed(Input.Keys.W) || GameApp.isKeyJustPressed(Input.Keys.UP)) {
             selectedOption = (selectedOption - 1)%3;
             if (selectedOption < 0) {

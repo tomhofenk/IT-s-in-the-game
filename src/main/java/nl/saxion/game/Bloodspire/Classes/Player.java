@@ -1,53 +1,53 @@
 package nl.saxion.game.Bloodspire.Classes;
 
 public class Player {
-    private static double hitpoints = 100;
-    private static double attackSpeed = 1;
-    private static double attackDamage = 1;
-    private static double defense = 0;
-    private static double experience = 0;
+    private static int hitpoints = 100;
+    private static int attackSpeed = 1;
+    private static int attackDamage = 1;
+    private static int defense = 0;
+    private static int experience = 0;
     private static int level = 1;
 
 
 
-    public double getHitpoints() {
+    public int getHitpoints() {
         return hitpoints;
     }
 
-    public void setHitpoints(double hitpoints) {
-        this.hitpoints = hitpoints;
+    public void setHitpoints(int hitpoints) {
+        Player.hitpoints = hitpoints;
     }
 
-    public double getAttackSpeed() {
+    public int getAttackSpeed() {
         return attackSpeed;
     }
 
-    public void setAttackSpeed(double attackSpeed) {
-        this.attackSpeed = attackSpeed;
+    public void setAttackSpeed(int attackSpeed) {
+        Player.attackSpeed = attackSpeed;
     }
 
-    public double getAttackDamage() {
+    public int getAttackDamage() {
         return attackDamage;
     }
 
-    public void setAttackDamage(double attackDamage) {
-        this.attackDamage = attackDamage;
+    public void setAttackDamage(int attackDamage) {
+        Player.attackDamage = attackDamage;
     }
 
-    public double getDefense() {
+    public int getDefense() {
         return defense;
     }
 
-    public void setDefense(double defense) {
-        this.defense = defense;
+    public void setDefense(int defense) {
+        Player.defense = defense;
     }
 
-    public double getExperience() {
+    public int getExperience() {
         return experience;
     }
 
-    public void setExperience(double experience) {
-        this.experience = experience;
+    public void setExperience(int experience) {
+        Player.experience = experience;
     }
 
     public int getLevel() {
@@ -55,7 +55,7 @@ public class Player {
     }
 
     public void setLevel(int level) {
-        this.level = level;
+        Player.level = level;
     }
 
     @Override
