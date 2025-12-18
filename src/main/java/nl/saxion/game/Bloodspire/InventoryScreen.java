@@ -1,6 +1,8 @@
 package nl.saxion.game.Bloodspire;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import nl.saxion.game.Bloodspire.Classes.Item;
 import nl.saxion.game.Bloodspire.Methodes.Inventory;
 import nl.saxion.game.Bloodspire.Classes.Player;
 import nl.saxion.gameapp.GameApp;
@@ -14,11 +16,13 @@ public class InventoryScreen extends ScalableGameScreen {
 
 
     public InventoryScreen() {
-        super(10, 5);
+        super(2560, 1600);
     }
 
     @Override
     public void show() {
+
+        GameApp.addFont("Basic","fonts/basic.ttf",getWorldWidth()/20);
     }
 
     public void render(float delta) {
@@ -65,8 +69,8 @@ public class InventoryScreen extends ScalableGameScreen {
 
         // ALWAYS CALL super.render(delta) AFTERWARDS!!!
         // This applies the camera settings to the shape renderer and sprite batch.
-
-
+        renderLayout();
+        showItems();
     }
     
 
@@ -75,4 +79,31 @@ public class InventoryScreen extends ScalableGameScreen {
     public void hide() {
 
     }
+
+
+    private void renderLayout() {
+        GameApp.startShapeRenderingFilled();
+        GameApp.drawRect(0,0,1270,1600, Color.GRAY);
+        GameApp.drawRect(1290,0,1250,1600, Color.GRAY);
+        GameApp.endShapeRendering();
+
+        GameApp.startSpriteRendering();
+        GameApp.drawText("Basic", "Test", 1280,800,Color.GREEN);
+        GameApp.endSpriteRendering();
+    }
+
+    private void showItems(){
+        //Inventory kant
+
+
+        //Equipment kant
+        for (Item currentItem  : inventory.getEquipped()) {
+            System.out.println("test");
+
+        }
+
+
+    }
+
+
 }

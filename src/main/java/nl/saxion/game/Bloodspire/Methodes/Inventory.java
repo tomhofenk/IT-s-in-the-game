@@ -146,4 +146,11 @@ public class Inventory {
     }
 
 
+    public ArrayList<Item> getEquipped() {
+        return equipped;
+    }
+
+    public ArrayList<Item> getItemsInInventory() {
+        return itemsInInventory;
+    }
 }
