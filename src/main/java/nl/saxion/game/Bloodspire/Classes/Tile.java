@@ -6,12 +6,12 @@ public class Tile {
     public int worldX, worldY;
     public int gridX, gridY;
     public boolean hasEnemy;
-    public String enemyID;
+    public int enemyID;
     public String tileType;
     public boolean walkable;
 
     // Constructor
-    public Tile(int tileID, int worldX, int worldY, int gridX, int gridY, boolean hasEnemy, String enemyID, String tileType, boolean walkable) {
+    public Tile(int tileID, int worldX, int worldY, int gridX, int gridY, boolean hasEnemy, int enemyID, String tileType, boolean walkable) {
         this.tileID = tileID;
         this.worldX = worldX;
         this.worldY = worldY;
