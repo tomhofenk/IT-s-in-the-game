@@ -1,5 +1,6 @@
 package nl.saxion.game.Bloodspire;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import nl.saxion.game.Bloodspire.Classes.Item;
@@ -22,7 +23,7 @@ public class InventoryScreen extends ScalableGameScreen {
     @Override
     public void show() {
 
-        GameApp.addFont("Basic","fonts/basic.ttf",getWorldWidth()/20);
+        GameApp.addFont("Basic","fonts/basic.ttf",getWorldWidth()/75);
     }
 
     public void render(float delta) {
@@ -93,16 +94,22 @@ public class InventoryScreen extends ScalableGameScreen {
     }
 
     private void showItems(){
+        int yInventoryPlacement = 1570;
+        int i = 1;
+        GameApp.startSpriteRendering();
         //Inventory kant
-
-
+        for (Item currentItem : inventory.getItemsInInventory()) {
+            GameApp.drawText("Basic", i + ": " + currentItem.toString(), 0, yInventoryPlacement, Color.WHITE);
+            yInventoryPlacement -= 40;
+            i++;
+        }
         //Equipment kant
         for (Item currentItem  : inventory.getEquipped()) {
-            System.out.println("test");
-
+            GameApp.drawText("Basic", i + ": " + currentItem.toString(), 1290, yInventoryPlacement, Color.WHITE);
+            yInventoryPlacement -= 40;
+            i++;
         }
-
-
+        GameApp.endSpriteRendering();
     }
 
 
