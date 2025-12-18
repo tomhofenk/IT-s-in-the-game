@@ -13,6 +13,7 @@ import nl.saxion.gameapp.screens.ScalableGameScreen;
 public class InventoryScreen extends ScalableGameScreen {
     public static Inventory inventory = new Inventory();
     public Player mainPlayer = new Player();
+    int selected = 1;
 
 
 
@@ -42,34 +43,42 @@ public class InventoryScreen extends ScalableGameScreen {
             GameApp.switchScreen("MyLevelScreen");
         }
 
-        if (GameApp.isKeyJustPressed(Input.Keys.A)) {
+        //Switchen van geselecteerde item
+        if (GameApp.isKeyJustPressed(Input.Keys.W) || GameApp.isKeyJustPressed(Input.Keys.UP)) {
+            selected--;
+            if (selected <= 0){
+                selected = inventory.getItemsInInventory().size();
+            }
+        }
+        if (GameApp.isKeyJustPressed(Input.Keys.S) || GameApp.isKeyJustPressed(Input.Keys.DOWN)) {
+            selected++;
+            if (selected > inventory.getItemsInInventory().size()){
+                selected = 1;
+            }
+        }
+
+
+        //equippen van een item
+        if (GameApp.isKeyJustPressed(Input.Keys.ENTER)) {
+            inventory.equipItem(selected);
+        }
+
+        //testen
+        if (GameApp.isKeyJustPressed(Input.Keys.B)) {
             inventory.showInventory();
         }
-
-        if (GameApp.isKeyJustPressed(Input.Keys.S)) {
+        if (GameApp.isKeyJustPressed(Input.Keys.Z)) {
             inventory.addToInventory(0);
         }
-
-        if (GameApp.isKeyJustPressed(Input.Keys.D)) {
+        if (GameApp.isKeyJustPressed(Input.Keys.X)) {
             inventory.removeItems(0);
         }
-
-        if (GameApp.isKeyJustPressed(Input.Keys.F)) {
+        if (GameApp.isKeyJustPressed(Input.Keys.C)) {
             inventory.equipItem(0);
         }
-
-        if (GameApp.isKeyJustPressed(Input.Keys.G)) {
+        if (GameApp.isKeyJustPressed(Input.Keys.V)) {
             System.out.println(mainPlayer.toString());
         }
-
-        //testen (Stats max)
-        if (GameApp.isKeyJustPressed(Input.Keys.M)) {
-            inventory.addToInventory(0);
-            inventory.equipItem(0);
-        }
-
-        // ALWAYS CALL super.render(delta) AFTERWARDS!!!
-        // This applies the camera settings to the shape renderer and sprite batch.
         renderLayout();
         showItems();
     }
@@ -87,10 +96,6 @@ public class InventoryScreen extends ScalableGameScreen {
         GameApp.drawRect(0,0,1270,1600, Color.GRAY);
         GameApp.drawRect(1290,0,1250,1600, Color.GRAY);
         GameApp.endShapeRendering();
-
-        GameApp.startSpriteRendering();
-        GameApp.drawText("Basic", "Test", 1280,800,Color.GREEN);
-        GameApp.endSpriteRendering();
     }
 
     private void showItems(){
@@ -99,15 +104,19 @@ public class InventoryScreen extends ScalableGameScreen {
         GameApp.startSpriteRendering();
         //Inventory kant
         for (Item currentItem : inventory.getItemsInInventory()) {
-            GameApp.drawText("Basic", i + ": " + currentItem.toString(), 0, yInventoryPlacement, Color.WHITE);
+            if (i == selected) {
+                GameApp.drawText("Basic", i + ": " + currentItem.toString(), 0, yInventoryPlacement, Color.ORANGE);
+            } else {
+                GameApp.drawText("Basic", i + ": " + currentItem.toString(), 0, yInventoryPlacement, Color.WHITE);
+            }
             yInventoryPlacement -= 40;
             i++;
         }
         //Equipment kant
+        yInventoryPlacement = 1570;
         for (Item currentItem  : inventory.getEquipped()) {
             GameApp.drawText("Basic", i + ": " + currentItem.toString(), 1290, yInventoryPlacement, Color.WHITE);
             yInventoryPlacement -= 40;
-            i++;
         }
         GameApp.endSpriteRendering();
     }

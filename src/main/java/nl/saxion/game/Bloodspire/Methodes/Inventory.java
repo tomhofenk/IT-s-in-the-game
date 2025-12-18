@@ -65,7 +65,7 @@ public class Inventory {
                         Item currentItem = itemList.get(i+183);
                         equipped.add(i,currentItem);
                         System.out.println("Item equipped: " + currentItem);
-                        changeStats(currentItem);
+                        changeStats(itemList.get(190), currentItem);
                     }
                     System.out.println("Starting gear equipped");
                 }
@@ -128,20 +128,29 @@ public class Inventory {
             //Stopt het huidige equipped item terug in de inventory
             addToInventory(equipped.get(equipSlot).itemID);
             //equipped het nieuwe item en haalt het uit de inventory
+            changeStats(equipped.get(equipSlot), currentItem);
+            equipped.remove(equipSlot);
             equipped.add(equipSlot, currentItem);
             System.out.println("Item equipped: " + currentItem);
-            changeStats(currentItem);
             removeItems(itemsInInventory.indexOf(currentItem));
         } else {
             System.out.println("Je kan een item niet equippen als je hem niet hebt!");
         }
     }
 
-    public void changeStats(Item item) {
-        mainPlayer.setHitpoints(mainPlayer.getHitpoints()+item.hitpointsValue);
-        mainPlayer.setAttackDamage(mainPlayer.getAttackDamage()+item.damageValue);
-        mainPlayer.setDefense(mainPlayer.getDefense()+item.defenseValue);
-        mainPlayer.setAttackSpeed(mainPlayer.getAttackSpeed()+item.speedPenalty);
+    public void changeStats(Item oldItem, Item newItem) {
+        //Stats verwijderen van oude gear
+        mainPlayer.setHitpoints(mainPlayer.getHitpoints() - oldItem.hitpointsValue);
+        mainPlayer.setHitpoints(mainPlayer.getAttackDamage() - oldItem.damageValue);
+        mainPlayer.setDefense(mainPlayer.getDefense() - oldItem.defenseValue);
+        mainPlayer.setAttackSpeed(mainPlayer.getAttackSpeed() - oldItem.speedPenalty);
+
+        //Stats toevoegen van nieuwe gear
+        mainPlayer.setHitpoints(mainPlayer.getHitpoints() + newItem.hitpointsValue);
+        mainPlayer.setAttackDamage(mainPlayer.getAttackDamage() + newItem.damageValue);
+        mainPlayer.setDefense(mainPlayer.getDefense() + newItem.defenseValue);
+        mainPlayer.setAttackSpeed(mainPlayer.getAttackSpeed() + newItem.speedPenalty);
+
         System.out.println("Nieuwe speler stats: \n" + mainPlayer);
     }
 
