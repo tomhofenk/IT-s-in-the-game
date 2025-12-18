@@ -15,6 +15,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public LevelVars lv = new LevelVars();
     private int framesCounter = 0;
     //public Player mainPlayer = new Player();
+    boolean nextLevel = false;
 
 
     public MyLevelScreen(int viewportWidth, int viewportHeight, int worldWidth, int worldHeight) {
@@ -31,7 +32,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         // startpositie (in pixels) — hier 0,0 maar je kunt dit veranderen
         int startX = LevelVars.getLevelStartX(lv.getCurrentLevel());
         int startY = LevelVars.getLevelStartY(lv.getCurrentLevel());
-
+        System.out.println("startX: " + startX + " startY: " + startY);
         mv = new MovementVars(
                 startX*64,
                 startY*64,
@@ -42,9 +43,10 @@ public class MyLevelScreen extends CameraControlledGameScreen {
                 GameApp.getFramesPerSecond() / 3,
                 MapData.getLevel(lv.getCurrentLevel())
         );
+        System.out.println(lv.getCurrentLevel());
 
         methodes = new Methodes();
-        if (lv.getCurrentLevel() == LevelVars.getOldLevel()) {
+        if (lv.getCurrentLevel() == lv.getOldLevel()) {
             methodes.getOldCords(mv, lv, startX, startY);
         }
 
@@ -61,7 +63,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         methodes.gameLogic(mv);
 
         if (GameApp.isKeyJustPressed(Input.Keys.TAB)) {
-            LevelVars.setCurrentLevel(lv.getCurrentLevel()+1);
+            nextLevel = true;
             GameApp.switchScreen("MainMenuScreen");
         }
 
@@ -83,6 +85,10 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         methodes.disposeAllTextures();
         methodes.setOldCords(mv, lv);
         LevelVars.setOldLevel(lv.getCurrentLevel());
+        System.out.println(LevelVars.getOldLevel());
+        if (nextLevel) {
+            LevelVars.setCurrentLevel(lv.getCurrentLevel()+1);
+        }
     }
 
     private void updateMV() {
