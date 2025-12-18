@@ -1,5 +1,7 @@
 package nl.saxion.game.Bloodspire;
 
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import nl.saxion.game.Bloodspire.Classes.Player;
 import nl.saxion.game.Bloodspire.Methodes.*;
 import nl.saxion.gameapp.GameApp;
@@ -13,6 +15,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public LevelVars lv = new LevelVars();
     private int framesCounter = 0;
     //public Player mainPlayer = new Player();
+    boolean nextLevel = false;
 
 
     public MyLevelScreen(int viewportWidth, int viewportHeight, int worldWidth, int worldHeight) {
@@ -27,9 +30,9 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         enableHUD(160, 90);
 
         // startpositie (in pixels) — hier 0,0 maar je kunt dit veranderen
-        int startX = 11;
-        int startY = 11;
-
+        int startX = LevelVars.getLevelStartX(lv.getCurrentLevel());
+        int startY = LevelVars.getLevelStartY(lv.getCurrentLevel());
+        System.out.println("startX: " + startX + " startY: " + startY);
         mv = new MovementVars(
                 startX*64,
                 startY*64,
@@ -38,11 +41,14 @@ public class MyLevelScreen extends CameraControlledGameScreen {
                 (int)getMouseX(),
                 (int)getMouseY(),
                 GameApp.getFramesPerSecond() / 3,
-                MapData.getLevel(1)
+                MapData.getLevel(lv.getCurrentLevel())
         );
+        System.out.println(lv.getCurrentLevel());
 
         methodes = new Methodes();
-        methodes.getOldCords(mv, lv, startX, startY);
+        if (lv.getCurrentLevel() == lv.getOldLevel()) {
+            methodes.getOldCords(mv, lv, startX, startY);
+        }
 
         // camera direct naar de speler
         setCameraTargetInstantly((mv.playerWorldX+mv.pixelPerGridTile/2), (mv.playerWorldY+mv.pixelPerGridTile/2));
@@ -56,6 +62,12 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public void render(float delta) {
         updateMV();
         methodes.gameLogic(mv);
+
+        if (GameApp.isKeyJustPressed(Input.Keys.TAB)) {
+            nextLevel = true;
+            GameApp.switchScreen("MainMenuScreen");
+        }
+
 
         // camera volgen
         setCameraTarget((mv.playerWorldX+mv.pixelPerGridTile/2), (mv.playerWorldY+mv.pixelPerGridTile/2));
@@ -73,6 +85,11 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public void hide() {
         methodes.disposeAllTextures();
         methodes.setOldCords(mv, lv);
+        LevelVars.setOldLevel(lv.getCurrentLevel());
+        System.out.println(LevelVars.getOldLevel());
+        if (nextLevel) {
+            LevelVars.setCurrentLevel(lv.getCurrentLevel()+1);
+        }
     }
 
     private void updateMV() {
