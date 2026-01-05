@@ -155,9 +155,74 @@ public class Inventory {
     }
 
     public void giveRandomItem(){
-        int itemID = 1 + (int)(Math.random() * ((182-1) + 1));
-        System.out.println(itemID);
-        addToInventory(itemID);
+        int chancePercentage = 1 + (int)(Math.random() * ((100-1) + 1));
+        ArrayList<Item> tempList = new ArrayList<>();
+
+        if (chancePercentage >= 1 && chancePercentage <= 50) {
+            for (Item tempItem : itemList) {
+                if (tempItem.rarity.equals("common")){
+                    tempList.add(tempItem);
+                }
+            }
+            System.out.println("You pulled a common item! (50% chance)");
+            System.out.println(chancePercentage);
+            int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1) + 1));
+            System.out.println(randomInt);
+            System.out.println(tempList.size());
+            addToInventory(tempList.get(randomInt-1).itemID);
+        } else if (chancePercentage > 50 && chancePercentage <= 70) {
+            for (Item tempItem : itemList) {
+                if (tempItem.rarity.equals("uncommon")){
+                    tempList.add(tempItem);
+                }
+            }
+            System.out.println("You pulled an uncommon item! (20% chance)");
+            System.out.println(chancePercentage);
+            int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1) + 1));
+            System.out.println(randomInt);
+            System.out.println(tempList.size());
+            addToInventory(tempList.get(randomInt-1).itemID);
+            tempList.clear();
+        } else if (chancePercentage > 70 && chancePercentage <= 85) {
+            for (Item tempItem : itemList) {
+                if (tempItem.rarity.equals("rare")){
+                    tempList.add(tempItem);
+                }
+            }
+            System.out.println("You pulled a rare item! (15% chance)");
+            System.out.println(chancePercentage);
+            int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1 ) + 1));
+            System.out.println(randomInt);
+            System.out.println(tempList.size());
+            addToInventory(tempList.get(randomInt-1).itemID);
+            tempList.clear();
+        } else if (chancePercentage > 85 && chancePercentage <= 95) {
+            for (Item tempItem : itemList) {
+                if (tempItem.rarity.equals("epic")){
+                    tempList.add(tempItem);
+                }
+            }
+            System.out.println("You pulled an epic item! (10% chance)");
+            System.out.println(chancePercentage);
+            int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1) + 1));
+            System.out.println(randomInt);
+            System.out.println(tempList.size());
+            addToInventory(tempList.get(randomInt-1).itemID);
+            tempList.clear();
+        } else {
+            for (Item tempItem : itemList) {
+                if (tempItem.rarity.equals("legendary")){
+                    tempList.add(tempItem);
+                }
+            }
+            System.out.println("You pulled a legendary item! (5% chance)");
+            System.out.println(chancePercentage);
+            int randomInt = 1 + (int)(Math.random() * ((tempList.size()-1) + 1));
+            System.out.println(randomInt);
+            System.out.println(tempList.size());
+            addToInventory(tempList.get(randomInt-1).itemID);
+            tempList.clear();
+        }
     }
 
 

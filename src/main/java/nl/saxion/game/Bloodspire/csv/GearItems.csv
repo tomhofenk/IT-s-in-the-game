@@ -1,5 +1,5 @@
 itemName, itemType, rarity, hitpointsValue, defenseValue, damageValue, speedPenalty, itemID
-OP HELMET,helmet,legendary,10000,10000,10000,10000,0
+OP HELMET,helmet,OP,10000,10000,10000,10000,0
 Crown of Emberveil,helmet,common,5,2,1,1,1
 Helm of Frostmarsh,helmet,common,5,2,1,1,2
 Ironbloom Helm,helmet,common,5,2,1,1,3
@@ -182,11 +182,11 @@ Moonforge Bastion,shield,epic,8,12,9,4,179
 Starbreaker Wardshield,shield,epic,8,12,9,4,180
 Blackstar Fortress,shield,epic,8,12,9,4,181
 Shield of the First Flame,shield,legendary,10,15,12,5,182
-Leather Helmet,helmet,common,1,1,1,1,183
-Leather Chestplate,chestplate,common,1,1,1,1,184
-Leather Leggings,leggings,common,1,1,1,1,185
-Leather Boots,boots,common,1,1,1,1,186
-Leather Necklace,necklace,common,1,1,1,1,187
-Wooden Sword,sword,common,1,1,1,1,188
-Leather Shield,shield,common,1,1,1,1,189
-Buffer,helmet,common,0,0,0,0,190
+Leather Helmet,helmet,starter,1,1,1,1,183
+Leather Chestplate,chestplate,starter,1,1,1,1,184
+Leather Leggings,leggings,starter,1,1,1,1,185
+Leather Boots,boots,starter,1,1,1,1,186
+Leather Necklace,necklace,starter,1,1,1,1,187
+Wooden Sword,sword,starter,1,1,1,1,188
+Leather Shield,shield,starter,1,1,1,1,189
+Buffer,helmet,system,0,0,0,0,190
