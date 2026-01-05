@@ -141,7 +141,7 @@ public class Inventory {
     public void changeStats(Item oldItem, Item newItem) {
         //Stats verwijderen van oude gear
         mainPlayer.setHitpoints(mainPlayer.getHitpoints() - oldItem.hitpointsValue);
-        mainPlayer.setHitpoints(mainPlayer.getAttackDamage() - oldItem.damageValue);
+        mainPlayer.setAttackDamage(mainPlayer.getAttackDamage() - oldItem.damageValue);
         mainPlayer.setDefense(mainPlayer.getDefense() - oldItem.defenseValue);
         mainPlayer.setAttackSpeed(mainPlayer.getAttackSpeed() - oldItem.speedPenalty);
 

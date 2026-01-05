@@ -58,10 +58,14 @@ public class InventoryScreen extends ScalableGameScreen {
         }
 
 
-        //equippen van een item
+        //equippen en/of verwijderen van een item
         if (GameApp.isKeyJustPressed(Input.Keys.ENTER)) {
-            inventory.equipItem(selected);
+            inventory.equipItem(inventory.getItemsInInventory().get(selected-1).itemID);
         }
+        if (GameApp.isKeyJustPressed(Input.Keys.FORWARD_DEL)) {
+            inventory.removeItems(selected-1);
+        }
+
 
         //testen
         if (GameApp.isKeyJustPressed(Input.Keys.B)) {
@@ -114,9 +118,11 @@ public class InventoryScreen extends ScalableGameScreen {
         }
         //Equipment kant
         yInventoryPlacement = 1570;
+        i = 1;
         for (Item currentItem  : inventory.getEquipped()) {
             GameApp.drawText("Basic", i + ": " + currentItem.toString(), 1290, yInventoryPlacement, Color.WHITE);
             yInventoryPlacement -= 40;
+            i++;
         }
         GameApp.endSpriteRendering();
     }
