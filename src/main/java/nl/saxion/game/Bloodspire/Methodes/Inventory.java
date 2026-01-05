@@ -154,6 +154,12 @@ public class Inventory {
         System.out.println("Nieuwe speler stats: \n" + mainPlayer);
     }
 
+    public void giveRandomItem(){
+        int itemID = 1 + (int)(Math.random() * ((182-1) + 1));
+        System.out.println(itemID);
+        addToInventory(itemID);
+    }
+
 
     public ArrayList<Item> getEquipped() {
         return equipped;
