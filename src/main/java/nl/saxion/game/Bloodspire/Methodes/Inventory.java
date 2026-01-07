@@ -65,7 +65,7 @@ public class Inventory {
                         Item currentItem = itemList.get(i+183);
                         equipped.add(i,currentItem);
                         System.out.println("Item equipped: " + currentItem);
-                        changeStats(currentItem);
+                        changeStats(itemList.get(190), currentItem);
                     }
                     System.out.println("Starting gear equipped");
                 }
@@ -128,22 +128,109 @@ public class Inventory {
             //Stopt het huidige equipped item terug in de inventory
             addToInventory(equipped.get(equipSlot).itemID);
             //equipped het nieuwe item en haalt het uit de inventory
+            changeStats(equipped.get(equipSlot), currentItem);
+            equipped.remove(equipSlot);
             equipped.add(equipSlot, currentItem);
             System.out.println("Item equipped: " + currentItem);
-            changeStats(currentItem);
             removeItems(itemsInInventory.indexOf(currentItem));
         } else {
             System.out.println("Je kan een item niet equippen als je hem niet hebt!");
         }
     }
 
-    public void changeStats(Item item) {
-        mainPlayer.setHitpoints(mainPlayer.getHitpoints()+item.hitpointsValue);
-        mainPlayer.setAttackDamage(mainPlayer.getAttackDamage()+item.damageValue);
-        mainPlayer.setDefense(mainPlayer.getDefense()+item.defenseValue);
-        mainPlayer.setAttackSpeed(mainPlayer.getAttackSpeed()+item.speedPenalty);
+    public void changeStats(Item oldItem, Item newItem) {
+        //Stats verwijderen van oude gear
+        mainPlayer.setHitpoints(mainPlayer.getHitpoints() - oldItem.hitpointsValue);
+        mainPlayer.setAttackDamage(mainPlayer.getAttackDamage() - oldItem.damageValue);
+        mainPlayer.setDefense(mainPlayer.getDefense() - oldItem.defenseValue);
+        mainPlayer.setAttackSpeed(mainPlayer.getAttackSpeed() - oldItem.speedPenalty);
+
+        //Stats toevoegen van nieuwe gear
+        mainPlayer.setHitpoints(mainPlayer.getHitpoints() + newItem.hitpointsValue);
+        mainPlayer.setAttackDamage(mainPlayer.getAttackDamage() + newItem.damageValue);
+        mainPlayer.setDefense(mainPlayer.getDefense() + newItem.defenseValue);
+        mainPlayer.setAttackSpeed(mainPlayer.getAttackSpeed() + newItem.speedPenalty);
+
         System.out.println("Nieuwe speler stats: \n" + mainPlayer);
     }
 
+    public void giveRandomItem(){
+        int chancePercentage = 1 + (int)(Math.random() * ((100-1) + 1));
+        ArrayList<Item> tempList = new ArrayList<>();
 
+        if (chancePercentage >= 1 && chancePercentage <= 50) {
+            for (Item tempItem : itemList) {
+                if (tempItem.rarity.equals("common")){
+                    tempList.add(tempItem);
+                }
+            }
+            System.out.println("You pulled a common item! (50% chance)");
+            System.out.println(chancePercentage);
+            int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1) + 1));
+            System.out.println(randomInt);
+            System.out.println(tempList.size());
+            addToInventory(tempList.get(randomInt-1).itemID);
+        } else if (chancePercentage > 50 && chancePercentage <= 70) {
+            for (Item tempItem : itemList) {
+                if (tempItem.rarity.equals("uncommon")){
+                    tempList.add(tempItem);
+                }
+            }
+            System.out.println("You pulled an uncommon item! (20% chance)");
+            System.out.println(chancePercentage);
+            int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1) + 1));
+            System.out.println(randomInt);
+            System.out.println(tempList.size());
+            addToInventory(tempList.get(randomInt-1).itemID);
+            tempList.clear();
+        } else if (chancePercentage > 70 && chancePercentage <= 85) {
+            for (Item tempItem : itemList) {
+                if (tempItem.rarity.equals("rare")){
+                    tempList.add(tempItem);
+                }
+            }
+            System.out.println("You pulled a rare item! (15% chance)");
+            System.out.println(chancePercentage);
+            int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1 ) + 1));
+            System.out.println(randomInt);
+            System.out.println(tempList.size());
+            addToInventory(tempList.get(randomInt-1).itemID);
+            tempList.clear();
+        } else if (chancePercentage > 85 && chancePercentage <= 95) {
+            for (Item tempItem : itemList) {
+                if (tempItem.rarity.equals("epic")){
+                    tempList.add(tempItem);
+                }
+            }
+            System.out.println("You pulled an epic item! (10% chance)");
+            System.out.println(chancePercentage);
+            int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1) + 1));
+            System.out.println(randomInt);
+            System.out.println(tempList.size());
+            addToInventory(tempList.get(randomInt-1).itemID);
+            tempList.clear();
+        } else {
+            for (Item tempItem : itemList) {
+                if (tempItem.rarity.equals("legendary")){
+                    tempList.add(tempItem);
+                }
+            }
+            System.out.println("You pulled a legendary item! (5% chance)");
+            System.out.println(chancePercentage);
+            int randomInt = 1 + (int)(Math.random() * ((tempList.size()-1) + 1));
+            System.out.println(randomInt);
+            System.out.println(tempList.size());
+            addToInventory(tempList.get(randomInt-1).itemID);
+            tempList.clear();
+        }
+    }
+
+
+    public ArrayList<Item> getEquipped() {
+        return equipped;
+    }
+
+    public ArrayList<Item> getItemsInInventory() {
+        return itemsInInventory;
+    }
 }

@@ -51,7 +51,8 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         }
 
         // camera direct naar de speler
-        setCameraTargetInstantly(mv.playerWorldX, mv.playerWorldY);
+        setCameraTargetInstantly((mv.playerWorldX+mv.pixelPerGridTile/2), (mv.playerWorldY+mv.pixelPerGridTile/2));
+
         methodes.addAllTextures();
 
     }
@@ -73,7 +74,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
 
         // camera volgen
-        setCameraTarget(mv.playerWorldX, mv.playerWorldY);
+        setCameraTarget((mv.playerWorldX+mv.pixelPerGridTile/2), (mv.playerWorldY+mv.pixelPerGridTile/2));
 
         super.render(delta);
 

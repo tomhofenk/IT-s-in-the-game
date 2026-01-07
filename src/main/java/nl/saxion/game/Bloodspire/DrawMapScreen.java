@@ -35,7 +35,7 @@ public class DrawMapScreen extends ScalableGameScreen {
         //printColors();
         //printSizes();
         GameApp.addColor("GridColor", 255,255,255,102);
-        GameApp.addFont("basic", "fonts/5x5_pixel.ttf", 1);
+        GameApp.addFont("basic", "fonts/basic.ttf", 1);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class Item {
 
     @Override //text weergave voor items bekijken
     public String toString() {
-        return itemName + ", " + rarity + "(Item type: " + itemType + ", Hitpoints: " + hitpointsValue +
-                ", Defense: " + defenseValue + "Damage value: " + damageValue + ", Speed impact: " + speedPenalty + ", item ID: " + itemID + ")";
+        return itemName + ", " + rarity + " (" + itemType + ", HP: " + hitpointsValue +
+                ", Def: " + defenseValue + ", DMG: " + damageValue + ", ATK SP: " + speedPenalty + ", ID: " + itemID + ")";
     }
 }
