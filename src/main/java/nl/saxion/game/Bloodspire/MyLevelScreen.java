@@ -67,6 +67,10 @@ public class MyLevelScreen extends CameraControlledGameScreen {
             GameApp.switchScreen("MainMenuScreen");
         }
 
+        if (GameApp.isKeyJustPressed(Input.Keys.ENTER)) {
+            GameApp.switchScreen("DooDScreen");
+        }
+
 
         // camera volgen
         setCameraTarget(mv.playerWorldX, mv.playerWorldY);
