@@ -1,6 +1,7 @@
 package nl.saxion.game.Bloodspire.Methodes;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Interpolation;
 import nl.saxion.game.Bloodspire.Classes.Tile;
 import nl.saxion.game.Bloodspire.MyLevelScreen;
 import nl.saxion.gameapp.GameApp;
@@ -18,7 +19,6 @@ public class Methodes {
 
     // public zodat MyLevelScreen deze kan aanroepen: methodes.Movement(mv);
     public void Movement(MovementVars mv) {
-
         ArrayList<String> Directions = canMoveTo(mv);
 
         if (GameApp.isKeyJustPressed(Input.Keys.L)) {
@@ -27,6 +27,7 @@ public class Methodes {
 
         // veiligheids-check: voorkom modulo 0
         if (mv.minTimeBetweenMovement <= 0) mv.minTimeBetweenMovement = 1;
+
 
         for (String currentDirection : Directions) {
             int keyCode = Keymap.keyMap.get(currentDirection);

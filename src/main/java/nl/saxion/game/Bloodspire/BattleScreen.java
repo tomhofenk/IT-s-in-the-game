@@ -16,7 +16,7 @@ public class BattleScreen extends ScalableGameScreen {
     public LevelVars lv = new LevelVars();
     public Player mainPlayer = new Player();
     private Methodes methodes;
-    private Tile enemyTileData = null;
+    private Tile enemyTileData;
     private Enemy currentEnemy = new Enemy();
     private int playerHitPoints;
     private int maxPlayerHitPoints = 0;
@@ -38,7 +38,7 @@ public class BattleScreen extends ScalableGameScreen {
     @Override
     public void show() {
         mv = new MovementVars(0,0,0,0,0,0,0,
-                MapData.getLevel(lv.getCurrentLevel())
+                MapData.getLevel(LevelVars.getCurrentLevel())
         );
         methodes = new Methodes();
         methodes.addAllTextures();
@@ -226,6 +226,7 @@ public class BattleScreen extends ScalableGameScreen {
                 }
                 if (toRemove != null) {
                     mv.mapData.remove(toRemove);
+                    System.out.println("DOEIDOEI ENEMY");
                 }
                 GameApp.switchScreen("MyLevelScreen");
             }
