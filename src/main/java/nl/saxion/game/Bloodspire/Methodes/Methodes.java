@@ -166,15 +166,15 @@ public class Methodes {
     }
 
     public boolean checkEnemy(MovementVars mv){
-        boolean hasEnemy = false;
         for (Tile t : mv.mapData) {
             if (t.tileType.equalsIgnoreCase("Enemy")) {
                 System.out.println("Er zitten nog enemies in het level!");;
-                return true;
+                return false;
             }
         }
         System.out.println("Alle enemies zijn verslagen, op naar het volgende level!!!!");
-        return false;
+        mv.mapData = MapData.getLevel(LevelVars.getCurrentLevel());
+        return true;
     }
 
     private void renderGridTiles(MovementVars mv) {

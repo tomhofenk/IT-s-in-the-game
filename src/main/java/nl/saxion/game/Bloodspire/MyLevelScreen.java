@@ -65,7 +65,6 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
         if (GameApp.isKeyJustPressed(Input.Keys.TAB)) {
             nextLevel = methodes.checkEnemy(mv);
-            mv.mapData = MapData.getLevel(lv.getCurrentLevel());
             GameApp.switchScreen("MyLevelScreen");
         }
 
