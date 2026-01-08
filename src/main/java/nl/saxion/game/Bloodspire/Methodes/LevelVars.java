@@ -45,6 +45,11 @@ public class LevelVars {
         LevelVars.currentLevel = currentLevel;
     }
 
+    public static void increaseLevel (int amount) {
+        LevelVars.currentLevel += currentLevel;
+
+    }
+
     public static void setLevelStartX(int i, int i1) {
         LevelVars.levelStartX.put(i, i1);
     }

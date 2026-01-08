@@ -62,9 +62,8 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public void render(float delta) {
         updateMV();
         methodes.gameLogic(mv);
-
         if (GameApp.isKeyJustPressed(Input.Keys.TAB)) {
-            nextLevel = true;
+            nextLevel = methodes.checkEnemy(mv);
             GameApp.switchScreen("MainMenuScreen");
         }
 

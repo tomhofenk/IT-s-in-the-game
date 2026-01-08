@@ -38,7 +38,7 @@ public class BattleScreen extends ScalableGameScreen {
     @Override
     public void show() {
         mv = new MovementVars(0,0,0,0,0,0,0,
-                MapData.getLevel(1)
+                MapData.getLevel(lv.getCurrentLevel())
         );
         methodes = new Methodes();
         methodes.addAllTextures();

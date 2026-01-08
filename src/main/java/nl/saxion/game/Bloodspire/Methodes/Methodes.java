@@ -7,6 +7,8 @@ import nl.saxion.gameapp.GameApp;
 
 import java.util.ArrayList;
 
+import static nl.saxion.game.Bloodspire.Methodes.LevelVars.*;
+
 /**
  * Utility-class met shared methodes. Hier staat Movement.
  */
@@ -160,6 +162,18 @@ public class Methodes {
 
     public void renderHUD() {
         drawShadows();
+    }
+
+    public boolean checkEnemy(MovementVars mv){
+        boolean hasEnemy = false;
+        for (Tile t : mv.mapData) {
+            if (t.tileType.equalsIgnoreCase("Enemy")) {
+                System.out.println("Er zitten nog enemies in het level!");;
+                return true;
+            }
+        }
+        System.out.println("Alle enemies zijn verslagen, op naar het volgende level!!!!");
+        return false;
     }
 
     private void renderGridTiles(MovementVars mv) {

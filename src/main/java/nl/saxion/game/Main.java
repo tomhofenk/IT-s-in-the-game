@@ -31,7 +31,7 @@ public class Main {
         EnemyData.EnemyArraylist = CsvLoader.enemyLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Enemy.csv");
         //EnemyData.setId(1, loadEnemyCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Enemy.csv"));
         // Variabels for size of world and viewport (for now only in MyLevelScreen)
-        // Amount of pixels per tile
+        // Amount ofd pixels per tile
         int pixelsPerGridTile = 64; // 64 Because sprite is 64x64
         // 16 Wide * 9 High viewport (16*9)*64
         int viewportWidth = 16 *  pixelsPerGridTile;
