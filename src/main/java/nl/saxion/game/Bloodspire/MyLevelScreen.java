@@ -65,7 +65,8 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
         if (GameApp.isKeyJustPressed(Input.Keys.TAB)) {
             nextLevel = true;
-            GameApp.switchScreen("MainMenuScreen");
+            mv.mapData = MapData.getLevel(2);
+            GameApp.switchScreen("MyLevelScreen");
         }
 
         if (GameApp.isKeyJustPressed(Input.Keys.ENTER)) {
@@ -89,10 +90,11 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public void hide() {
         methodes.disposeAllTextures();
         methodes.setOldCords(mv, lv);
-        LevelVars.setOldLevel(lv.getCurrentLevel());
+        LevelVars.setOldLevel(LevelVars.getCurrentLevel());
         System.out.println(LevelVars.getOldLevel());
         if (nextLevel) {
-            LevelVars.setCurrentLevel(lv.getCurrentLevel()+1);
+            LevelVars.setCurrentLevel(LevelVars.getCurrentLevel()+1);
+            nextLevel = false;
         }
     }
 
