@@ -30,8 +30,6 @@ public class LevelVars {
 //    }
 
     public static int getLevelStartX(int level) {
-        System.out.println("DEZE SNAP IK NIET WANNEER RUNT DEZE");
-        System.out.println(levelStartX.get(2));
         return levelStartX.get(level);
     }
 //
