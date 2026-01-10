@@ -29,6 +29,7 @@ public class BattleScreen extends ScalableGameScreen {
     private float attackIntervalEnemy;
     private boolean battleStarted = false;
     int frameCounter = 0;
+    int damageToPlayer = 0;
 
 
     public BattleScreen() {
@@ -57,11 +58,13 @@ public class BattleScreen extends ScalableGameScreen {
         klaar = false;
         battleStarted = false;
         battleTimer = 0f;
-        GameApp.addFont("Basic", "fonts/basic.ttf", 2);
+        GameApp.addFont("VS", "fonts/basic.ttf", 2);
+        GameApp.addFont("DamagePopUp", "fonts/5x5_pixel.ttf", 1);
         //EnemyData.EnemyArraylist
 
-        attackIntervalPlayer = (GameApp.getFramesPerSecond()*2)*((100+mainPlayer.getAttackSpeed())/100);
-        attackIntervalEnemy = (GameApp.getFramesPerSecond()*2)*((100+currentEnemy.attackSpeed)/100);
+        attackIntervalPlayer = (GameApp.getFramesPerSecond())*((100+mainPlayer.getAttackSpeed())/100);
+        attackIntervalEnemy = (GameApp.getFramesPerSecond())*((100+currentEnemy.attackSpeed)/100);
+        System.out.println("AIP: " + attackIntervalPlayer + " AIE: " + attackIntervalEnemy);
         enenenasemyHitPoints = currentEnemy.hitPoints;
 
     }
@@ -105,7 +108,7 @@ public class BattleScreen extends ScalableGameScreen {
         GameApp.startSpriteRendering();
         GameApp.drawTexture("CharacterTexture", 5, 5);
         GameApp.drawTexture(enemyTileData.tileType, getWorldWidth()/2+25, 5, 64, 64, 0, true, false);
-        GameApp.drawTextCentered("Basic", "VS", 90, 45, Color.RED);
+        GameApp.drawTextCentered("VS", "VS", 90, 45, Color.RED);
         GameApp.endSpriteRendering();
     }
 
@@ -115,11 +118,15 @@ public class BattleScreen extends ScalableGameScreen {
         GameApp.drawRect(104,74,52,12, Color.WHITE);
         GameApp.endShapeRendering();
         GameApp.startShapeRenderingFilled();
-        GameApp.drawRect(105, 75, (int)(50 * (enenenasemyHitPoints / (float)maxEnemyHitPoints)), 10, Color.GREEN);
-        GameApp.drawRect(5, 75, (50*((float) playerHitPoints /maxPlayerHitPoints)), 10, Color.GREEN);
-        //GameApp.drawRect(105, 75, (int)(50*(currentEnemy.hitPoints/maxEnemyHitPoints)), 10, Color.GREEN);
-        //GameApp.drawRect(105, 75, 50, 10, Color.GREEN);
+        GameApp.drawRect(105, 75, (int)(50 * ((float)enenenasemyHitPoints / maxEnemyHitPoints)), 10, Color.GREEN);
+        GameApp.drawRect(5, 75, (50*((float) playerHitPoints /(float)maxPlayerHitPoints)), 10, Color.GREEN);
         GameApp.endShapeRendering();
+        GameApp.startSpriteRendering();
+        String VisibleHPEnemy = enenenasemyHitPoints + "";
+        GameApp.drawTextCentered("DamagePopUp", VisibleHPEnemy, 130, 80, Color.WHITE);
+        String VisibleHPPLayer = playerHitPoints + "";
+        GameApp.drawTextCentered("DamagePopUp", VisibleHPPLayer, 30, 80, Color.WHITE);
+        GameApp.endSpriteRendering();
     }
 
     private Enemy getEnemyStats() {
@@ -194,7 +201,7 @@ public class BattleScreen extends ScalableGameScreen {
         if (frameCounter % attackIntervalEnemy == 0) {
             // Enemy valt player aan
             int rawDamageToPlayer = currentEnemy.attackDamage - mainPlayer.getDefense();
-            int damageToPlayer = Math.max(1, rawDamageToPlayer);
+            damageToPlayer = Math.max(1, rawDamageToPlayer);
             playerHitPoints -= damageToPlayer;
             mainPlayer.setHitpoints(playerHitPoints);
             // Check einde gevecht
