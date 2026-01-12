@@ -8,10 +8,10 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 public class Inventory {
-    public ArrayList<Item> itemsInInventory = new ArrayList<>();
-    public ArrayList<String> itemTypes = new ArrayList<>();
-    public ArrayList<Item> itemList = new ArrayList<>();
-    public ArrayList<Item> equipped = new ArrayList<>();
+    ArrayList<Item> itemsInInventory = new ArrayList<>();
+    ArrayList<String> itemTypes = new ArrayList<>();
+    ArrayList<Item> itemList = new ArrayList<>();
+    ArrayList<Item> equipped = new ArrayList<>();
     public Player mainPlayer = new Player();
     ArrayList<String> rarity = new ArrayList<>();
 
@@ -171,6 +171,8 @@ public class Inventory {
             }
         }
         int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1) + 1));
+        System.out.println(tempList.size());
+        System.out.println(randomInt);
         addToInventory(tempList.get(randomInt-1).itemID);
         tempList.clear();
     }

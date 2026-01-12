@@ -90,6 +90,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         System.out.println(LevelVars.getOldLevel());
         if (nextLevel) {
             LevelVars.setCurrentLevel(LevelVars.getCurrentLevel()+1);
+            InventoryScreen.inventory.giveRandomItem(15);
             nextLevel = false;
         }
     }
