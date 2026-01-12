@@ -83,7 +83,7 @@ public class InventoryScreen extends ScalableGameScreen {
             System.out.println(mainPlayer.toString());
         }
         if (GameApp.isKeyJustPressed(Input.Keys.B)) {
-            inventory.giveRandomItem();
+            inventory.giveRandomItem(5);
         }
         renderLayout();
         showItems();

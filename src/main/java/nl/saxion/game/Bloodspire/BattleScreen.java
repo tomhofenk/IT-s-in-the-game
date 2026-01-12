@@ -219,7 +219,7 @@ public class BattleScreen extends ScalableGameScreen {
             if (enenenasemyHitPoints <= 0) {
                 inGevecht = false;
                 System.out.println("Enemy defeated!");
-                inventory.giveRandomItem();
+                inventory.giveRandomItem(5);
                 //TODO maak een popup voor het droppen van een item
                 System.out.println("An item has dropped!");
                 Tile toRemove = null;
