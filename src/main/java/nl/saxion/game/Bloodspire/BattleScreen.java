@@ -15,6 +15,7 @@ public class BattleScreen extends ScalableGameScreen {
     private MovementVars mv;
     public LevelVars lv = new LevelVars();
     public Player mainPlayer = new Player();
+    public Inventory inventory = new Inventory();
     private Methodes methodes;
     private Tile enemyTileData;
     private Enemy currentEnemy = new Enemy();
@@ -44,9 +45,11 @@ public class BattleScreen extends ScalableGameScreen {
         methodes = new Methodes();
         methodes.addAllTextures();
         enemyTileData = getEnemeyData();
+        assert enemyTileData != null;
         System.out.println(enemyTileData.enemyID + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         currentEnemy = getEnemyStats2();
+        assert currentEnemy != null;
         System.out.println(currentEnemy.enemyID + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         // Alleen bij de eerste keer initialiseren, niet elke keer resetten
         if (maxPlayerHitPoints != mainPlayer.getHitpoints()) {
@@ -224,6 +227,9 @@ public class BattleScreen extends ScalableGameScreen {
             if (enenenasemyHitPoints <= 0) {
                 inGevecht = false;
                 System.out.println("Enemy defeated!");
+                inventory.giveRandomItem(5);
+                //TODO maak een popup voor het droppen van een item
+                System.out.println("An item has dropped!");
                 Tile toRemove = null;
                 for (Tile t : mv.mapData) {
                     if (t.gridX == lv.getOldX() && t.gridY == lv.getOldY() && t.tileType.equalsIgnoreCase("Enemy")) {

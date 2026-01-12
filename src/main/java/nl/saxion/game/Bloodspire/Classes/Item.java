@@ -10,6 +10,7 @@ public class Item {
     public int speedPenalty;
     public int itemID;
 
+
     public Item(String itemName, String itemType, String rarity, int hitpointsValue, int defenseValue, int damageValue, int speedPenalty, int itemID) {
         this.itemName = itemName;
         this.itemType = itemType;
