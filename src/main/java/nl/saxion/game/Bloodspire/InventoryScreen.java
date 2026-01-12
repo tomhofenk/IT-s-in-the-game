@@ -8,7 +8,6 @@ import nl.saxion.game.Bloodspire.Classes.Player;
 import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.ScalableGameScreen;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -19,8 +18,10 @@ public class InventoryScreen extends ScalableGameScreen {
     int frameCounter = 0;
     int frames = 0;
 
-    ArrayList<Box> boxes = new ArrayList<Box>();
-    Box selectedBox = new Box();
+    ArrayList<Box> boxesInventorySide = new ArrayList<Box>();
+    ArrayList<Box> boxesEquipedSide = new ArrayList<Box>();
+    Box selectedBoxInv = new Box();
+    Box selectedBoxEquiped = new Box();
 
 
     public InventoryScreen() {
@@ -30,13 +31,24 @@ public class InventoryScreen extends ScalableGameScreen {
 
     @Override
     public void show() {
-        selectedBox.x = 32;
-        selectedBox.y = 1440;
-        selectedBox.index = 0;
+        selectedBoxInv.x = 32;
+        selectedBoxInv.y = 1440;
+        selectedBoxInv.index = 0;
 
         GameApp.addFont("Basic", "fonts/basic.ttf", getWorldWidth() / 75);
         GameApp.addFont("Basic2", "fonts/basic.ttf", getWorldWidth() / 25);
-        GameApp.addTexture("ChestPiece", "textures/EmptyChestSlot.png");
+        GameApp.addFont("Basic3", "fonts/basic.ttf", getWorldWidth() / 15);
+
+        GameApp.addTexture("CharacterTexture", "textures/DungeonCharacterpng.png");
+
+        GameApp.addTexture("helmet", "textures/Helm.png");
+        GameApp.addTexture("chestplate", "textures/Chest.png");
+        GameApp.addTexture("leggings", "textures/Legs.png");
+        GameApp.addTexture("boots", "textures/Boots.png");
+        GameApp.addTexture("necklace", "textures/Necklace.png");
+        GameApp.addTexture("sword", "textures/Sword.png");
+        GameApp.addTexture("shield", "textures/Shield.png");
+
 
         GameApp.addTexture("starter", "textures/Starter.png");
         GameApp.addTexture("common", "textures/Common.png");
@@ -47,13 +59,18 @@ public class InventoryScreen extends ScalableGameScreen {
         GameApp.addTexture("OP", "textures/Exotic.png");
         GameApp.addTexture("selected", "textures/Selected.png");
 
-        GameApp.addColor("starter", 75, 75, 75);
+        GameApp.addColor("starter", 57, 19, 19);
         GameApp.addColor("common", 180, 180, 180);
         GameApp.addColor("uncommon", 30, 255, 0);
         GameApp.addColor("rare", 0, 122, 211);
         GameApp.addColor("epic", 163, 53, 238);
         GameApp.addColor("legendary", 255, 198, 17);
         GameApp.addColor("OP", 2, 255, 255);
+
+        GameApp.addTexture("HP", "textures/HP.png");
+        GameApp.addTexture("Def", "textures/Def.png");
+        GameApp.addTexture("Speed", "textures/Speed.png");
+        GameApp.addTexture("DMG", "textures/DMG.png");
 
     }
 
@@ -89,7 +106,7 @@ public class InventoryScreen extends ScalableGameScreen {
 
 
         //equippen en/of verwijderen van een item
-        if (GameApp.isKeyJustPressed(Input.Keys.ENTER) || GameApp.isButtonJustPressed(Input.Buttons.LEFT)) {
+        if (GameApp.isKeyJustPressed(Input.Keys.ENTER) || (GameApp.isButtonJustPressed(Input.Buttons.LEFT) && getMouseX() < 1300)) {
             inventory.equipItem(inventory.getItemsInInventory().get(selected - 1).itemID);
         }
         if (GameApp.isKeyJustPressed(Input.Keys.FORWARD_DEL)) {
@@ -117,21 +134,19 @@ public class InventoryScreen extends ScalableGameScreen {
             inventory.giveRandomItem(5);
         }
         renderLayout();
+        showPlayerStats();
 
-//        GameApp.startShapeRenderingFilled();
-//        for (Box box : boxes) {
-//            GameApp.drawRect(box.x-6, box.y-6, 140,140, Color.RED);
-//        }
-//        GameApp.endShapeRendering();
-        remakeBoxes();
+        remakeBoxesInventorySide();
+        remakeBoxesEquipedSide();
 
         showItems();
 
         if (inventory.getItemsInInventory().size() == 0) {
             emptyInventory();
         } else {
-            hoverOverItems();
+            hoverOverItemsInventorySide();
         }
+        hoverOverItemsEquipedSide();
 
     }
 
@@ -147,10 +162,12 @@ public class InventoryScreen extends ScalableGameScreen {
         GameApp.drawRect(0, 0, 1270, 1600, Color.BLACK);
         GameApp.drawRect(1290, 0, 1250, 1600, Color.GRAY);
         GameApp.endShapeRendering();
+        GameApp.startSpriteRendering();
+        GameApp.drawTexture("CharacterTexture", 1700, 400, 700, 700);
+        GameApp.endSpriteRendering();
     }
 
     private void showItems() {
-        int yInventoryPlacement = 1570;
         int i = 1;
         int Yplacement = (int) GameApp.getWorldHeight() - 160;
         int Xplacement = 32;
@@ -161,8 +178,7 @@ public class InventoryScreen extends ScalableGameScreen {
             itemCounter++;
 
             GameApp.drawTexture(currentItem.rarity, Xplacement, Yplacement);
-            GameApp.drawTexture("ChestPiece", Xplacement, Yplacement);
-            yInventoryPlacement -= 40;
+            GameApp.drawTexture(currentItem.itemType, Xplacement, Yplacement);
             i++;
 
             if (itemCounter % 7 == 0 && itemCounter != 0) {
@@ -174,24 +190,28 @@ public class InventoryScreen extends ScalableGameScreen {
         }
 
         //Equipment kant
-        yInventoryPlacement = 1570;
-        i = 1;
+        int yEquipedPlacement = 1150;
         for (Item currentItem : inventory.getEquipped()) {
-            GameApp.drawText("Basic", i + ": " + currentItem.toString(), 1290, yInventoryPlacement, Color.WHITE);
-            yInventoryPlacement -= 40;
-            i++;
+            //GameApp.drawText("Basic", i + ": " + currentItem.toString(), 1290, yEquipedPlacement, Color.WHITE);
+
+            itemCounter++;
+
+            GameApp.drawTexture(currentItem.rarity, 1400, yEquipedPlacement);
+            GameApp.drawTexture(currentItem.itemType, 1400, yEquipedPlacement);
+
+            yEquipedPlacement -= 140;
         }
         GameApp.endSpriteRendering();
     }
 
-    public void remakeBoxes() {
+    public void remakeBoxesInventorySide() {
 
         int itemCounter = 0;
         int tempX = 32;
         int tempY = (int) GameApp.getWorldHeight() - 160;
         int numberOfItemsInInventory = inventory.getItemsInInventory().size();
         if (numberOfItemsInInventory != 0) {
-            boxes.clear();
+            boxesInventorySide.clear();
             for (int i = 1; i <= numberOfItemsInInventory; i++) {
                 Box tempBox = new Box();
 
@@ -210,23 +230,49 @@ public class InventoryScreen extends ScalableGameScreen {
                 tempBox.x = tempX;
                 tempBox.y = tempY;
                 tempBox.index = i - 1;
-                boxes.add(tempBox);
+                boxesInventorySide.add(tempBox);
 
             }
         }
     }
 
-    public void hoverOverItems() {
+    public void remakeBoxesEquipedSide() {
+        int itemCounter = 0;
+        int tempX = 1400;
+        int tempY = 1150;
+        int numberOfItemsEquiped = inventory.getEquipped().size();
+        if (numberOfItemsEquiped != 0) {
+            boxesEquipedSide.clear();
+            for (int i = 1; i <= numberOfItemsEquiped; i++) {
+                Box tempBox = new Box();
+
+                if (itemCounter != 0) {
+                    tempY -= 140;
+                } else {
+                    tempX = 1400;
+                    tempY = 1150;
+                }
+                itemCounter++;
+                tempBox.x = tempX;
+                tempBox.y = tempY;
+                tempBox.index = i - 1;
+                boxesEquipedSide.add(tempBox);
+
+            }
+        }
+    }
+
+    public void hoverOverItemsInventorySide() {
         int mouseX = GameApp.getMousePositionInWindowX();
         int mouseY = (int) GameApp.getWorldHeight() - GameApp.getMousePositionInWindowY();
         boolean isSomethingSelected = false;
 
 
-        for (Box currentBox : boxes) {
-            System.out.println(currentBox.index);
+        for (Box currentBox : boxesInventorySide) {
+
             if (mouseX >= currentBox.x + 120 && mouseX <= currentBox.x + 228 && mouseY >= currentBox.y + 20 && mouseY <= currentBox.y + 128) {
 
-                selectedBox = currentBox;
+                selectedBoxInv = currentBox;
                 isSomethingSelected = true;
                 frames = frameCounter;
 
@@ -234,42 +280,98 @@ public class InventoryScreen extends ScalableGameScreen {
         }
         if (!isSomethingSelected) {
             if (frames + (GameApp.getFramesPerSecond() / 2) < frameCounter) {
-                selectedBox.x = 0;
-                selectedBox.y = 0;
-                selectedBox.index = 0;
+                selectedBoxInv.x = 0;
+                selectedBoxInv.y = 0;
+                selectedBoxInv.index = 0;
             }
         }
 
         GameApp.startSpriteRendering();
-        GameApp.drawTexture("selected", selectedBox.x - 6, selectedBox.y - 6);
+        GameApp.drawTexture("selected", selectedBoxInv.x - 6, selectedBoxInv.y - 6);
         GameApp.endSpriteRendering();
 
         int index = 0;
         for (Item currentItem : inventory.getItemsInInventory()) {
-            if (index == selectedBox.index) {
+            if (index == selectedBoxInv.index) {
                 selected = index + 1;
                 GameApp.startShapeRenderingFilled();
 
-                GameApp.drawRect(selectedBox.x + 134, selectedBox.y - 6, 300, 140, Color.WHITE);
+                GameApp.drawRect(selectedBoxInv.x + 134, selectedBoxInv.y - 6, 300, 140, Color.WHITE);
 
                 GameApp.endShapeRendering();
                 GameApp.startSpriteRendering();
 
-                GameApp.drawTexture(currentItem.rarity, selectedBox.x, selectedBox.y);
-                GameApp.drawTexture("ChestPiece", selectedBox.x, selectedBox.y);
+                GameApp.drawTexture(currentItem.rarity, selectedBoxInv.x, selectedBoxInv.y);
+                GameApp.drawTexture(currentItem.itemType, selectedBoxInv.x, selectedBoxInv.y);
 
-                GameApp.drawText("Basic", currentItem.itemName, selectedBox.x + 140, selectedBox.y + 100, currentItem.rarity);
-                GameApp.drawText("Basic", "HP: " + currentItem.hitpointsValue, selectedBox.x + 140, selectedBox.y + 70, Color.BLACK);
-                GameApp.drawText("Basic", "Def: " + currentItem.defenseValue, selectedBox.x + 250, selectedBox.y + 70, Color.BLACK);
-                GameApp.drawText("Basic", "DMG: " + currentItem.damageValue, selectedBox.x + 140, selectedBox.y + 40, Color.BLACK);
-                GameApp.drawText("Basic", "SP: " + currentItem.speedPenalty, selectedBox.x + 250, selectedBox.y + 40, Color.BLACK);
+                GameApp.drawText("Basic", currentItem.itemName, selectedBoxInv.x + 140, selectedBoxInv.y + 100, currentItem.rarity);
+                GameApp.drawText("Basic", "HP: " + currentItem.hitpointsValue, selectedBoxInv.x + 140, selectedBoxInv.y + 70, Color.BLACK);
+                GameApp.drawText("Basic", "Def: " + currentItem.defenseValue, selectedBoxInv.x + 250, selectedBoxInv.y + 70, Color.BLACK);
+                GameApp.drawText("Basic", "DMG: " + currentItem.damageValue, selectedBoxInv.x + 140, selectedBoxInv.y + 40, Color.BLACK);
+                GameApp.drawText("Basic", "SP: " + currentItem.speedPenalty, selectedBoxInv.x + 250, selectedBoxInv.y + 40, Color.BLACK);
 
                 GameApp.endSpriteRendering();
             }
             index++;
         }
         GameApp.startShapeRenderingFilled();
-        //GameApp.drawRect(0,0,200,1500, Color.BLACK);
+        GameApp.drawRect(0,0,500,300, Color.BLACK);
+        GameApp.endShapeRendering();
+    }
+
+    public void hoverOverItemsEquipedSide() {
+        int mouseX = GameApp.getMousePositionInWindowX();
+        int mouseY = (int) GameApp.getWorldHeight() - GameApp.getMousePositionInWindowY();
+        boolean isSomethingSelected = false;
+
+
+        for (Box currentBox : boxesEquipedSide) {
+
+            if (mouseX >= currentBox.x + 120 && mouseX <= currentBox.x + 228 && mouseY >= currentBox.y + 20 && mouseY <= currentBox.y + 128) {
+
+                selectedBoxEquiped = currentBox;
+                isSomethingSelected = true;
+                frames = frameCounter;
+
+            }
+        }
+        if (!isSomethingSelected) {
+            if (frames + (GameApp.getFramesPerSecond() / 2) < frameCounter) {
+                selectedBoxEquiped.x = 0;
+                selectedBoxEquiped.y = 0;
+                selectedBoxEquiped.index = 0;
+            }
+        }
+
+        GameApp.startSpriteRendering();
+        GameApp.drawTexture("selected", selectedBoxEquiped.x - 6, selectedBoxEquiped.y - 6);
+        GameApp.endSpriteRendering();
+
+        int index = 0;
+        for (Item currentItem : inventory.getEquipped()) {
+            if (index == selectedBoxEquiped.index) {
+                GameApp.startShapeRenderingFilled();
+
+                GameApp.drawRect(selectedBoxEquiped.x + 134, selectedBoxEquiped.y - 6, 300, 140, Color.WHITE);
+
+                GameApp.endShapeRendering();
+                GameApp.startSpriteRendering();
+
+                GameApp.drawTexture(currentItem.rarity, selectedBoxEquiped.x, selectedBoxEquiped.y);
+                GameApp.drawTexture(currentItem.itemType, selectedBoxEquiped.x, selectedBoxEquiped.y);
+
+                GameApp.drawText("Basic", currentItem.itemName, selectedBoxEquiped.x + 140, selectedBoxEquiped.y + 100, currentItem.rarity);
+                GameApp.drawText("Basic", "HP: " + currentItem.hitpointsValue, selectedBoxEquiped.x + 140, selectedBoxEquiped.y + 70, Color.BLACK);
+                GameApp.drawText("Basic", "Def: " + currentItem.defenseValue, selectedBoxEquiped.x + 250, selectedBoxEquiped.y + 70, Color.BLACK);
+                GameApp.drawText("Basic", "DMG: " + currentItem.damageValue, selectedBoxEquiped.x + 140, selectedBoxEquiped.y + 40, Color.BLACK);
+                GameApp.drawText("Basic", "SP: " + currentItem.speedPenalty, selectedBoxEquiped.x + 250, selectedBoxEquiped.y + 40, Color.BLACK);
+
+                GameApp.endSpriteRendering();
+            }
+            index++;
+        }
+        GameApp.startShapeRenderingFilled();
+        GameApp.drawRect(0,0,500,300, Color.BLACK);
         GameApp.endShapeRendering();
     }
 
@@ -279,6 +381,23 @@ public class InventoryScreen extends ScalableGameScreen {
         GameApp.endShapeRendering();
         GameApp.startSpriteRendering();
         GameApp.drawText("Basic2", "Inventory is empty!", 50, GameApp.getWorldHeight() - 200, Color.WHITE);
+        GameApp.endSpriteRendering();
+    }
+
+    public void showPlayerStats() {
+        GameApp.startSpriteRendering();
+        GameApp.drawTexture("HP", 1400, 1450);
+        String playerHP = mainPlayer.getHitpoints()+"";
+        GameApp.drawText("Basic3", playerHP, 1550, 1450, Color.WHITE);
+        GameApp.drawTexture("DMG", 1400, 1300);
+        String playerDMG = mainPlayer.getAttackDamage()+"";
+        GameApp.drawText("Basic3", playerDMG, 1550, 1300, Color.WHITE);
+        GameApp.drawTexture("Def", 2000, 1450);
+        String playerDef = mainPlayer.getDefense()+"";
+        GameApp.drawText("Basic3", playerDef, 2150, 1450, Color.WHITE);
+        GameApp.drawTexture("Speed", 2000, 1300);
+        String playerSpeed = mainPlayer.getAttackSpeed()+"";
+        GameApp.drawText("Basic3", playerSpeed, 2150, 1300, Color.WHITE);
         GameApp.endSpriteRendering();
     }
 
