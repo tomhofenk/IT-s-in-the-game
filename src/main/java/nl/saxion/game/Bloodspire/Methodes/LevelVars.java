@@ -10,8 +10,8 @@ public class LevelVars {
     private static int oldY;
     private static int currentLevel = 1;
     private static int oldLevel = 1;
-    private static Map<Integer, Integer> levelStartX = new HashMap<>();
-    private static Map<Integer, Integer> levelStartY = new HashMap<>();
+    private static final Map<Integer, Integer> levelStartX = new HashMap<>();
+    private static final Map<Integer, Integer> levelStartY = new HashMap<>();
 
     public static int getOldLevel() {
         return oldLevel;
@@ -25,17 +25,9 @@ public class LevelVars {
         return levelStartY.get(level);
     }
 
-//    public static void setLevelStartY(Map<Integer, Integer> levelStartY) {
-//        LevelVars.levelStartY = levelStartY;
-//    }
-
     public static int getLevelStartX(int level) {
         return levelStartX.get(level);
     }
-//
-//    public static void setLevelStartX(Map<Integer, Integer> levelStartX) {
-//        LevelVars.levelStartX = levelStartX;
-//    }
 
     public static int getCurrentLevel() {
         return currentLevel;
@@ -43,11 +35,6 @@ public class LevelVars {
 
     public static void setCurrentLevel(int currentLevel) {
         LevelVars.currentLevel = currentLevel;
-    }
-
-    public static void increaseLevel (int amount) {
-        LevelVars.currentLevel += currentLevel;
-
     }
 
     public static void setLevelStartX(int i, int i1) {
@@ -64,7 +51,7 @@ public class LevelVars {
     }
 
     public void setOldX(int oldX) {
-        this.oldX = oldX;
+        LevelVars.oldX = oldX;
     }
 
     public int getOldY() {
@@ -72,6 +59,6 @@ public class LevelVars {
     }
 
     public void setOldY(int oldY) {
-        this.oldY = oldY;
+        LevelVars.oldY = oldY;
     }
 }

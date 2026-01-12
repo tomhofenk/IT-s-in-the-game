@@ -1,6 +1,5 @@
 package nl.saxion.game.Bloodspire;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import nl.saxion.game.Bloodspire.Classes.Item;
@@ -115,7 +114,7 @@ public class InventoryScreen extends ScalableGameScreen {
             System.out.println(mainPlayer.toString());
         }
         if (GameApp.isKeyJustPressed(Input.Keys.B)) {
-            inventory.giveRandomItem();
+            inventory.giveRandomItem(5);
         }
         renderLayout();
 

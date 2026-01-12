@@ -1,8 +1,6 @@
 package nl.saxion.game.Bloodspire;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import nl.saxion.game.Bloodspire.Classes.Player;
 import nl.saxion.game.Bloodspire.Methodes.*;
 import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.CameraControlledGameScreen;
@@ -14,7 +12,6 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     private MovementVars mv;
     public LevelVars lv = new LevelVars();
     private int framesCounter = 0;
-    //public Player mainPlayer = new Player();
     boolean nextLevel = false;
 
 
@@ -30,8 +27,8 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         enableHUD(160, 90);
 
         // startpositie (in pixels) — hier 0,0 maar je kunt dit veranderen
-        int startX = LevelVars.getLevelStartX(lv.getCurrentLevel());
-        int startY = LevelVars.getLevelStartY(lv.getCurrentLevel());
+        int startX = LevelVars.getLevelStartX(LevelVars.getCurrentLevel());
+        int startY = LevelVars.getLevelStartY(LevelVars.getCurrentLevel());
         System.out.println("startX: " + startX + " startY: " + startY);
         mv = new MovementVars(
                 startX*64,
@@ -41,17 +38,17 @@ public class MyLevelScreen extends CameraControlledGameScreen {
                 (int)getMouseX(),
                 (int)getMouseY(),
                 GameApp.getFramesPerSecond() / 3,
-                MapData.getLevel(lv.getCurrentLevel())
+                MapData.getLevel(LevelVars.getCurrentLevel())
         );
-        System.out.println(lv.getCurrentLevel());
+        System.out.println(LevelVars.getCurrentLevel());
 
         methodes = new Methodes();
-        if (lv.getCurrentLevel() == lv.getOldLevel()) {
+        if (LevelVars.getCurrentLevel() == LevelVars.getOldLevel()) {
             methodes.getOldCords(mv, lv, startX, startY);
         }
 
         // camera direct naar de speler
-        setCameraTargetInstantly((mv.playerWorldX+mv.pixelPerGridTile/2), (mv.playerWorldY+mv.pixelPerGridTile/2));
+        setCameraTargetInstantly((mv.playerWorldX+ (float) mv.pixelPerGridTile /2), (mv.playerWorldY+ (float) mv.pixelPerGridTile /2));
 
         methodes.addAllTextures();
 
@@ -74,7 +71,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
 
         // camera volgen
-        setCameraTarget((mv.playerWorldX+mv.pixelPerGridTile/2), (mv.playerWorldY+mv.pixelPerGridTile/2));
+        setCameraTarget((mv.playerWorldX+ (float) mv.pixelPerGridTile /2), (mv.playerWorldY+ (float) mv.pixelPerGridTile /2));
 
         super.render(delta);
 
@@ -93,6 +90,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         System.out.println(LevelVars.getOldLevel());
         if (nextLevel) {
             LevelVars.setCurrentLevel(LevelVars.getCurrentLevel()+1);
+            InventoryScreen.inventory.giveRandomItem(15);
             nextLevel = false;
         }
     }
@@ -106,7 +104,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         mv.mouseX = (int)getMouseX();
         mv.mouseY = (int)getMouseY();
 
-        // tile coords blijven consistent (kan ook in Methodes, maar we houden hem hier up-to-date vóór movement)
+        // tile coordination's blijven consistent (kan ook in Methodes, maar we houden hem hier up-to-date vóór movement)
         mv.playerTileX = mv.playerWorldX / mv.pixelPerGridTile;
         mv.playerTileY = mv.playerWorldY / mv.pixelPerGridTile;
     }

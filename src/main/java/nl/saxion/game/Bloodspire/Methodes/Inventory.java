@@ -13,6 +13,7 @@ public class Inventory {
     ArrayList<Item> itemList = new ArrayList<>();
     ArrayList<Item> equipped = new ArrayList<>();
     public Player mainPlayer = new Player();
+    ArrayList<String> rarity = new ArrayList<>();
 
 
     //Csv-bestand met alle items inladen en in een arraylist plaatsen
@@ -20,6 +21,11 @@ public class Inventory {
         //als de itemlist niet leeg is wordt de csv niet ingeladen om performance te verbeteren
         if (itemList.isEmpty()) {
             try {
+                rarity.add("Legendary");
+                rarity.add("Epic");
+                rarity.add("Rare");
+                rarity.add("Uncommon");
+                rarity.add("Common");
                 BufferedReader reader = new BufferedReader(new FileReader("src/main/java/nl/saxion/game/Bloodspire/csv/GearItems.csv"));
                 String line;
 
@@ -154,75 +160,42 @@ public class Inventory {
         System.out.println("Nieuwe speler stats: \n" + mainPlayer);
     }
 
-    public void giveRandomItem(){
-        int chancePercentage = 1 + (int)(Math.random() * ((100-1) + 1));
+    public void giveRandomItem(int xpLevelEnemy){
         ArrayList<Item> tempList = new ArrayList<>();
+        int chancePercentage = 1 + (int)(Math.random() * ((100-1) + 1));
+        int location = getLocation(xpLevelEnemy, chancePercentage);
 
-        if (chancePercentage >= 1 && chancePercentage <= 50) {
-            for (Item tempItem : itemList) {
-                if (tempItem.rarity.equals("common")){
-                    tempList.add(tempItem);
-                }
+        for (Item tempItem : itemList) {
+            if (tempItem.rarity.equalsIgnoreCase(rarity.get(location))){
+                tempList.add(tempItem);
             }
-            System.out.println("You pulled a common item! (50% chance)");
-            System.out.println(chancePercentage);
-            int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1) + 1));
-            System.out.println(randomInt);
-            System.out.println(tempList.size());
-            addToInventory(tempList.get(randomInt-1).itemID);
-        } else if (chancePercentage > 50 && chancePercentage <= 70) {
-            for (Item tempItem : itemList) {
-                if (tempItem.rarity.equals("uncommon")){
-                    tempList.add(tempItem);
-                }
-            }
-            System.out.println("You pulled an uncommon item! (20% chance)");
-            System.out.println(chancePercentage);
-            int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1) + 1));
-            System.out.println(randomInt);
-            System.out.println(tempList.size());
-            addToInventory(tempList.get(randomInt-1).itemID);
-            tempList.clear();
-        } else if (chancePercentage > 70 && chancePercentage <= 85) {
-            for (Item tempItem : itemList) {
-                if (tempItem.rarity.equals("rare")){
-                    tempList.add(tempItem);
-                }
-            }
-            System.out.println("You pulled a rare item! (15% chance)");
-            System.out.println(chancePercentage);
-            int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1 ) + 1));
-            System.out.println(randomInt);
-            System.out.println(tempList.size());
-            addToInventory(tempList.get(randomInt-1).itemID);
-            tempList.clear();
-        } else if (chancePercentage > 85 && chancePercentage <= 95) {
-            for (Item tempItem : itemList) {
-                if (tempItem.rarity.equals("epic")){
-                    tempList.add(tempItem);
-                }
-            }
-            System.out.println("You pulled an epic item! (10% chance)");
-            System.out.println(chancePercentage);
-            int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1) + 1));
-            System.out.println(randomInt);
-            System.out.println(tempList.size());
-            addToInventory(tempList.get(randomInt-1).itemID);
-            tempList.clear();
-        } else {
-            for (Item tempItem : itemList) {
-                if (tempItem.rarity.equals("legendary")){
-                    tempList.add(tempItem);
-                }
-            }
-            System.out.println("You pulled a legendary item! (5% chance)");
-            System.out.println(chancePercentage);
-            int randomInt = 1 + (int)(Math.random() * ((tempList.size()-1) + 1));
-            System.out.println(randomInt);
-            System.out.println(tempList.size());
-            addToInventory(tempList.get(randomInt-1).itemID);
-            tempList.clear();
         }
+        int randomInt = 1 + (int)(Math.random() * ((tempList.size() - 1) + 1));
+        System.out.println(tempList.size());
+        System.out.println(randomInt);
+        addToInventory(tempList.get(randomInt-1).itemID);
+        tempList.clear();
+    }
+
+    private static int getLocation(int xpLevelEnemy, int chancePercentage) {
+        int legendary = 100 - xpLevelEnemy;
+        int epic = legendary - xpLevelEnemy *2;
+        int rare = epic - xpLevelEnemy *3;
+        int uncommon = rare - (rare/3);
+        int location;
+
+        if (chancePercentage > legendary){
+            location=0;
+        } else if (chancePercentage > epic){
+            location=1;
+        } else if (chancePercentage > rare) {
+            location=2;
+        } else if (chancePercentage > uncommon) {
+            location=3;
+        } else {
+            location=4;
+        }
+        return location;
     }
 
 
