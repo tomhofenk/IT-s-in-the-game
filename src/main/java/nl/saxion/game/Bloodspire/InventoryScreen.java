@@ -1,6 +1,5 @@
 package nl.saxion.game.Bloodspire;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import nl.saxion.game.Bloodspire.Classes.Item;

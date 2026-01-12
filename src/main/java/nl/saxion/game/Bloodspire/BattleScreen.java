@@ -15,6 +15,7 @@ public class BattleScreen extends ScalableGameScreen {
     private MovementVars mv;
     public LevelVars lv = new LevelVars();
     public Player mainPlayer = new Player();
+    public Inventory inventory = new Inventory();
     private Methodes methodes;
     private Tile enemyTileData;
     private Enemy currentEnemy = new Enemy();
@@ -24,10 +25,8 @@ public class BattleScreen extends ScalableGameScreen {
     private int enenenasemyHitPoints = 0;
     private boolean inGevecht = true;
     private boolean klaar = false;
-    private float battleTimer = 0f;       // telt seconden op
     private float attackIntervalPlayer;// elke 2 seconden
     private float attackIntervalEnemy;
-    private boolean battleStarted = false;
     int frameCounter = 0;
 
 
@@ -43,9 +42,11 @@ public class BattleScreen extends ScalableGameScreen {
         methodes = new Methodes();
         methodes.addAllTextures();
         enemyTileData = getEnemeyData();
+        assert enemyTileData != null;
         System.out.println(enemyTileData.enemyID + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         currentEnemy = getEnemyStats2();
+        assert currentEnemy != null;
         System.out.println(currentEnemy.enemyID + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         // Alleen bij de eerste keer initialiseren, niet elke keer resetten
         if (maxPlayerHitPoints != mainPlayer.getHitpoints()) {
@@ -55,13 +56,14 @@ public class BattleScreen extends ScalableGameScreen {
         maxEnemyHitPoints = currentEnemy.hitPoints;
         inGevecht = true;
         klaar = false;
-        battleStarted = false;
-        battleTimer = 0f;
+        boolean battleStarted = false;
+        // telt seconden op
+        float battleTimer = 0f;
         GameApp.addFont("Basic", "fonts/basic.ttf", 2);
         //EnemyData.EnemyArraylist
 
-        attackIntervalPlayer = (GameApp.getFramesPerSecond()*2)*((100+mainPlayer.getAttackSpeed())/100);
-        attackIntervalEnemy = (GameApp.getFramesPerSecond()*2)*((100+currentEnemy.attackSpeed)/100);
+        attackIntervalPlayer = (GameApp.getFramesPerSecond()*2)*((float) (100 + mainPlayer.getAttackSpeed()) /100);
+        attackIntervalEnemy = (GameApp.getFramesPerSecond()*2)*((float) (100 + currentEnemy.attackSpeed) /100);
         enenenasemyHitPoints = currentEnemy.hitPoints;
 
     }
@@ -217,6 +219,9 @@ public class BattleScreen extends ScalableGameScreen {
             if (enenenasemyHitPoints <= 0) {
                 inGevecht = false;
                 System.out.println("Enemy defeated!");
+                inventory.giveRandomItem();
+                //TODO maak een popup voor het droppen van een item
+                System.out.println("An item has dropped!");
                 Tile toRemove = null;
                 for (Tile t : mv.mapData) {
                     if (t.gridX == lv.getOldX() && t.gridY == lv.getOldY() && t.tileType.equalsIgnoreCase("Enemy")) {
