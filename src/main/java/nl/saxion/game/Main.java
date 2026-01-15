@@ -24,7 +24,7 @@ public class Main {
         MapData.setLevel(1, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv"));
         LevelVars.setLevelStartX(1, 11);
         LevelVars.setLevelStartY(1, 11);
-        MapData.setLevel(2, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/LevelTestTile.csv"));
+        MapData.setLevel(2, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level2Tile.csv"));
         LevelVars.setLevelStartX(2, 10);
         LevelVars.setLevelStartY(2, 10);
 
