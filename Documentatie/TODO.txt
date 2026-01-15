@@ -1,6 +1,6 @@
 5 Kloppende levels
 Meerdere Enemys met verschillende stats
-Inventory systeem visualiseren
+
 Gear droppen na een kill en of eind van een level (Dobbelsteen)
 Battles afmaken
 Death Screen (Enemys opnieuw laden)
