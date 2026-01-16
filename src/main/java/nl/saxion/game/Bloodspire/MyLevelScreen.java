@@ -67,7 +67,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
             GameApp.switchScreen("MyLevelScreen");
         }
 
-        if (GameApp.isKeyJustPressed(Input.Keys.ENTER)) {
+        if (GameApp.isKeyJustPressed(Input.Keys.M)) {
             GameApp.switchScreen("DooDScreen");
         }
 
@@ -91,7 +91,10 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         LevelVars.setOldLevel(LevelVars.getCurrentLevel());
         System.out.println(LevelVars.getOldLevel());
         if (nextLevel) {
-            LevelVars.setCurrentLevel(LevelVars.getCurrentLevel()+1);
+            LevelVars.setCurrentLevel(LevelVars.getCurrentLevel()+2);
+            if (LevelVars.getCurrentLevel() == 7) {
+                GameApp.switchScreen("VictoryScreen");
+            }
             InventoryScreen.inventory.giveRandomItem(15);
             nextLevel = false;
         }

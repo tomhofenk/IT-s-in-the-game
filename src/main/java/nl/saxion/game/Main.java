@@ -43,6 +43,7 @@ public class Main {
         GameApp.addScreen("InventoryScreen", new InventoryScreen());
         GameApp.addScreen("DooDScreen", new DooDScreen());
         GameApp.addScreen("HelpScreen", new HelpScreen());
+        GameApp.addScreen("VictoryScreen", new VictoryScreen());
 
         // Start game loop and show main menu screen
         GameApp.start("Bloodspire", 2560, 1600, 60, true, "MainMenuScreen");
