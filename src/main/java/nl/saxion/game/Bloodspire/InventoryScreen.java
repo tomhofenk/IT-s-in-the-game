@@ -257,7 +257,6 @@ public class InventoryScreen extends ScalableGameScreen {
                 tempBox.y = tempY;
                 tempBox.index = i - 1;
                 boxesEquipedSide.add(tempBox);
-
             }
         }
     }

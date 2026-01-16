@@ -2,13 +2,14 @@ package nl.saxion.game.Bloodspire.Methodes;
 
 import nl.saxion.game.Bloodspire.Classes.Item;
 import nl.saxion.game.Bloodspire.Classes.Player;
+import nl.saxion.game.Bloodspire.InventoryScreen;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
 public class Inventory {
-    ArrayList<Item> itemsInInventory = new ArrayList<>();
+    public static ArrayList<Item> itemsInInventory = new ArrayList<>();
     ArrayList<String> itemTypes = new ArrayList<>();
     ArrayList<Item> itemList = new ArrayList<>();
     ArrayList<Item> equipped = new ArrayList<>();
@@ -198,6 +199,12 @@ public class Inventory {
         return location;
     }
 
+    public void purge() {
+        itemList.clear();
+        itemTypes.clear();
+        itemsInInventory.clear();
+        equipped.clear();
+    }
 
     public ArrayList<Item> getEquipped() {
         return equipped;
