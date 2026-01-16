@@ -222,7 +222,7 @@ public class BattleScreen extends ScalableGameScreen {
             if (playerHitPoints <= 0) {
                 inGevecht = false;
                 System.out.println("Player defeated!");
-                GameApp.switchScreen("MainMenuScreen");
+                GameApp.switchScreen("DooDScreen");
             }
         }
     }
