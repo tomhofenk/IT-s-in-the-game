@@ -23,7 +23,7 @@ public class DooDScreen extends ScalableGameScreen {
         GameApp.addFont("Basic", "fonts/basic.ttf", 1000);
         GameApp.addFont("Basic2", "fonts/basic.ttf", 400);
         GameApp.addTexture("StoutWoutje", "textures/TheAlmightyStoutWoutje.jpg");
-        Main.setMapAndEnemyData();
+        //Main.setMapAndEnemyData();
         LevelVars.setOldLevel(1);
         LevelVars.setCurrentLevel(1);
         LevelVars.setCurrentLevel(1);

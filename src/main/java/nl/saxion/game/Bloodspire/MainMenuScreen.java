@@ -24,7 +24,7 @@ public class MainMenuScreen extends ScalableGameScreen {
         // When the user presses enter, go to the next screen
         if (GameApp.isKeyJustPressed(Input.Keys.SPACE) || GameApp.isKeyJustPressed(Input.Keys.ENTER)) {
             if (selectedOption == 0) {
-                GameApp.switchScreen("MyLevelScreen");
+                GameApp.switchScreen("HelpScreen");
             } else if (selectedOption == 1) {
                 GameApp.quit();
             } else if (selectedOption == 2) {
