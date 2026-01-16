@@ -50,6 +50,15 @@ public class Main {
         MapData.setLevel(2, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/LevelTestTile.csv"));
         LevelVars.setLevelStartX(2, 10);
         LevelVars.setLevelStartY(2, 10);
+        MapData.setLevel(3, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level3Tile.csv"));
+        LevelVars.setLevelStartX(3, 10);
+        LevelVars.setLevelStartY(3, 10);
+        MapData.setLevel(4, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level4Tile.csv"));
+        LevelVars.setLevelStartX(4, 10);
+        LevelVars.setLevelStartY(4, 10);
+        MapData.setLevel(5, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level5Tile.csv"));
+        LevelVars.setLevelStartX(5, 10);
+        LevelVars.setLevelStartY(5, 10);
 
         EnemyData.EnemyArraylist = CsvLoader.enemyLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Enemy.csv");
     }

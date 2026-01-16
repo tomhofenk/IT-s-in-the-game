@@ -56,13 +56,13 @@ TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID,tileType,walkable
 55,832,448,13,7,false,0,Wall,false
 56,832,512,13,8,false,0,Wall,false
 57,832,576,13,9,false,0,Wall,false
-58,832,832,13,13,true,1,Enemy,true
-59,832,896,13,14,true,1,Enemy,true
+58,832,832,13,13,true,3,Enemy,true
+59,832,896,13,14,true,3,Enemy,true
 60,896,448,14,7,false,0,Wall,false
 61,896,512,14,8,false,0,Wall,false
 62,896,576,14,9,false,0,Wall,false
-63,896,832,14,13,true,1,Enemy,true
-64,896,896,14,14,true,1,Enemy,true
+63,896,832,14,13,true,3,Enemy,true
+64,896,896,14,14,true,3,Enemy,true
 65,960,448,15,7,false,0,Wall,false
 66,960,512,15,8,false,0,Wall,false
 67,960,576,15,9,false,0,Wall,false

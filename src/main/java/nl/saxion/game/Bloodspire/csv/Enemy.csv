@@ -1,4 +1,7 @@
 enemyID, hitPoints, attackSpeed, attackDamage, defense, experiencePoints, texture
 1, 50, 1, 5, 2, 2, Enemy1
-2, 100, 5 , 15, 2, 5, Enemy2
-3, 150, 10 , 30, 4, 10, Enemy3
+2, 100, 5, 15, 2, 5, Enemy2
+3, 150, 10, 30, 4, 10, Enemy3
+4, 200, 15, 45, 6, 15, Enemy4
+5, 250, 20, 60, 10, 20, Enemy5
+6, 400, 25, 75, 15, 50, EnemyBoss
