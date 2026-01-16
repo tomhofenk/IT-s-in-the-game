@@ -34,7 +34,7 @@ public class BattleScreen extends ScalableGameScreen {
 
 
     public BattleScreen() {
-        super(160, 90);
+        super(2560, 1600);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class BattleScreen extends ScalableGameScreen {
         klaar = false;
         battleStarted = false;
         battleTimer = 0f;
-        GameApp.addFont("VS", "fonts/basic.ttf", 2);
-        GameApp.addFont("DamagePopUp", "fonts/5x5_pixel.ttf", 1);
+        GameApp.addFont("VS", "fonts/basic.ttf", 500);
+        GameApp.addFont("DamagePopUp", "fonts/5x5_pixel.ttf", 400);
         //EnemyData.EnemyArraylist
 
         attackIntervalPlayer = (GameApp.getFramesPerSecond())*((100+mainPlayer.getAttackSpeed())/100);
@@ -110,26 +110,26 @@ public class BattleScreen extends ScalableGameScreen {
 
     private void renderEnemyAndCharacter() {
         GameApp.startSpriteRendering();
-        GameApp.drawTexture("CharacterTexture", 5, 5);
-        GameApp.drawTexture(enemyTileData.tileType, getWorldWidth()/2+25, 5, 64, 64, 0, true, false);
-        GameApp.drawTextCentered("VS", "VS", 90, 45, Color.RED);
+        GameApp.drawTexture("CharacterTexture", 50, 50);
+        GameApp.drawTexture(enemyTileData.tileType, getWorldWidth()/2+450, 600, 640, 640, 0, true, false);
+        GameApp.drawTextCentered("VS", "VS", 1280, 800, Color.RED);
         GameApp.endSpriteRendering();
     }
 
     private void renderHpBars() {
         GameApp.startShapeRenderingOutlined();
-        GameApp.drawRect(4,74,52,12, Color.WHITE);
-        GameApp.drawRect(104,74,52,12, Color.WHITE);
+        GameApp.drawRect(64,1311,832,213, Color.WHITE);
+        GameApp.drawRect(1664,1311,832,213, Color.WHITE);
         GameApp.endShapeRendering();
         GameApp.startShapeRenderingFilled();
-        GameApp.drawRect(105, 75, (int)(50 * ((float)enenenasemyHitPoints / maxEnemyHitPoints)), 10, Color.GREEN);
-        GameApp.drawRect(5, 75, (50*((float) playerHitPoints /(float)maxPlayerHitPoints)), 10, Color.GREEN);
+        GameApp.drawRect(1680, 1333, (int)(800 * ((float)enenenasemyHitPoints / maxEnemyHitPoints)), 178, Color.GREEN);
+        GameApp.drawRect(80, 1333, (800*((float) playerHitPoints /(float)maxPlayerHitPoints)), 178, Color.GREEN);
         GameApp.endShapeRendering();
         GameApp.startSpriteRendering();
         String VisibleHPEnemy = enenenasemyHitPoints + "";
-        GameApp.drawTextCentered("DamagePopUp", VisibleHPEnemy, 130, 80, Color.WHITE);
+        GameApp.drawTextCentered("DamagePopUp", VisibleHPEnemy, 2080, 1422, Color.WHITE);
         String VisibleHPPLayer = playerHitPoints + "";
-        GameApp.drawTextCentered("DamagePopUp", VisibleHPPLayer, 30, 80, Color.WHITE);
+        GameApp.drawTextCentered("DamagePopUp", VisibleHPPLayer, 480, 1422, Color.WHITE);
         GameApp.endSpriteRendering();
     }
 
