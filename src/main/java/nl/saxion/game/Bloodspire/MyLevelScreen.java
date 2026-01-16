@@ -13,6 +13,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
     public LevelVars lv = new LevelVars();
     private int framesCounter = 0;
     boolean nextLevel = false;
+    boolean anyEnemysLeft = true;
 
 
     public MyLevelScreen(int viewportWidth, int viewportHeight, int worldWidth, int worldHeight) {
@@ -52,6 +53,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
         methodes.addAllTextures();
 
+        anyEnemysLeft = methodes.checkEnemy(mv);
     }
 
 
