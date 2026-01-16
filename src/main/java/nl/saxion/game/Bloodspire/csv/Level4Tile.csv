@@ -115,7 +115,7 @@ TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID,tileType,walkable
 114,896,1088,14,17,false,0,Wall,false
 115,896,1152,14,18,false,0,Wall,false
 116,896,1216,14,19,false,0,Wall,false
-117,896,1280,14,20,true,1,Enemy,true
+117,896,1280,14,20,true,4,Enemy,true
 118,896,1600,14,25,false,0,Wall,false
 119,896,1664,14,26,false,0,Wall,false
 120,896,1728,14,27,false,0,Wall,false
@@ -171,7 +171,7 @@ TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID,tileType,walkable
 170,1152,768,18,12,false,0,Wall,false
 171,1152,832,18,13,false,0,Wall,false
 172,1152,960,18,15,false,0,Wall,false
-173,1152,1280,18,20,true,1,Enemy,true
+173,1152,1280,18,20,true,4,Enemy,true
 174,1152,1600,18,25,false,0,Wall,false
 175,1152,1664,18,26,false,0,Wall,false
 176,1152,1728,18,27,false,0,Wall,false
@@ -210,7 +210,7 @@ TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID,tileType,walkable
 209,1344,704,21,11,false,0,Wall,false
 210,1344,768,21,12,false,0,Wall,false
 211,1344,832,21,13,false,0,Wall,false
-212,1344,960,21,15,true,1,Enemy,true
+212,1344,960,21,15,true,4,Enemy,true
 213,1344,1088,21,17,false,0,Wall,false
 214,1344,1152,21,18,false,0,Wall,false
 215,1344,1216,21,19,false,0,Wall,false
@@ -337,7 +337,7 @@ TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID,tileType,walkable
 336,1856,960,29,15,false,0,Wall,false
 337,1856,1024,29,16,false,0,Wall,false
 338,1856,1216,29,19,false,0,Wall,false
-339,1856,1472,29,23,true,1,Enemy,true
+339,1856,1472,29,23,true,4,Enemy,true
 340,1856,1536,29,24,false,0,Wall,false
 341,1856,1600,29,25,false,0,Wall,false
 342,1856,1664,29,26,false,0,Wall,false

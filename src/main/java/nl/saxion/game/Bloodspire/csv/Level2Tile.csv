@@ -157,7 +157,7 @@ TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID,tileType,walkable
 156,1088,832,17,13,false,0,Wall,false
 157,1088,1088,17,17,false,0,Wall,false
 158,1088,1152,17,18,false,0,Wall,false
-159,1088,1280,17,20,true,1,Enemy,true
+159,1088,1280,17,20,true,2,Enemy,true
 160,1088,1344,17,21,false,0,Wall,false
 161,1088,1408,17,22,false,0,Wall,false
 162,1088,1536,17,24,false,0,Wall,false
@@ -242,7 +242,7 @@ TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID,tileType,walkable
 241,1472,768,23,12,false,0,Wall,false
 242,1472,832,23,13,false,0,Wall,false
 243,1472,896,23,14,false,0,Wall,false
-244,1472,1152,23,18,true,1,Enemy,true
+244,1472,1152,23,18,true,2,Enemy,true
 245,1472,1344,23,21,false,0,Wall,false
 246,1472,1536,23,24,false,0,Wall,false
 247,1472,1600,23,25,false,0,Wall,false
@@ -259,7 +259,7 @@ TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID,tileType,walkable
 258,1536,896,24,14,false,0,Wall,false
 259,1536,1344,24,21,false,0,Wall,false
 260,1536,1536,24,24,false,0,Wall,false
-261,1536,1600,24,25,true,1,Enemy,true
+261,1536,1600,24,25,true,2,Enemy,true
 262,1536,1664,24,26,false,0,Wall,false
 263,1536,1728,24,27,false,0,Wall,false
 264,1536,1792,24,28,false,0,Wall,false
@@ -300,10 +300,10 @@ TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID,tileType,walkable
 299,1728,704,27,11,false,0,Wall,false
 300,1728,768,27,12,false,0,Wall,false
 301,1728,832,27,13,false,0,Wall,false
-302,1728,896,27,14,true,1,Enemy,true
+302,1728,896,27,14,true,2,Enemy,true
 303,1728,960,27,15,false,0,Wall,false
 304,1728,1152,27,18,false,0,Wall,false
-305,1728,1216,27,19,true,1,Enemy,true
+305,1728,1216,27,19,true,2,Enemy,true
 306,1728,1664,27,26,false,0,Wall,false
 307,1728,1728,27,27,false,0,Wall,false
 308,1728,1792,27,28,false,0,Wall,false
@@ -345,7 +345,7 @@ TileID,worldX,worldY,gridX,gridY,hasEnemy,enemyID,tileType,walkable
 344,1920,832,30,13,false,0,Wall,false
 345,1920,1152,30,18,false,0,Wall,false
 346,1920,1472,30,23,false,0,Wall,false
-347,1920,1536,30,24,true,1,Enemy,true
+347,1920,1536,30,24,true,2,Enemy,true
 348,1920,1664,30,26,false,0,Wall,false
 349,1920,1728,30,27,false,0,Wall,false
 350,1920,1792,30,28,false,0,Wall,false
