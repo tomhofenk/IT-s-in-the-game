@@ -2,6 +2,7 @@ package nl.saxion.game.Bloodspire;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import nl.saxion.game.Bloodspire.Methodes.LevelVars;
 import nl.saxion.game.Main;
 import nl.saxion.gameapp.GameApp;
 import nl.saxion.gameapp.screens.ScalableGameScreen;
@@ -20,6 +21,11 @@ public class DooDScreen extends ScalableGameScreen {
         GameApp.addFont("Basic2", "fonts/basic.ttf", 400);
         GameApp.addTexture("StoutWoutje", "textures/TheAlmightyStoutWoutje.jpg");
         Main.setMapAndEnemyData();
+        LevelVars.setOldLevel(1);
+        LevelVars.setCurrentLevel(1);
+        LevelVars.setCurrentLevel(1);
+        LevelVars.setOldX(0);
+        LevelVars.setOldY(0);
     }
 
     @Override
@@ -31,7 +37,20 @@ public class DooDScreen extends ScalableGameScreen {
             GameApp.switchScreen("MainMenuScreen");
         }
 
+        if (GameApp.isKeyJustPressed(Input.Keys.ENTER)) {
+            GameApp.switchScreen("MyLevelScreen");
+        }
+
         GameApp.clearScreen(Color.BLACK);
+        drawDoodScreen();
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    private void drawDoodScreen() {
         GameApp.startSpriteRendering();
         GameApp.drawTextCentered("Basic" ,"Defeated", getWorldWidth()/2, getWorldHeight()-500, Color.RED);
         GameApp.drawTextCentered("Basic2", "By The Almighty Stout Woutje", getWorldWidth()/2, getWorldHeight()-750, Color.WHITE);
@@ -41,8 +60,4 @@ public class DooDScreen extends ScalableGameScreen {
         GameApp.endSpriteRendering();
     }
 
-    @Override
-    public void hide() {
-
-    }
 }
