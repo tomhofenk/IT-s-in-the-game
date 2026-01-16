@@ -50,7 +50,7 @@ public class LevelVars {
         return oldX;
     }
 
-    public void setOldX(int oldX) {
+    public static void setOldX(int oldX) {
         LevelVars.oldX = oldX;
     }
 
@@ -58,7 +58,7 @@ public class LevelVars {
         return oldY;
     }
 
-    public void setOldY(int oldY) {
+    public static void setOldY(int oldY) {
         LevelVars.oldY = oldY;
     }
 }

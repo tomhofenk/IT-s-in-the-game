@@ -95,7 +95,7 @@ public class BattleScreen extends ScalableGameScreen {
 
     @Override
     public void hide() {
-        //mainPlayer.setHitpoints(maxPlayerHitPoints);
+        mainPlayer.setHitpoints(maxPlayerHitPoints);
         methodes.disposeAllTextures();
     }
 
@@ -228,7 +228,7 @@ public class BattleScreen extends ScalableGameScreen {
             if (enenenasemyHitPoints <= 0) {
                 inGevecht = false;
                 System.out.println("Enemy defeated!");
-                InventoryScreen.inventory.giveRandomItem(5);
+                InventoryScreen.inventory.giveRandomItem(enemyXP);
                 Tile toRemove = null;
                 for (Tile t : mv.mapData) {
                     if (t.gridX == lv.getOldX() && t.gridY == lv.getOldY() && t.tileType.equalsIgnoreCase("Enemy")) {
