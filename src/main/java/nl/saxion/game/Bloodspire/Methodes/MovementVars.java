@@ -61,6 +61,8 @@ public class MovementVars {
 
     public ArrayList<Tile> mapData;
 
+    public boolean anyEnemyLeft = true;
+
     // constructor: geef world sizes en startpositie (pixel coords)
     public MovementVars(int startWorldX, int startWorldY, int worldHeight, int worldWidth, int mouseX, int mouseY, int minTimeBetweenMovement, ArrayList<Tile> mapData) {
         this.playerWorldX = startWorldX;

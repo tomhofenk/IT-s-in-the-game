@@ -3,6 +3,7 @@ package nl.saxion.game.Bloodspire.Methodes;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Interpolation;
 import nl.saxion.game.Bloodspire.Classes.Tile;
+import nl.saxion.game.Bloodspire.InventoryScreen;
 import nl.saxion.game.Bloodspire.MyLevelScreen;
 import nl.saxion.gameapp.GameApp;
 
@@ -53,6 +54,7 @@ public class Methodes {
             }
         }
         switchToBattle(mv);
+        switchToNextLevel(mv);
     }
 
     public ArrayList<String> canMoveTo(MovementVars mv) {
@@ -113,6 +115,9 @@ public class Methodes {
         GameApp.addTexture("WallLeftSide", "textures/Wall21.png");
         GameApp.addTexture("WallRightSide", "textures/Wall22.png");
         GameApp.addTexture("WallBothSide", "textures/Wall23.png");
+
+        GameApp.addTexture("DoorOpen", "textures/DoorOpen.png");
+        GameApp.addTexture("DoorClosed", "textures/DoorClosed.png");
     }
 
     public void disposeAllTextures () {
@@ -127,6 +132,9 @@ public class Methodes {
         GameApp.disposeTexture("WallLeftSide");
         GameApp.disposeTexture("WallRightSide");
         GameApp.disposeTexture("WallBothSide");
+
+        GameApp.disposeTexture("DoorOpen");
+        GameApp.disposeTexture("DoorClosed");
     }
 
     public void gameLogic(MovementVars mv) {
@@ -212,12 +220,9 @@ public class Methodes {
                 } else {
                     GameApp.drawTexture("WallBothSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
                 }
-
             } else {
                 GameApp.drawTexture(tile.tileType, tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
-
             }
-
         }
         GameApp.endSpriteRendering();
     }
@@ -257,6 +262,46 @@ public class Methodes {
         for (Tile ct : mv.mapData) {
             if (ct.tileType.equalsIgnoreCase("Enemy") && ct.gridX == mv.playerTileX && ct.gridY == mv.playerTileY) {
                 GameApp.switchScreen("BattleScreen");
+            }
+        }
+    }
+
+    private void switchToNextLevel(MovementVars mv) {
+        LevelVars lv = new LevelVars();
+        for (Tile ct : mv.mapData) {
+            if (ct.tileType.equalsIgnoreCase("DoorOpen") && ct.gridX == mv.playerTileX && ct.gridY == mv.playerTileY) {
+
+                InventoryScreen.inventory.giveRandomItem(15);
+//                LevelVars.setOldX(0);
+//                LevelVars.setOldY(0);
+//                setOldCords(mv, lv);
+
+                MyLevelScreen.nextLevel = true;
+                if (MyLevelScreen.nextLevel) {
+                    LevelVars.setCurrentLevel(LevelVars.getCurrentLevel()+1);
+                    InventoryScreen.inventory.giveRandomItem(15);
+                    MyLevelScreen.nextLevel = false;
+                }
+
+                //LevelVars.setOldLevel(LevelVars.getCurrentLevel());
+               // LevelVars.setCurrentLevel(LevelVars.getCurrentLevel()+1);
+               // LevelVars.setOldX(LevelVars.getLevelStartX(LevelVars.getCurrentLevel()));
+              //  LevelVars.setOldY(LevelVars.getLevelStartY(LevelVars.getCurrentLevel()));
+//GameApp.switchScreen("MyLevelScreen");
+
+
+            }
+        }
+    }
+
+    public void changeDoorStatus(MovementVars mv) {
+        if (mv.anyEnemyLeft) {
+            for (Tile ct : mv.mapData) {
+                if (ct.tileType.equalsIgnoreCase("DoorClosed")) {
+                    ct.tileType = "DoorOpen";
+                    ct.walkable = true;
+                    break;
+                }
             }
         }
     }
