@@ -22,11 +22,14 @@ public class Main {
     public static void main(String[] args) {
 
         MapData.setLevel(1, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv"));
-        LevelVars.setLevelStartX(1, 11);
-        LevelVars.setLevelStartY(1, 11);
-        MapData.setLevel(2, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/LevelTestTile.csv"));
-        LevelVars.setLevelStartX(2, 10);
-        LevelVars.setLevelStartY(2, 10);
+        LevelVars.setLevelStartX(1, 15);
+        LevelVars.setLevelStartY(1, 14);
+        MapData.setLevel(2, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level2Tile.csv"));
+        LevelVars.setLevelStartX(2, 14);
+        LevelVars.setLevelStartY(2, 25);
+        MapData.setLevel(3, CsvLoader.levelLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/LevelTestTile.csv"));
+        LevelVars.setLevelStartX(3, 10);
+        LevelVars.setLevelStartY(3, 10);
 
         EnemyData.EnemyArraylist = CsvLoader.enemyLoadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Enemy.csv");
         //EnemyData.setId(1, loadEnemyCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Enemy.csv"));
