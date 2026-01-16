@@ -23,6 +23,9 @@ public class DooDScreen extends ScalableGameScreen {
         GameApp.addFont("Basic", "fonts/basic.ttf", 1000);
         GameApp.addFont("Basic2", "fonts/basic.ttf", 400);
         GameApp.addTexture("StoutWoutje", "textures/TheAlmightyStoutWoutje.jpg");
+        GameApp.addTexture("DeathSC", "textures/death_sc.png");
+        GameApp.addFont("PixelBig", "fonts/5x5_pixel.ttf", 1200);   // grote titel
+        GameApp.addFont("PixelSmall", "fonts/5x5_pixel.ttf", 500);  // subtitel
         Main.setMapAndEnemyData();
         LevelVars.setOldLevel(1);
         LevelVars.setCurrentLevel(1);
@@ -56,11 +59,12 @@ public class DooDScreen extends ScalableGameScreen {
 
     private void drawDoodScreen() {
         GameApp.startSpriteRendering();
-        GameApp.drawTextCentered("Basic" ,"Defeated", getWorldWidth()/2, getWorldHeight()-500, Color.RED);
-        GameApp.drawTextCentered("Basic2", "By The Almighty Stout Woutje", getWorldWidth()/2, getWorldHeight()-750, Color.WHITE);
-        GameApp.drawTextureCentered("StoutWoutje", getWorldWidth()/2, getWorldHeight()/2);
-        GameApp.drawTextCentered("Basic2", "Press Escape to go to the main menu",  getWorldWidth()/2, getWorldHeight()-3400, Color.WHITE);
-        GameApp.drawTextCentered("Basic2", "Press Enter to start over",  getWorldWidth()/2, getWorldHeight()-3550, Color.WHITE);
+        GameApp.drawTexture("DeathSC", 0, 0, 8000, 4500);
+       // GameApp.drawTextCentered("Basic" ,"Defeated", getWorldWidth()/2, getWorldHeight()-500, Color.RED);
+        GameApp.drawTextCentered("PixelSmall", "By   The   Almighty   Stout   Woutje", getWorldWidth()/2, getWorldHeight()-350, Color.WHITE);
+        GameApp.drawTextureCentered("StoutWoutje", getWorldWidth()/2, getWorldHeight()/2-100);
+        GameApp.drawTextCentered("PixelSmall", "Press   Escape   to   go   to   the   main   menu",  getWorldWidth()/2, getWorldHeight()-3400, Color.WHITE);
+        GameApp.drawTextCentered("PixelSmall", "Press   Enter   to   start   over",  getWorldWidth()/2, getWorldHeight()-3550, Color.WHITE);
         GameApp.endSpriteRendering();
     }
 
