@@ -2,6 +2,7 @@ package nl.saxion.game.Bloodspire;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import nl.saxion.game.Bloodspire.Methodes.Inventory;
 import nl.saxion.game.Bloodspire.Methodes.LevelVars;
 import nl.saxion.game.Main;
 import nl.saxion.gameapp.GameApp;
@@ -10,6 +11,8 @@ import nl.saxion.gameapp.screens.ScalableGameScreen;
 import java.awt.*;
 
 public class DooDScreen extends ScalableGameScreen {
+
+    Inventory inventory = new Inventory();
 
     public DooDScreen() {
         super(8000, 4500);
@@ -26,6 +29,7 @@ public class DooDScreen extends ScalableGameScreen {
         LevelVars.setCurrentLevel(1);
         LevelVars.setOldX(0);
         LevelVars.setOldY(0);
+        inventory.purge();
     }
 
     @Override
