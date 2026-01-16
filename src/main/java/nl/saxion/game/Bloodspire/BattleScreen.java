@@ -44,6 +44,11 @@ public class BattleScreen extends ScalableGameScreen {
         );
         methodes = new Methodes();
         methodes.addAllTextures();
+        GameApp.addTexture("Enemy_gr", "textures/Enemy_gr.png");
+        GameApp.addTexture("Jij_gr", "textures/Player_gr.png");
+        GameApp.addTexture("BattleBG", "textures/bg_battle.png");
+        GameApp.addTexture("Trans", "textures/HUDShadow.png");
+
         enemyTileData = getEnemeyData();
         assert enemyTileData != null;
         System.out.println(enemyTileData.enemyID + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -78,6 +83,10 @@ public class BattleScreen extends ScalableGameScreen {
         super.render(delta);
         frameCounter++;
         GameApp.clearScreen();
+        GameApp.startSpriteRendering();
+        GameApp.drawTexture("BattleBG", 0, 0, 2560, 1600);
+        GameApp.endSpriteRendering();
+
 
         renderEnemyAndCharacter();
         renderHpBars();
@@ -110,9 +119,9 @@ public class BattleScreen extends ScalableGameScreen {
 
     private void renderEnemyAndCharacter() {
         GameApp.startSpriteRendering();
-        GameApp.drawTexture("CharacterTexture", 50, 50);
-        GameApp.drawTexture(enemyTileData.tileType, getWorldWidth()/2+450, 600, 640, 640, 0, true, false);
-        GameApp.drawTextCentered("VS", "VS", 1280, 800, Color.RED);
+        GameApp.drawTexture("Jij_gr", 270, 438, 640, 640);
+        GameApp.drawTexture("Enemy_gr", getWorldWidth()/2+450, 600, 640, 530, 0, true, false);
+        GameApp.drawTextCentered("VS", "VS", 1300, 800, Color.WHITE);
         GameApp.endSpriteRendering();
     }
 
