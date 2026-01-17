@@ -31,12 +31,12 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         int startY = LevelVars.getLevelStartY(LevelVars.getCurrentLevel());
         System.out.println("startX: " + startX + " startY: " + startY);
         mv = new MovementVars(
-                startX*64,
-                startY*64,
-                (int)getWorldHeight(),
-                (int)getWorldWidth(),
-                (int)getMouseX(),
-                (int)getMouseY(),
+                startX * 64,
+                startY * 64,
+                (int) getWorldHeight(),
+                (int) getWorldWidth(),
+                (int) getMouseX(),
+                (int) getMouseY(),
                 GameApp.getFramesPerSecond() / 3,
                 MapData.getLevel(LevelVars.getCurrentLevel())
         );
@@ -48,7 +48,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         }
 
         // camera direct naar de speler
-        setCameraTargetInstantly((mv.playerWorldX+ (float) mv.pixelPerGridTile /2), (mv.playerWorldY+ (float) mv.pixelPerGridTile /2));
+        setCameraTargetInstantly((mv.playerWorldX + (float) mv.pixelPerGridTile / 2), (mv.playerWorldY + (float) mv.pixelPerGridTile / 2));
 
         methodes.addAllTextures();
 
@@ -73,7 +73,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
 
 
         // camera volgen
-        setCameraTarget((mv.playerWorldX+ (float) mv.pixelPerGridTile /2), (mv.playerWorldY+ (float) mv.pixelPerGridTile /2));
+        setCameraTarget((mv.playerWorldX + (float) mv.pixelPerGridTile / 2), (mv.playerWorldY + (float) mv.pixelPerGridTile / 2));
 
         super.render(delta);
 
@@ -91,7 +91,7 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         LevelVars.setOldLevel(LevelVars.getCurrentLevel());
         System.out.println(LevelVars.getOldLevel());
         if (nextLevel) {
-            LevelVars.setCurrentLevel(LevelVars.getCurrentLevel()+2);
+            LevelVars.setCurrentLevel(LevelVars.getCurrentLevel() + 2);
             if (LevelVars.getCurrentLevel() == 7) {
                 GameApp.switchScreen("VictoryScreen");
             }
@@ -106,8 +106,8 @@ public class MyLevelScreen extends CameraControlledGameScreen {
         mv.minTimeBetweenMovement = GameApp.getFramesPerSecond() / 3;
 
         // update input-based waarden in mv
-        mv.mouseX = (int)getMouseX();
-        mv.mouseY = (int)getMouseY();
+        mv.mouseX = (int) getMouseX();
+        mv.mouseY = (int) getMouseY();
 
         // tile coordination's blijven consistent (kan ook in Methodes, maar we houden hem hier up-to-date vóór movement)
         mv.playerTileX = mv.playerWorldX / mv.pixelPerGridTile;

@@ -1,7 +1,6 @@
 package nl.saxion.game.Bloodspire.Methodes;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Interpolation;
 import nl.saxion.game.Bloodspire.Classes.Tile;
 import nl.saxion.game.Bloodspire.InventoryScreen;
 import nl.saxion.game.Bloodspire.MyLevelScreen;
@@ -9,14 +8,10 @@ import nl.saxion.gameapp.GameApp;
 
 import java.util.ArrayList;
 
-import static nl.saxion.game.Bloodspire.Methodes.LevelVars.*;
-
 /**
  * Utility-class met shared methodes. Hier staat Movement.
  */
 public class Methodes {
-
-    public MapData mp = new MapData();
 
     // public zodat MyLevelScreen deze kan aanroepen: methodes.Movement(mv);
     public void Movement(MovementVars mv) {
@@ -91,19 +86,19 @@ public class Methodes {
         return possibleDirections;
     }
 
-    public void getOldCords (MovementVars mv, LevelVars lv, int startX, int startY) {
+    public void getOldCords(MovementVars mv, LevelVars lv, int startX, int startY) {
         if ((startX != lv.getOldX() || startY != lv.getOldY()) && lv.getOldX() != 0 && lv.getOldY() != 0) {
             mv.playerWorldX = lv.getOldX() * mv.pixelPerGridTile;
-            mv.playerWorldY = lv.getOldY() *  mv.pixelPerGridTile;
+            mv.playerWorldY = lv.getOldY() * mv.pixelPerGridTile;
         }
     }
 
-    public void setOldCords (MovementVars mv, LevelVars lv) {
-        lv.setOldX(mv.playerTileX);
-        lv.setOldY(mv.playerTileY);
+    public void setOldCords(MovementVars mv, LevelVars lv) {
+        LevelVars.setOldX(mv.playerTileX);
+        LevelVars.setOldY(mv.playerTileY);
     }
 
-    public void addAllTextures () {
+    public void addAllTextures() {
         GameApp.addTexture("CharacterTexture", "textures/DungeonCharacterpng.png");
         GameApp.addTexture("Enemy", "textures/Enemy.png");
         GameApp.addTexture("Black", "textures/Black.png");
@@ -120,7 +115,7 @@ public class Methodes {
         GameApp.addTexture("DoorClosed", "textures/DoorClosed.png");
     }
 
-    public void disposeAllTextures () {
+    public void disposeAllTextures() {
         GameApp.disposeTexture("CharacterTexture");
         GameApp.disposeTexture("Enemy");
         GameApp.disposeTexture("Black");
@@ -173,10 +168,10 @@ public class Methodes {
         drawShadows();
     }
 
-    public boolean checkEnemy(MovementVars mv){
+    public boolean checkEnemy(MovementVars mv) {
         for (Tile t : mv.mapData) {
             if (t.tileType.equalsIgnoreCase("Enemy")) {
-                System.out.println("Er zitten nog enemies in het level!");;
+                System.out.println("Er zitten nog enemies in het level!");
                 return false;
             }
         }
@@ -199,30 +194,33 @@ public class Methodes {
         GameApp.startSpriteRendering();
         for (Tile tile : mv.mapData) {
             //String textureName = getTextureForTileType(tile.tileType);
-            rightSideIsWall = false;
-            leftSideIsWall = false;
-            if (tile.tileType.equals("Wall")) {
-                //GameApp.drawTexture(textureName, tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
-                for (Tile tile2 : mv.mapData) {
-                    if ((tile2.gridX-1 == tile.gridX && tile2.gridY == tile.gridY) && tile2.tileType.equalsIgnoreCase("Wall")) {
-                        leftSideIsWall = true;
+            if ((mv.playerTileX >= tile.gridX - 5 || mv.playerTileX <= tile.gridX + 5) || (mv.playerTileY >= tile.gridY - 5 || mv.playerTileY <= tile.gridY + 5)) {
+                rightSideIsWall = false;
+                leftSideIsWall = false;
+                if (tile.tileType.equals("Wall")) {
+                    //GameApp.drawTexture(textureName, tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                    for (Tile tile2 : mv.mapData) {
+                        if ((tile2.gridX - 1 == tile.gridX && tile2.gridY == tile.gridY) && tile2.tileType.equalsIgnoreCase("Wall")) {
+                            leftSideIsWall = true;
+                        }
+                        if ((tile2.gridX + 1 == tile.gridX && tile2.gridY == tile.gridY) && tile2.tileType.equalsIgnoreCase("Wall")) {
+                            rightSideIsWall = true;
+                        }
                     }
-                    if ((tile2.gridX+1 == tile.gridX && tile2.gridY == tile.gridY) && tile2.tileType.equalsIgnoreCase("Wall")) {
-                        rightSideIsWall = true;
+                    if (leftSideIsWall && rightSideIsWall) {
+                        GameApp.drawTexture("WallOpenSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                    } else if (!leftSideIsWall && rightSideIsWall) {
+                        GameApp.drawTexture("WallRightSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                    } else if (leftSideIsWall) {
+                        GameApp.drawTexture("WallLeftSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                    } else {
+                        GameApp.drawTexture("WallBothSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
                     }
-                }
-                if (leftSideIsWall && rightSideIsWall) {
-                    GameApp.drawTexture("WallOpenSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
-                } else if (!leftSideIsWall && rightSideIsWall) {
-                    GameApp.drawTexture("WallRightSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
-                } else if (leftSideIsWall) {
-                    GameApp.drawTexture("WallLeftSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
                 } else {
-                    GameApp.drawTexture("WallBothSide", tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                    GameApp.drawTexture(tile.tileType, tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
                 }
-            } else {
-                GameApp.drawTexture(tile.tileType, tile.worldX, tile.worldY, mv.pixelPerGridTile, mv.pixelPerGridTile);
             }
+
         }
         GameApp.endSpriteRendering();
     }
@@ -239,7 +237,9 @@ public class Methodes {
         GameApp.startSpriteRendering();
         for (int y = 0; y < mv.worldHeight / mv.pixelPerGridTile; y++) {
             for (int x = 0; x < mv.worldWidth / mv.pixelPerGridTile; x++) {
-                GameApp.drawTexture("BlackGrid",x * mv.pixelPerGridTile, y * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                if ((mv.playerTileX >= x - 5 || mv.playerTileX <= x + 5) || (mv.playerTileY >= y - 5 || mv.playerTileY <= y + 5)) {
+                    GameApp.drawTexture("BlackGrid", x * mv.pixelPerGridTile, y * mv.pixelPerGridTile, mv.pixelPerGridTile, mv.pixelPerGridTile);
+                }
             }
         }
         GameApp.endSpriteRendering();
@@ -278,15 +278,15 @@ public class Methodes {
 
                 MyLevelScreen.nextLevel = true;
                 if (MyLevelScreen.nextLevel) {
-                    LevelVars.setCurrentLevel(LevelVars.getCurrentLevel()+1);
+                    LevelVars.setCurrentLevel(LevelVars.getCurrentLevel() + 1);
                     InventoryScreen.inventory.giveRandomItem(15);
                     MyLevelScreen.nextLevel = false;
                 }
 
                 //LevelVars.setOldLevel(LevelVars.getCurrentLevel());
-               // LevelVars.setCurrentLevel(LevelVars.getCurrentLevel()+1);
-               // LevelVars.setOldX(LevelVars.getLevelStartX(LevelVars.getCurrentLevel()));
-              //  LevelVars.setOldY(LevelVars.getLevelStartY(LevelVars.getCurrentLevel()));
+                // LevelVars.setCurrentLevel(LevelVars.getCurrentLevel()+1);
+                // LevelVars.setOldX(LevelVars.getLevelStartX(LevelVars.getCurrentLevel()));
+                //  LevelVars.setOldY(LevelVars.getLevelStartY(LevelVars.getCurrentLevel()));
 //GameApp.switchScreen("MyLevelScreen");
 
 

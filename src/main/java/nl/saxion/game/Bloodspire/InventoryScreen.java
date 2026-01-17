@@ -18,8 +18,8 @@ public class InventoryScreen extends ScalableGameScreen {
     int frameCounter = 0;
     int frames = 0;
 
-    ArrayList<Box> boxesInventorySide = new ArrayList<Box>();
-    ArrayList<Box> boxesEquipedSide = new ArrayList<Box>();
+    ArrayList<Box> boxesInventorySide = new ArrayList<>();
+    ArrayList<Box> boxesEquipedSide = new ArrayList<>();
     Box selectedBoxInv = new Box();
     Box selectedBoxEquiped = new Box();
 
@@ -141,7 +141,7 @@ public class InventoryScreen extends ScalableGameScreen {
 
         showItems();
 
-        if (inventory.getItemsInInventory().size() == 0) {
+        if (inventory.getItemsInInventory().isEmpty()) {
             emptyInventory();
         } else {
             hoverOverItemsInventorySide();
@@ -168,7 +168,6 @@ public class InventoryScreen extends ScalableGameScreen {
     }
 
     private void showItems() {
-        int i = 1;
         int Yplacement = (int) GameApp.getWorldHeight() - 160;
         int Xplacement = 32;
         int itemCounter = 0;
@@ -179,7 +178,6 @@ public class InventoryScreen extends ScalableGameScreen {
 
             GameApp.drawTexture(currentItem.rarity, Xplacement, Yplacement);
             GameApp.drawTexture(currentItem.itemType, Xplacement, Yplacement);
-            i++;
 
             if (itemCounter % 7 == 0 && itemCounter != 0) {
                 Yplacement -= 160;
@@ -314,7 +312,7 @@ public class InventoryScreen extends ScalableGameScreen {
             index++;
         }
         GameApp.startShapeRenderingFilled();
-        GameApp.drawRect(0,0,500,300, Color.BLACK);
+        GameApp.drawRect(0, 0, 500, 300, Color.BLACK);
         GameApp.endShapeRendering();
     }
 
@@ -370,7 +368,7 @@ public class InventoryScreen extends ScalableGameScreen {
             index++;
         }
         GameApp.startShapeRenderingFilled();
-        GameApp.drawRect(0,0,500,300, Color.BLACK);
+        GameApp.drawRect(0, 0, 500, 300, Color.BLACK);
         GameApp.endShapeRendering();
     }
 
@@ -386,21 +384,21 @@ public class InventoryScreen extends ScalableGameScreen {
     public void showPlayerStats() {
         GameApp.startSpriteRendering();
         GameApp.drawTexture("HP", 1400, 1450);
-        String playerHP = mainPlayer.getHitpoints()+"";
+        String playerHP = mainPlayer.getHitpoints() + "";
         GameApp.drawText("Basic3", playerHP, 1550, 1450, Color.WHITE);
         GameApp.drawTexture("DMG", 1400, 1300);
-        String playerDMG = mainPlayer.getAttackDamage()+"";
+        String playerDMG = mainPlayer.getAttackDamage() + "";
         GameApp.drawText("Basic3", playerDMG, 1550, 1300, Color.WHITE);
         GameApp.drawTexture("Def", 2000, 1450);
-        String playerDef = mainPlayer.getDefense()+"";
+        String playerDef = mainPlayer.getDefense() + "";
         GameApp.drawText("Basic3", playerDef, 2150, 1450, Color.WHITE);
         GameApp.drawTexture("Speed", 2000, 1300);
-        String playerSpeed = mainPlayer.getAttackSpeed()+"";
+        String playerSpeed = mainPlayer.getAttackSpeed() + "";
         GameApp.drawText("Basic3", playerSpeed, 2150, 1300, Color.WHITE);
         GameApp.endSpriteRendering();
     }
 
-    private class Box {
+    private static class Box {
         int x;
         int y;
         int index;

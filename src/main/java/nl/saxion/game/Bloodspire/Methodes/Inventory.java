@@ -2,7 +2,6 @@ package nl.saxion.game.Bloodspire.Methodes;
 
 import nl.saxion.game.Bloodspire.Classes.Item;
 import nl.saxion.game.Bloodspire.Classes.Player;
-import nl.saxion.game.Bloodspire.InventoryScreen;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

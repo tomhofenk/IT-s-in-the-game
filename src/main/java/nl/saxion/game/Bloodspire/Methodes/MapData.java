@@ -11,8 +11,8 @@
 //
 //public class MapData {
 //
-////    public ArrayList<Tile> Level1MapData = loadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv");
-////    public ArrayList<Tile> Level2MapData = new ArrayList<>();
+/// /    public ArrayList<Tile> Level1MapData = loadCsv("src/main/java/nl/saxion/game/Bloodspire/csv/Level1Tile.csv");
+/// /    public ArrayList<Tile> Level2MapData = new ArrayList<>();
 //
 //    public static Map<Integer, ArrayList<Tile>> LevelMapData = new HashMap<>();
 //    static {
@@ -35,6 +35,7 @@
 package nl.saxion.game.Bloodspire.Methodes;
 
 import nl.saxion.game.Bloodspire.Classes.Tile;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

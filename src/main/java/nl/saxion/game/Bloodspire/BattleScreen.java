@@ -39,7 +39,7 @@ public class BattleScreen extends ScalableGameScreen {
 
     @Override
     public void show() {
-        mv = new MovementVars(0,0,0,0,0,0,0,
+        mv = new MovementVars(0, 0, 0, 0, 0, 0, 0,
                 MapData.getLevel(LevelVars.getCurrentLevel())
         );
         methodes = new Methodes();
@@ -70,8 +70,8 @@ public class BattleScreen extends ScalableGameScreen {
         GameApp.addFont("DamagePopUp", "fonts/5x5_pixel.ttf", 400);
         //EnemyData.EnemyArraylist
 
-        attackIntervalPlayer = (GameApp.getFramesPerSecond())*((100+mainPlayer.getAttackSpeed())/100);
-        attackIntervalEnemy = (GameApp.getFramesPerSecond())*((100+currentEnemy.attackSpeed)/100);
+        attackIntervalPlayer = (GameApp.getFramesPerSecond()) * ((100 + mainPlayer.getAttackSpeed()) / 100);
+        attackIntervalEnemy = (GameApp.getFramesPerSecond()) * ((100 + currentEnemy.attackSpeed) / 100);
         System.out.println("AIP: " + attackIntervalPlayer + " AIE: " + attackIntervalEnemy);
         enenenasemyHitPoints = currentEnemy.hitPoints;
         enemyXP = currentEnemy.experiencePoints;
@@ -93,7 +93,6 @@ public class BattleScreen extends ScalableGameScreen {
 
         enemySideFight();
         playerSideFight();
-
 
 
         // ESC om terug naar menu
@@ -120,19 +119,19 @@ public class BattleScreen extends ScalableGameScreen {
     private void renderEnemyAndCharacter() {
         GameApp.startSpriteRendering();
         GameApp.drawTexture("Jij_gr", 270, 438, 640, 640);
-        GameApp.drawTexture("Enemy_gr", getWorldWidth()/2+450, 600, 640, 530, 0, true, false);
+        GameApp.drawTexture("Enemy_gr", getWorldWidth() / 2 + 450, 600, 640, 530, 0, true, false);
         GameApp.drawTextCentered("VS", "VS", 1300, 800, Color.WHITE);
         GameApp.endSpriteRendering();
     }
 
     private void renderHpBars() {
         GameApp.startShapeRenderingOutlined();
-        GameApp.drawRect(64,1311,832,213, Color.WHITE);
-        GameApp.drawRect(1664,1311,832,213, Color.WHITE);
+        GameApp.drawRect(64, 1311, 832, 213, Color.WHITE);
+        GameApp.drawRect(1664, 1311, 832, 213, Color.WHITE);
         GameApp.endShapeRendering();
         GameApp.startShapeRenderingFilled();
-        GameApp.drawRect(1680, 1333, (int)(800 * ((float)enenenasemyHitPoints / maxEnemyHitPoints)), 178, Color.GREEN);
-        GameApp.drawRect(80, 1333, (800*((float) playerHitPoints /(float)maxPlayerHitPoints)), 178, Color.GREEN);
+        GameApp.drawRect(1680, 1333, (int) (800 * ((float) enenenasemyHitPoints / maxEnemyHitPoints)), 178, Color.GREEN);
+        GameApp.drawRect(80, 1333, (800 * ((float) playerHitPoints / (float) maxPlayerHitPoints)), 178, Color.GREEN);
         GameApp.endShapeRendering();
         GameApp.startSpriteRendering();
         String VisibleHPEnemy = enenenasemyHitPoints + "";
@@ -173,13 +172,13 @@ public class BattleScreen extends ScalableGameScreen {
         return null;
     }
 
-    private void AttackEnemy(){
+    private void AttackEnemy() {
         if (inGevecht) {
             // Damage berekening: Player attackDamage - Enemy defense
             double rawDamage = mainPlayer.getAttackDamage() - currentEnemy.defense;
 
             // Zorg dat damage nooit negatief wordt
-            int damage = (int)Math.max(1, rawDamage);
+            int damage = (int) Math.max(1, rawDamage);
             // bijvoorbeeld
             currentEnemy.hitPoints -= damage;
             Tile toRemove = null;
@@ -198,7 +197,7 @@ public class BattleScreen extends ScalableGameScreen {
             if (currentEnemy.hitPoints <= 0) {
                 klaar = true;
                 System.out.println("Enemy defeated!");
-               // mainPlayer.setHitpoints(100);
+                // mainPlayer.setHitpoints(100);
 
                 // eventueel terug naar level screen
                 if (klaar) {
@@ -226,6 +225,7 @@ public class BattleScreen extends ScalableGameScreen {
             }
         }
     }
+
     private void playerSideFight() {
         if (frameCounter % attackIntervalPlayer == 0) {
             System.out.println(mv.framesCounter);
